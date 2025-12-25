@@ -3,7 +3,7 @@ Email service for sending OTP and other emails.
 """
 import random
 from datetime import datetime, timedelta
-from flask import current_app
+from flask import current_app, render_template
 from flask_mail import Mail, Message
 from app.extensions import mail
 
@@ -52,120 +52,20 @@ class EmailService:
             print(f"MAIL_DEFAULT_SENDER: {current_app.config.get('MAIL_DEFAULT_SENDER')}")
             print("="*60 + "\n")
             
-            subject = "WeReply Admin Panel - Email Verification OTP"
+            subject = "Your WeReply Verification Code"
             
-            # Create HTML email body
-            html_body = f"""
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <style>
-                    body {{
-                        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-                        line-height: 1.6;
-                        color: #333;
-                        max-width: 600px;
-                        margin: 0 auto;
-                        padding: 20px;
-                    }}
-                    .container {{
-                        background-color: #ffffff;
-                        border-radius: 12px;
-                        padding: 40px;
-                        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-                    }}
-                    .header {{
-                        text-align: center;
-                        margin-bottom: 30px;
-                    }}
-                    .logo {{
-                        font-size: 24px;
-                        font-weight: bold;
-                        color: #18CB96;
-                        margin-bottom: 10px;
-                    }}
-                    .otp-box {{
-                        background: linear-gradient(135deg, #18CB96 0%, #15b886 100%);
-                        color: white;
-                        font-size: 32px;
-                        font-weight: bold;
-                        letter-spacing: 8px;
-                        text-align: center;
-                        padding: 20px;
-                        border-radius: 8px;
-                        margin: 30px 0;
-                    }}
-                    .message {{
-                        color: #666;
-                        font-size: 16px;
-                        margin: 20px 0;
-                    }}
-                    .warning {{
-                        background-color: #fff3cd;
-                        border-left: 4px solid #ffc107;
-                        padding: 12px;
-                        margin: 20px 0;
-                        border-radius: 4px;
-                        font-size: 14px;
-                        color: #856404;
-                    }}
-                    .footer {{
-                        text-align: center;
-                        margin-top: 30px;
-                        padding-top: 20px;
-                        border-top: 1px solid #eee;
-                        color: #999;
-                        font-size: 12px;
-                    }}
-                </style>
-            </head>
-            <body>
-                <div class="container">
-                    <div class="header">
-                        <div class="logo">WeReply Admin Panel</div>
-                        <h2 style="color: #333; margin: 0;">Email Verification</h2>
-                    </div>
-                    
-                    <p class="message">
-                        Hello{' ' + username if username else ''},
-                    </p>
-                    
-                    <p class="message">
-                        Thank you for registering with WeReply Admin Panel. To complete your registration, 
-                        please use the following One-Time Password (OTP):
-                    </p>
-                    
-                    <div class="otp-box">
-                        {otp}
-                    </div>
-                    
-                    <p class="message">
-                        This OTP is valid for <strong>10 minutes</strong>. Please do not share this code with anyone.
-                    </p>
-                    
-                    <div class="warning">
-                        ⚠️ If you did not request this verification code, please ignore this email or contact our support team.
-                    </div>
-                    
-                    <div class="footer">
-                        <p>This is an automated email. Please do not reply to this message.</p>
-                        <p>&copy; 2025 WeReply. All rights reserved.</p>
-                    </div>
-                </div>
-            </body>
-            </html>
-            """
+            # Use the new email template
+            html_body = render_template('email/otp-email.html', username=username, otp=otp)
             
             # Plain text version for email clients that don't support HTML
             text_body = f"""
-            WeReply Admin Panel - Email Verification
+            WeReply - Email Verification
             
             Hello{' ' + username if username else ''},
             
-            Thank you for registering with WeReply Admin Panel. To complete your registration, 
-            please use the following One-Time Password (OTP):
+            We received a request to verify your email address. Please use the One-Time Password (OTP) below to complete your verification.
             
-            {otp}
+            Your Verification Code: {otp}
             
             This OTP is valid for 10 minutes. Please do not share this code with anyone.
             
@@ -210,118 +110,20 @@ class EmailService:
             True if email sent successfully, False otherwise
         """
         try:
-            subject = "WeReply Admin Panel - Login Verification OTP"
+            subject = "Your WeReply Login Code"
             
-            html_body = f"""
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <style>
-                    body {{
-                        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-                        line-height: 1.6;
-                        color: #333;
-                        max-width: 600px;
-                        margin: 0 auto;
-                        padding: 20px;
-                    }}
-                    .container {{
-                        background-color: #ffffff;
-                        border-radius: 12px;
-                        padding: 40px;
-                        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-                    }}
-                    .header {{
-                        text-align: center;
-                        margin-bottom: 30px;
-                    }}
-                    .logo {{
-                        font-size: 24px;
-                        font-weight: bold;
-                        color: #18CB96;
-                        margin-bottom: 10px;
-                    }}
-                    .otp-box {{
-                        background: linear-gradient(135deg, #18CB96 0%, #15b886 100%);
-                        color: white;
-                        font-size: 32px;
-                        font-weight: bold;
-                        letter-spacing: 8px;
-                        text-align: center;
-                        padding: 20px;
-                        border-radius: 8px;
-                        margin: 30px 0;
-                    }}
-                    .message {{
-                        color: #666;
-                        font-size: 16px;
-                        margin: 20px 0;
-                    }}
-                    .warning {{
-                        background-color: #fff3cd;
-                        border-left: 4px solid #ffc107;
-                        padding: 12px;
-                        margin: 20px 0;
-                        border-radius: 4px;
-                        font-size: 14px;
-                        color: #856404;
-                    }}
-                    .footer {{
-                        text-align: center;
-                        margin-top: 30px;
-                        padding-top: 20px;
-                        border-top: 1px solid #eee;
-                        color: #999;
-                        font-size: 12px;
-                    }}
-                </style>
-            </head>
-            <body>
-                <div class="container">
-                    <div class="header">
-                        <div class="logo">WeReply Admin Panel</div>
-                        <h2 style="color: #333; margin: 0;">Login Verification</h2>
-                    </div>
-                    
-                    <p class="message">
-                        Hello{' ' + username if username else ''},
-                    </p>
-                    
-                    <p class="message">
-                        A login attempt was made to your WeReply Admin Panel account. 
-                        Please use the following One-Time Password (OTP) to complete your login:
-                    </p>
-                    
-                    <div class="otp-box">
-                        {otp}
-                    </div>
-                    
-                    <p class="message">
-                        This OTP is valid for <strong>10 minutes</strong>. Please do not share this code with anyone.
-                    </p>
-                    
-                    <div class="warning">
-                        ⚠️ If you did not attempt to log in, please secure your account immediately and contact our support team.
-                    </div>
-                    
-                    <div class="footer">
-                        <p>This is an automated email. Please do not reply to this message.</p>
-                        <p>&copy; 2025 WeReply. All rights reserved.</p>
-                    </div>
-                </div>
-            </body>
-            </html>
-            """
+            # Use the new login email template
+            html_body = render_template('email/login-otp-email.html', username=username, otp=otp)
             
             text_body = f"""
-            WeReply Admin Panel - Login Verification
+            WeReply - Login Verification
             
             Hello{' ' + username if username else ''},
             
-            A login attempt was made to your WeReply Admin Panel account. 
+            A login attempt was made to your WeReply account. 
             Please use the following One-Time Password (OTP) to complete your login:
             
-            {otp}
+            Your Login Code: {otp}
             
             This OTP is valid for 10 minutes. Please do not share this code with anyone.
             
@@ -347,5 +149,60 @@ class EmailService:
             
         except Exception as e:
             current_app.logger.error(f"Failed to send login OTP email to {email}: {str(e)}")
+            print(f"Email Error: {str(e)}")
+            return False
+    
+    @staticmethod
+    def send_password_reset_otp_email(email, otp, username=None):
+        """
+        Send OTP for password reset.
+        
+        Args:
+            email: Recipient email address
+            otp: 6-digit OTP code
+            username: Optional username for personalization
+            
+        Returns:
+            True if email sent successfully, False otherwise
+        """
+        try:
+            subject = "Your WeReply Password Reset Code"
+            
+            # Use password reset email template (we'll create this)
+            html_body = render_template('email/password-reset-otp-email.html', username=username, otp=otp)
+            
+            text_body = f"""
+            WeReply - Password Reset
+            
+            Hello{' ' + username if username else ''},
+            
+            We received a request to reset your password. Please use the following One-Time Password (OTP) to continue:
+            
+            Your Password Reset Code: {otp}
+            
+            This OTP is valid for 10 minutes. Please do not share this code with anyone.
+            
+            If you did not request a password reset, please ignore this email or contact our support team.
+            
+            This is an automated email. Please do not reply to this message.
+            
+            © 2025 WeReply. All rights reserved.
+            """
+            
+            msg = Message(
+                subject=subject,
+                recipients=[email],
+                html=html_body,
+                body=text_body
+            )
+            
+            mail.send(msg)
+            
+            current_app.logger.info(f"Password reset OTP email sent successfully to {email}")
+            
+            return True
+            
+        except Exception as e:
+            current_app.logger.error(f"Failed to send password reset OTP email to {email}: {str(e)}")
             print(f"Email Error: {str(e)}")
             return False

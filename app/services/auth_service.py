@@ -29,16 +29,24 @@ class AuthService:
         ).first()
         
         if not user:
+            print(f"DEBUG: User not found for identifier: {identifier}")
             return None
+        
+        print(f"DEBUG: User found: {user.email}, is_verified: {user.is_verified}")
         
         # Check if password is correct
         if not user.check_password(password):
+            print(f"DEBUG: Password check failed for user: {user.email}")
             return None
+        
+        print(f"DEBUG: Password check passed for user: {user.email}")
         
         # Check if user is verified
         if not user.is_verified:
+            print(f"DEBUG: User not verified: {user.email}, is_verified: {user.is_verified}")
             return None
         
+        print(f"DEBUG: Authentication successful for user: {user.email}")
         return user
     
     @staticmethod
@@ -118,6 +126,43 @@ class AuthService:
         
         # Mark user as verified and clear OTP
         user.is_verified = True
+        user.otp_code = None
+        user.otp_created_at = None
+        user.otp_expires_at = None
+        
+        try:
+            db.session.commit()
+            return True
+        except Exception as e:
+            db.session.rollback()
+            return False
+    
+    @staticmethod
+    def verify_password_reset_otp(user_id, otp):
+        """
+        Verify OTP code for password reset (does NOT change is_verified status).
+        
+        Args:
+            user_id: User ID
+            otp: OTP code to verify
+            
+        Returns:
+            True if OTP is valid, False otherwise
+        """
+        # Validate OTP format
+        if not (otp and len(otp) == 6 and otp.isdigit()):
+            return False
+        
+        # Get user and verify OTP
+        user = User.query.get(user_id)
+        if not user:
+            return False
+        
+        # Use User model's is_otp_valid method
+        if not user.is_otp_valid(otp):
+            return False
+        
+        # Clear OTP (but DON'T change is_verified status)
         user.otp_code = None
         user.otp_created_at = None
         user.otp_expires_at = None
@@ -216,6 +261,47 @@ class AuthService:
             return None
     
     @staticmethod
+    def generate_password_reset_otp(email):
+        """
+        Generate and send OTP for password reset.
+        
+        Args:
+            email: User's email address
+            
+        Returns:
+            User object if OTP sent successfully, None otherwise
+        """
+        # Find user by email
+        user = User.query.filter_by(email=email).first()
+        
+        if not user:
+            return None
+        
+        # Generate OTP and set expiration
+        otp = EmailService.generate_otp()
+        user.otp_code = otp
+        user.otp_created_at = datetime.utcnow()
+        user.otp_expires_at = datetime.utcnow() + timedelta(
+            minutes=current_app.config.get('OTP_EXPIRY_MINUTES', 10)
+        )
+        
+        try:
+            db.session.commit()
+            
+            # Send password reset OTP email
+            email_sent = EmailService.send_password_reset_otp_email(user.email, otp, user.username)
+            
+            if not email_sent:
+                print(f"Warning: Failed to send password reset OTP email to {user.email}. OTP: {otp}")
+                return None
+            
+            return user
+        except Exception as e:
+            db.session.rollback()
+            print(f"Error generating password reset OTP: {str(e)}")
+            return None
+    
+    @staticmethod
     def reset_password(user_id, new_password):
         """
         Reset user password.
@@ -229,13 +315,26 @@ class AuthService:
         """
         user = User.query.get(user_id)
         if not user:
+            print(f"DEBUG reset_password: User not found for ID: {user_id}")
             return False
         
+        print(f"DEBUG reset_password: Resetting password for user: {user.email}")
+        print(f"DEBUG reset_password: User is_verified before: {user.is_verified}")
+        
+        # Set new password (hashed)
         user.set_password(new_password)
+        
+        # Clear OTP fields for security
+        user.otp_code = None
+        user.otp_created_at = None
+        user.otp_expires_at = None
         
         try:
             db.session.commit()
+            print(f"DEBUG reset_password: Password reset successful for {user.email}")
+            print(f"DEBUG reset_password: User is_verified after: {user.is_verified}")
             return True
         except Exception as e:
             db.session.rollback()
+            print(f"DEBUG reset_password: Error resetting password: {str(e)}")
             return False
