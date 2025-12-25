@@ -29,24 +29,16 @@ class AuthService:
         ).first()
         
         if not user:
-            print(f"DEBUG: User not found for identifier: {identifier}")
             return None
-        
-        print(f"DEBUG: User found: {user.email}, is_verified: {user.is_verified}")
         
         # Check if password is correct
         if not user.check_password(password):
-            print(f"DEBUG: Password check failed for user: {user.email}")
             return None
-        
-        print(f"DEBUG: Password check passed for user: {user.email}")
         
         # Check if user is verified
         if not user.is_verified:
-            print(f"DEBUG: User not verified: {user.email}, is_verified: {user.is_verified}")
             return None
         
-        print(f"DEBUG: Authentication successful for user: {user.email}")
         return user
     
     @staticmethod
@@ -315,11 +307,7 @@ class AuthService:
         """
         user = User.query.get(user_id)
         if not user:
-            print(f"DEBUG reset_password: User not found for ID: {user_id}")
             return False
-        
-        print(f"DEBUG reset_password: Resetting password for user: {user.email}")
-        print(f"DEBUG reset_password: User is_verified before: {user.is_verified}")
         
         # Set new password (hashed)
         user.set_password(new_password)
@@ -331,10 +319,7 @@ class AuthService:
         
         try:
             db.session.commit()
-            print(f"DEBUG reset_password: Password reset successful for {user.email}")
-            print(f"DEBUG reset_password: User is_verified after: {user.is_verified}")
             return True
         except Exception as e:
             db.session.rollback()
-            print(f"DEBUG reset_password: Error resetting password: {str(e)}")
             return False
