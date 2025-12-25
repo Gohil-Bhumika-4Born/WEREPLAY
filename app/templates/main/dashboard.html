@@ -68,21 +68,21 @@
                         <span class="font-medium text-sm hidden xl:inline">Dashboard</span>
                     </a>
                     
-                    <a href="{{ url_for('main.chat_reports') }}" id="nav-chat-reports" class="flex items-center justify-center xl:justify-start gap-3 px-3 py-2.5 rounded-lg text-gray-900 dark:text-white transition-colors hover:text-[#30B566] dark:hover:text-[#30B566] hover:bg-primary/5 dark:hover:bg-[#333333] group" aria-label="Chat Report">
+                    <a href="{{ url_for('main.chat_reports') }}" class="flex items-center justify-center xl:justify-start gap-3 px-3 py-2.5 rounded-lg text-gray-900 dark:text-white transition-colors hover:text-[#30B566] dark:hover:text-[#30B566] hover:bg-primary/5 dark:hover:bg-[#333333] group" aria-label="Chat Report">
                         <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                         </svg>
                         <span class="font-medium text-sm hidden xl:inline">Chat Report</span>
                     </a>
                     
-                    <a href="{{ url_for('main.ai_training') }}" id="nav-ai-training" class="flex items-center justify-center xl:justify-start gap-3 px-3 py-2.5 rounded-lg text-gray-900 dark:text-white transition-colors hover:text-[#30B566] dark:hover:text-[#30B566] hover:bg-primary/5 dark:hover:bg-[#333333] group" aria-label="AI Training">
+                    <a href="{{ url_for('main.ai_training') }}" class="flex items-center justify-center xl:justify-start gap-3 px-3 py-2.5 rounded-lg text-gray-900 dark:text-white transition-colors hover:text-[#30B566] dark:hover:text-[#30B566] hover:bg-primary/5 dark:hover:bg-[#333333] group" aria-label="AI Training">
                         <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
                         </svg>
                         <span class="font-medium text-sm hidden xl:inline">AI Training</span>
                     </a>
                     
-                    <a href="{{ url_for('main.training_history') }}" id="nav-training-history" class="flex items-center justify-center xl:justify-start gap-3 px-3 py-2.5 rounded-lg text-gray-900 dark:text-white transition-colors hover:text-[#30B566] dark:hover:text-[#30B566] hover:bg-primary/5 dark:hover:bg-[#333333] group" aria-label="Training History">
+                    <a href="{{ url_for('main.training_history') }}" class="flex items-center justify-center xl:justify-start gap-3 px-3 py-2.5 rounded-lg text-gray-900 dark:text-white transition-colors hover:text-[#30B566] dark:hover:text-[#30B566] hover:bg-primary/5 dark:hover:bg-[#333333] group" aria-label="Training History">
                         <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
@@ -144,20 +144,20 @@
                             <span class="font-medium text-sm">Dashboard</span>
                         </a>
                         
-                        <a href="{{ url_for('main.chat_reports') }}" id="nav-chat-reports" onclick="toggleMobileSidebar()" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-900 dark:text-white transition-colors hover:text-[#30B566] dark:hover:text-[#30B566] group" aria-label="Chat Report">
+                        <a href="{{ url_for('main.chat_reports') }}" onclick="toggleMobileSidebar()" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-900 dark:text-white transition-colors hover:text-[#30B566] dark:hover:text-[#30B566] group" aria-label="Chat Report">
                             <svg class="w-5 h-5 flex-shrink-0 group-hover:text-emerald-500 dark:group-hover:text-emerald-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                             </svg>
                             <span class="font-medium text-sm">Chat Report</span>
                         </a>
                         
-                        <a href="{{ url_for('main.ai_training') }}" id="nav-ai-training" onclick="toggleMobileSidebar()" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-900 dark:text-white transition-colors hover:text-[#30B566] dark:hover:text-[#30B566] group" aria-label="AI Training">
+                        <a href="{{ url_for('main.ai_training') }}" onclick="toggleMobileSidebar()" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-900 dark:text-white transition-colors hover:text-[#30B566] dark:hover:text-[#30B566] group" aria-label="AI Training">
                             <svg class="w-5 h-5 flex-shrink-0 group-hover:text-[#30B566] dark:group-hover:text-[#30B566] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
                             </svg>
                             <span class="font-medium text-sm">AI Training</span>
                         </a>
-                        <a href="{{ url_for('main.training_history') }}" id="nav-training-history" onclick="toggleMobileSidebar()" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-900 dark:text-white transition-colors hover:text-[#30B566] dark:hover:text-[#30B566] group">
+                        <a href="{{ url_for('main.training_history') }}" onclick="toggleMobileSidebar()" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-900 dark:text-white transition-colors hover:text-[#30B566] dark:hover:text-[#30B566] group">
                             <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
@@ -222,7 +222,7 @@
                         </button>
                         
                         <!-- Notification Icon -->
-                        <a href="{{ url_for('main.notifications') }}" id="nav-notifications" class="relative flex items-center justify-center p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-all focus:outline-none" aria-label="Notifications">
+                        <a href="{{ url_for('main.notifications') }}" class="relative flex items-center justify-center p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-all focus:outline-none" aria-label="Notifications">
                             <svg class="w-5 h-5 text-gray-600 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
                             </svg>
@@ -883,7 +883,7 @@
             // localStorage.removeItem('theme');
             
             // Redirect to login page
-            window.location.href = 'login.html';
+            window.location.href = '{{ url_for('auth.login') }}';
         }
         
         // Close modal when pressing Escape key

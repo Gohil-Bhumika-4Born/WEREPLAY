@@ -1,8 +1,11 @@
 """
 Authentication service for handling user authentication logic.
 """
+from datetime import datetime, timedelta
+from flask import current_app
 from app.models.user import User
 from app.extensions import db
+from app.services.email_service import EmailService
 
 
 class AuthService:
@@ -20,21 +23,33 @@ class AuthService:
         Returns:
             User object if authentication successful, None otherwise
         """
-        # For now, use hardcoded authentication
-        # TODO: Replace with database lookup when ready
-        if identifier == 'admin@wereplay.com' and password == 'admin123':
-            # Return a mock user object for now
-            return {'email': identifier, 'username': 'admin'}
-        return None
+        # Try to find user by email or username
+        user = User.query.filter(
+            (User.email == identifier) | (User.username == identifier)
+        ).first()
+        
+        if not user:
+            return None
+        
+        # Check if password is correct
+        if not user.check_password(password):
+            return None
+        
+        # Check if user is verified
+        if not user.is_verified:
+            return None
+        
+        return user
     
     @staticmethod
-    def register_user(username, email, password):
+    def register_user(username, email, phone, password):
         """
         Register a new user.
         
         Args:
             username: Desired username
             email: User's email address
+            phone: User's phone number
             password: Plain text password
             
         Returns:
@@ -48,13 +63,29 @@ class AuthService:
         if existing_user:
             return None, "User with this email or username already exists"
         
-        # Create new user
-        user = User(username=username, email=email)
+        # Create new user (unverified by default)
+        user = User(username=username, email=email, phone=phone, is_verified=False)
         user.set_password(password)
+        
+        # Generate OTP and set expiration
+        otp = EmailService.generate_otp()
+        user.otp_code = otp
+        user.otp_created_at = datetime.utcnow()
+        user.otp_expires_at = datetime.utcnow() + timedelta(
+            minutes=current_app.config.get('OTP_EXPIRY_MINUTES', 10)
+        )
         
         try:
             db.session.add(user)
             db.session.commit()
+            
+            # Send OTP email
+            email_sent = EmailService.send_otp_email(email, otp, username)
+            
+            if not email_sent:
+                # Log warning but don't fail registration
+                print(f"Warning: Failed to send OTP email to {email}. OTP: {otp}")
+            
             return user, None
         except Exception as e:
             db.session.rollback()
@@ -63,7 +94,7 @@ class AuthService:
     @staticmethod
     def verify_otp(user_id, otp):
         """
-        Verify OTP code for user.
+        Verify OTP code for user and mark as verified.
         
         Args:
             user_id: User ID
@@ -72,9 +103,117 @@ class AuthService:
         Returns:
             True if OTP is valid, False otherwise
         """
-        # TODO: Implement OTP verification logic
-        # For now, accept any 6-digit code
-        return len(otp) == 6 and otp.isdigit()
+        # Validate OTP format
+        if not (otp and len(otp) == 6 and otp.isdigit()):
+            return False
+        
+        # Get user and verify OTP
+        user = User.query.get(user_id)
+        if not user:
+            return False
+        
+        # Use User model's is_otp_valid method
+        if not user.is_otp_valid(otp):
+            return False
+        
+        # Mark user as verified and clear OTP
+        user.is_verified = True
+        user.otp_code = None
+        user.otp_created_at = None
+        user.otp_expires_at = None
+        
+        try:
+            db.session.commit()
+            return True
+        except Exception as e:
+            db.session.rollback()
+            return False
+    
+    @staticmethod
+    def resend_otp(user_id):
+        """
+        Resend OTP to user's email.
+        
+        Args:
+            user_id: User ID
+            
+        Returns:
+            True if OTP resent successfully, False otherwise
+        """
+        user = User.query.get(user_id)
+        if not user:
+            return False
+        
+        # Generate new OTP and update expiration
+        otp = EmailService.generate_otp()
+        user.otp_code = otp
+        user.otp_created_at = datetime.utcnow()
+        user.otp_expires_at = datetime.utcnow() + timedelta(
+            minutes=current_app.config.get('OTP_EXPIRY_MINUTES', 10)
+        )
+        
+        try:
+            db.session.commit()
+            
+            # Send OTP email
+            email_sent = EmailService.send_otp_email(user.email, otp, user.username)
+            
+            if not email_sent:
+                print(f"Warning: Failed to resend OTP email to {user.email}. OTP: {otp}")
+                return False
+            
+            return True
+        except Exception as e:
+            db.session.rollback()
+            print(f"Error resending OTP: {str(e)}")
+            return False
+    
+    @staticmethod
+    def generate_login_otp(identifier):
+        """
+        Generate and send OTP for login.
+        
+        Args:
+            identifier: Email or username
+            
+        Returns:
+            User object if OTP sent successfully, None otherwise
+        """
+        # Find user by email or username
+        user = User.query.filter(
+            (User.email == identifier) | (User.username == identifier)
+        ).first()
+        
+        if not user:
+            return None
+        
+        # Check if user is verified
+        if not user.is_verified:
+            return None
+        
+        # Generate OTP and set expiration
+        otp = EmailService.generate_otp()
+        user.otp_code = otp
+        user.otp_created_at = datetime.utcnow()
+        user.otp_expires_at = datetime.utcnow() + timedelta(
+            minutes=current_app.config.get('OTP_EXPIRY_MINUTES', 10)
+        )
+        
+        try:
+            db.session.commit()
+            
+            # Send login OTP email
+            email_sent = EmailService.send_login_otp_email(user.email, otp, user.username)
+            
+            if not email_sent:
+                print(f"Warning: Failed to send login OTP email to {user.email}. OTP: {otp}")
+                return None
+            
+            return user
+        except Exception as e:
+            db.session.rollback()
+            print(f"Error generating login OTP: {str(e)}")
+            return None
     
     @staticmethod
     def reset_password(user_id, new_password):

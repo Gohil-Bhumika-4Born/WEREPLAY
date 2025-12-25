@@ -81,11 +81,22 @@
                     <h1 class="text-2xl font-bold text-dark mb-3">Complete Your Profile</h1>
                     <p class="text-sm text-gray">Fill in your details to complete your account setup</p>
                 </div>
+
+                <!-- Flash Messages -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="mb-4 p-3 rounded-lg text-sm {% if category == 'error' %}bg-red-50 text-red-600 border border-red-200{% elif category == 'success' %}bg-green-50 text-green-600 border border-green-200{% else %}bg-blue-50 text-blue-600 border border-blue-200{% endif %}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
                 
                 <!-- Scrollable Form Container -->
                 <div class="flex-1 overflow-y-auto custom-scrollbar pr-2 pb-4">
                     <!-- Profile Completion Form -->
-                    <form action="/complete-profile" method="POST" class="space-y-6 w-full max-w-2xl mx-auto pb-8" id="profileForm">
+                    <form action="{{ url_for('main.complete_profile') }}" method="POST" class="space-y-6 w-full max-w-2xl mx-auto pb-8" id="profileForm">
                         <!-- Basic Info Section -->
                         <div class="space-y-5">
                             <div class="flex items-center gap-3 mb-4">
@@ -408,7 +419,8 @@
                 <div class="flex-shrink-0 pt-4 pb-2  bg-white">
                     <div class="flex justify-center">
                         <button 
-                            type="button" 
+                            type="submit" 
+                            form="profileForm"
                             id="saveContinueBtn"
                             class="w-64 bg-primary hover:bg-primaryDark active:bg-primaryDark text-white font-semibold py-2.5 px-8 rounded-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#18CB96]/30 active:translate-y-0 focus:outline-none focus:ring-4 focus:ring-[#18CB96]/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                             aria-label="Save and Continue"
@@ -423,56 +435,10 @@
     </div><!-- end page wrapper -->
 
     <script>
-        // Get email from localStorage or URL parameter (set by previous pages)
+        // Flash message display (if needed)
         document.addEventListener('DOMContentLoaded', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const email = urlParams.get('email') || localStorage.getItem('registerEmail') || localStorage.getItem('userEmail') || '';
-            
-            if (email) {
-                const emailInput = document.getElementById('email');
-                if (emailInput) {
-                    emailInput.value = email;
-                }
-            }
-
-            // Save & Continue button click handler - Direct redirect to dashboard
-            const saveContinueBtn = document.getElementById('saveContinueBtn');
-            const profileForm = document.getElementById('profileForm');
-            
-            if (saveContinueBtn) {
-                saveContinueBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Validate form before redirecting
-                    if (profileForm && profileForm.checkValidity()) {
-                        // Disable button during redirect
-                        saveContinueBtn.disabled = true;
-                        saveContinueBtn.textContent = 'Redirecting...';
-                        
-                        // Direct redirect to dashboard with welcome flag
-                        window.location.href = 'dashboard.html?welcome=true';
-                    } else {
-                        // Trigger HTML5 validation
-                        profileForm.reportValidity();
-                    }
-                });
-            }
-            
-            // Also handle form submission as backup
-            if (profileForm) {
-                profileForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    // Disable button during redirect
-                    if (saveContinueBtn) {
-                        saveContinueBtn.disabled = true;
-                        saveContinueBtn.textContent = 'Redirecting...';
-                    }
-                    
-                    // Direct redirect to dashboard with welcome flag
-                    window.location.href = 'dashboard.html?welcome=true';
-                });
-            }
+            // Form will be submitted to Flask backend naturally
+            // No JavaScript redirect needed
         });
     </script>
 </body>

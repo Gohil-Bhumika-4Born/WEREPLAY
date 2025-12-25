@@ -959,7 +959,7 @@
         
         function confirmLogout() {
             closeLogoutModal();
-            window.location.href = 'login.html';
+            window.location.href = '{{ url_for('auth.login') }}';
         }
         
         document.addEventListener('keydown', (e) => {

@@ -4,7 +4,7 @@ Application factory for creating Flask app instances.
 import os
 from flask import Flask
 from app.config import config
-from app.extensions import db, migrate, login_manager
+from app.extensions import db, migrate, login_manager, mail
 
 
 def create_app(config_name=None):
@@ -29,6 +29,7 @@ def create_app(config_name=None):
     db.init_app(app)
     migrate.init_app(app, db)
     login_manager.init_app(app)
+    mail.init_app(app)
     
     # Register blueprints
     from app.routes.auth_routes import auth_bp

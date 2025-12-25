@@ -1,7 +1,8 @@
 """
 Authentication controller for handling authentication-related requests.
 """
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, session, jsonify
+from flask_login import login_user, logout_user, current_user
 from app.services.auth_service import AuthService
 
 
@@ -11,6 +12,10 @@ class AuthController:
     @staticmethod
     def login_page():
         """Handle login page GET and POST requests."""
+        # Redirect if already logged in
+        if current_user.is_authenticated:
+            return redirect(url_for('main.dashboard'))
+        
         if request.method == 'POST':
             identifier = request.form.get('loginIdentifier')
             password = request.form.get('password')
@@ -18,11 +23,18 @@ class AuthController:
             user = AuthService.authenticate_user(identifier, password)
             
             if user:
-                # TODO: Implement proper session management with Flask-Login
+                # Log in the user with Flask-Login
+                login_user(user, remember=True)
+                
+                # Check if profile is completed
+                if not user.profile_completed:
+                    flash('Please complete your profile to continue.', 'info')
+                    return redirect(url_for('main.complete_profile'))
+                
                 flash('Login successful!', 'success')
                 return redirect(url_for('main.dashboard'))
             else:
-                flash('Invalid email or password', 'error')
+                flash('Invalid email/username or password. Please ensure your account is verified.', 'error')
         
         return render_template('auth/login.html')
     
@@ -30,15 +42,21 @@ class AuthController:
     def register_page():
         """Handle registration page GET and POST requests."""
         if request.method == 'POST':
-            username = request.form.get('username')
+            # Fix field mapping: form sends 'fullName' not 'username'
+            username = request.form.get('fullName')
             email = request.form.get('email')
+            phone = request.form.get('phone')
             password = request.form.get('password')
             
-            user, error = AuthService.register_user(username, email, password)
+            user, error = AuthService.register_user(username, email, phone, password)
             
             if user:
-                flash('Registration successful! Please log in.', 'success')
-                return redirect(url_for('auth.login'))
+                # Store user_id in session for OTP verification
+                session['user_id'] = user.id
+                session['user_email'] = user.email
+                
+                flash('Registration successful! Please check your email for the OTP code.', 'success')
+                return redirect(url_for('auth.verify_otp'))
             else:
                 flash(error or 'Registration failed', 'error')
         
@@ -47,7 +65,7 @@ class AuthController:
     @staticmethod
     def logout_action():
         """Handle logout action."""
-        # TODO: Implement proper logout with Flask-Login
+        logout_user()
         flash('You have been logged out.', 'info')
         return redirect(url_for('auth.login'))
     
@@ -56,16 +74,45 @@ class AuthController:
         """Handle OTP verification page."""
         if request.method == 'POST':
             otp = request.form.get('otp')
-            # TODO: Get user_id from session
-            user_id = 1
+            
+            # Get user_id from session
+            user_id = session.get('user_id')
+            
+            if not user_id:
+                flash('Session expired. Please register again.', 'error')
+                return redirect(url_for('auth.register'))
             
             if AuthService.verify_otp(user_id, otp):
-                flash('OTP verified successfully!', 'success')
-                return redirect(url_for('main.dashboard'))
+                # Get the user object
+                from app.models.user import User
+                user = User.query.get(user_id)
+                
+                # Clear session data after successful verification
+                session.pop('user_id', None)
+                session.pop('user_email', None)
+                
+                # Log in the user
+                login_user(user, remember=True)
+                
+                flash('Email verified successfully! Please complete your profile.', 'success')
+                return redirect(url_for('main.complete_profile'))
             else:
-                flash('Invalid OTP', 'error')
+                flash('Invalid or expired OTP. Please try again.', 'error')
         
         return render_template('auth/verify-otp.html')
+    
+    @staticmethod
+    def resend_otp():
+        """Handle OTP resend request."""
+        user_id = session.get('user_id')
+        
+        if not user_id:
+            return jsonify({'success': False, 'message': 'Session expired. Please register again.'}), 400
+        
+        if AuthService.resend_otp(user_id):
+            return jsonify({'success': True, 'message': 'New OTP has been sent to your email!'}), 200
+        else:
+            return jsonify({'success': False, 'message': 'Failed to send OTP. Please try again.'}), 500
     
     @staticmethod
     def reset_password_page():

@@ -39,6 +39,12 @@ def verify_otp():
     return AuthController.verify_otp_page()
 
 
+@auth_bp.route('/resend-otp', methods=['POST'])
+def resend_otp():
+    """Resend OTP."""
+    return AuthController.resend_otp()
+
+
 @auth_bp.route('/reset-password', methods=['GET', 'POST'])
 def reset_password():
     """Password reset request page."""
