@@ -26,8 +26,3 @@ def profile_change_password():
     """Change password page."""
     return ProfileController.profile_change_password_page()
 
-
-@main_bp.route('/complete-profile', methods=['GET', 'POST'])
-def complete_profile():
-    """Complete profile page."""
-    return ProfileController.complete_profile_page()

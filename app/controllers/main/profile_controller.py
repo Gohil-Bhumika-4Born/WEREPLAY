@@ -49,51 +49,37 @@ class ProfileController:
     @staticmethod
     @login_required
     def profile_change_password_page():
-        """Render change password page."""
-        return render_template('main/profile-change-password.html')
-    
-    @staticmethod
-    def complete_profile_page():
-        """Handle complete profile page GET and POST requests."""
-        # Ensure user is logged in
-        if not current_user.is_authenticated:
-            flash('Please log in to complete your profile.', 'error')
-            return redirect(url_for('auth.login'))
-        
-        # If profile already completed, redirect to dashboard
-        if current_user.profile_completed:
-            return redirect(url_for('main.dashboard'))
-        
+        """Handle change password page GET and POST requests."""
         if request.method == 'POST':
-            # Update basic information (allow user to modify name and phone)
-            current_user.username = request.form.get('fullName')
-            current_user.phone = request.form.get('phone')
+            current_password = request.form.get('currentPassword')
+            new_password = request.form.get('newPassword')
+            confirm_password = request.form.get('confirmPassword')
             
-            # Update business information
-            current_user.business_name = request.form.get('businessName')
-            current_user.business_category = request.form.get('businessCategory')
-            current_user.website_url = request.form.get('websiteUrl')
+            # Validate current password
+            if not current_user.check_password(current_password):
+                flash('Current password is incorrect', 'error')
+                return render_template('main/profile-change-password.html')
             
-            # Update address information
-            current_user.country = request.form.get('country')
-            current_user.state = request.form.get('state')
-            current_user.city = request.form.get('city')
-            current_user.pincode = request.form.get('pincode')
+            # Validate new passwords match
+            if new_password != confirm_password:
+                flash('New passwords do not match', 'error')
+                return render_template('main/profile-change-password.html')
             
-            # Update profile settings
-            current_user.timezone = request.form.get('timezone')
-            current_user.preferred_language = request.form.get('preferredLanguage')
-            current_user.notification_preference = request.form.get('notificationPreference')
-            
-            # Mark profile as completed
-            current_user.profile_completed = True
+            # Validate new password is different from current
+            if current_password == new_password:
+                flash('New password must be different from current password', 'error')
+                return render_template('main/profile-change-password.html')
             
             try:
+                # Update password
+                current_user.set_password(new_password)
                 db.session.commit()
-                flash('Profile completed successfully!', 'success')
-                return redirect(url_for('main.dashboard'))
+                flash('Password changed successfully!', 'success')
+                return redirect(url_for('main.profile'))
             except Exception as e:
                 db.session.rollback()
-                flash(f'Error saving profile: {str(e)}', 'error')
+                flash(f'Error changing password: {str(e)}', 'error')
+                return render_template('main/profile-change-password.html')
         
-        return render_template('main/complete-profile.html', user=current_user)
+        return render_template('main/profile-change-password.html')
+

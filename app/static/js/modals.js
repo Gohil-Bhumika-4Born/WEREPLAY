@@ -4,10 +4,11 @@
  */
 
 // Profile Dropdown Functions
-const profileDropdownBtn = document.getElementById('profileDropdownBtn');
-const profileDropdown = document.getElementById('profileDropdown');
-
+// Note: closeProfileDropdown is defined globally because it's called from inline onclick handlers
 function closeProfileDropdown() {
+    const profileDropdown = document.getElementById('profileDropdown');
+    const profileDropdownBtn = document.getElementById('profileDropdownBtn');
+
     if (profileDropdown) {
         profileDropdown.classList.add('hidden');
     }
@@ -18,6 +19,9 @@ function closeProfileDropdown() {
 
 // Initialize profile dropdown on page load
 document.addEventListener('DOMContentLoaded', function () {
+    const profileDropdownBtn = document.getElementById('profileDropdownBtn');
+    const profileDropdown = document.getElementById('profileDropdown');
+
     if (profileDropdownBtn && profileDropdown) {
         profileDropdownBtn.addEventListener('click', function (e) {
             e.stopPropagation();

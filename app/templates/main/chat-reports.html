@@ -1,238 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="WeReplay Admin Panel Chat Reports - View and analyze AI conversations">
-    <meta name="keywords" content="WeReplay, Chat Reports, Conversations, Analytics">
-    <meta name="author" content="WeReplay">
-    <meta name="theme-color" content="#18CB96">
-    
-    <title>WeReplay Admin Panel - Chat Reports</title>
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='Images/WeReplay-favicon.svg') }}">
-    <link rel="apple-touch-icon" href="{{ url_for('static', filename='Images/WeReplay-favicon.svg') }}">
-    
-    <!-- Preconnect for performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Tailwind Configuration -->
-    <script src="{{ url_for('static', filename='js/tailwind-config.js') }}"></script>
-    
-    <!-- CSS Files -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body class="bg-gray-50 dark:bg-[#1E1E1E] font-sans antialiased min-h-screen">
-    <!-- Dashboard Container -->
-    <div class="flex h-screen overflow-hidden">
-        <!-- Sidebar -->
-        <aside class="hidden lg:flex lg:flex-shrink-0 lg:w-20 xl:w-64 lg:flex-col bg-gradient-to-b from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E]  transition-all duration-300 shadow-md">
-            <div class="flex flex-col h-full">
-                <!-- Logo Section -->
-                <div class="flex items-center justify-between px-6 py-8">
-                    <div class="flex items-center gap-2">
-                        <img src="{{ url_for('static', filename='Images/We-Replay-Logo.svg') }}" alt="WeReplay Logo" class="h-8 w-auto dark:hidden" width="31" height="25">
-                        <img src="{{ url_for('static', filename='Images/WeReplay-Logo-WhiteText.svg') }}" alt="WeReplay Logo" class="h-8 w-auto hidden dark:block" width="165" height="40">
-                    </div>
-                </div>
-                
-                <!-- Navigation -->
-                <nav class="flex-1 px-4 py-4 space-y-2 overflow-y-auto">
-                    <p class="px-3 text-xs font-bold text-gray-900 dark:text-white uppercase tracking-wider mb-4 hidden xl:block">NAVIGATION</p>
-                    
-                    <a href="{{ url_for('main.dashboard') }}" class="flex items-center justify-center xl:justify-start gap-3 px-3 py-2.5 rounded-lg text-gray-900 dark:text-white transition-colors hover:text-[#30B566] dark:hover:text-[#30B566] hover:bg-primary/5 dark:hover:bg-[#333333] group" aria-label="Dashboard">
-                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-                        </svg>
-                        <span class="font-medium text-sm hidden xl:inline">Dashboard</span>
-                    </a>
-                    
-                    <a href="{{ url_for('main.chat_reports') }}" class="flex items-center justify-center xl:justify-start gap-3 px-3 py-2.5 rounded-lg bg-primary hover:bg-primaryDark dark:bg-[#18CB96] text-white transition-all shadow-md hover:bg-[#14a87a] dark:hover:bg-[#14a87a]" aria-current="page" aria-label="Chat Report - Current page">
-                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                        </svg>
-                        <span class="font-medium text-sm hidden xl:inline">Chat Report</span>
-                    </a>
-                    
-                    <a href="{{ url_for('main.ai_training') }}" class="flex items-center justify-center xl:justify-start gap-3 px-3 py-2.5 rounded-lg text-gray-900 dark:text-white transition-colors hover:text-[#30B566] dark:hover:text-[#30B566] hover:bg-primary/5 dark:hover:bg-[#333333] group" aria-label="AI Training">
-                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-                        </svg>
-                        <span class="font-medium text-sm hidden xl:inline">AI Training</span>
-                    </a>
-                    
-                    <a href="{{ url_for('main.training_history') }}" class="flex items-center justify-center xl:justify-start gap-3 px-3 py-2.5 rounded-lg text-gray-900 dark:text-white transition-colors hover:text-[#30B566] dark:hover:text-[#30B566] hover:bg-primary/5 dark:hover:bg-[#333333] group" aria-label="Training History">
-                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        <span class="font-medium text-sm hidden xl:inline">Training History</span>
-                    </a>
-                    
-                    <a href="{{ url_for('main.guidelines') }}" class="flex items-center justify-center xl:justify-start gap-3 px-3 py-2.5 rounded-lg text-gray-900 dark:text-white transition-colors hover:text-[#30B566] dark:hover:text-[#30B566] hover:bg-primary/5 dark:hover:bg-[#333333] group" aria-label="Guidelines">
-                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                        </svg>
-                        <span class="font-medium text-sm hidden xl:inline">Guidelines</span>
-                    </a>
-                    
-                    <a href="{{ url_for('main.plans_billing') }}" class="flex items-center justify-center xl:justify-start gap-3 px-3 py-2.5 rounded-lg text-gray-900 dark:text-white transition-colors hover:text-[#30B566] dark:hover:text-[#30B566] hover:bg-primary/5 dark:hover:bg-[#333333] group" aria-label="Plans & Billing">
-                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
-                        </svg>
-                        <span class="font-medium text-sm hidden xl:inline">Plans & Billing</span>
-                    </a>
-                    
-                    <a href="{{ url_for('main.support') }}" class="flex items-center justify-center xl:justify-start gap-3 px-3 py-2.5 rounded-lg text-gray-900 dark:text-white transition-colors hover:text-[#30B566] dark:hover:text-[#30B566] hover:bg-primary/5 dark:hover:bg-[#333333] group" aria-label="Support">
-                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                        </svg>
-                        <span class="font-medium text-sm hidden xl:inline">Support</span>
-                    </a>
-                </nav>
-            </div>
-        </aside>
-        
-        <!-- Mobile Sidebar Overlay -->
-        <div id="mobileSidebar" class="fixed inset-0 z-40 lg:hidden hidden">
-            <div class="fixed inset-0 bg-gray-600 bg-opacity-75 transition-opacity" onclick="toggleMobileSidebar()"></div>
-            <div class="relative flex flex-col w-64 h-full bg-white dark:bg-[#252525] shadow-xl">
-                <div class="flex flex-col h-full">
-                    <div class="px-6 py-4">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="flex items-center gap-2">
-                                <img src="{{ url_for('static', filename='Images/We-Replay-Logo.svg') }}" alt="WeReplay Logo" class="h-8 w-auto dark:hidden" width="31" height="25">
-                                <img src="{{ url_for('static', filename='Images/WeReplay-Logo-WhiteText.svg') }}" alt="WeReplay Logo" class="h-8 w-auto hidden dark:block" width="165" height="40">
-                            </div>
-                            <button onclick="toggleMobileSidebar()" class="rounded-lg text-gray-500 dark:text-white hover:bg-gray-100 dark:hover:bg-[#333333]" aria-label="Close menu">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <nav class="flex-1 px-4 py-4 space-y-2 overflow-y-auto">
-                        <p class="px-3 text-xs font-bold text-gray-900 dark:text-white uppercase tracking-wider mb-4">NAVIGATION</p>
-                        <a href="{{ url_for('main.dashboard') }}" onclick="toggleMobileSidebar()" class="flex items-center gap-3 px-3 py-2.5 rounded-2xl text-gray-900 dark:text-white transition-colors hover:text-[#30B566] dark:hover:text-[#30B566] hover:bg-primary/5 dark:hover:bg-[#333333] group">
-                            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-                            </svg>
-                            <span class="font-medium text-sm">Dashboard</span>
-                        </a>
-                        <a href="{{ url_for('main.chat_reports') }}" onclick="toggleMobileSidebar()" class="flex items-center gap-3 px-3 py-2.5 rounded-2xl bg-primary hover:bg-primaryDark dark:bg-[#18CB96] text-white transition-all shadow-md hover:bg-[#14a87a] dark:hover:bg-[#14a87a]">
-                            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                            </svg>
-                            <span class="font-medium text-sm text-white">Chat Report</span>
-                        </a>
-                        <a href="{{ url_for('main.ai_training') }}" onclick="toggleMobileSidebar()" class="flex items-center gap-3 px-3 py-2.5 rounded-2xl text-gray-900 dark:text-white transition-colors hover:text-[#30B566] dark:hover:text-[#30B566] hover:bg-primary/5 dark:hover:bg-[#333333] group">
-                            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-                            </svg>
-                            <span class="font-medium text-sm">AI Training</span>
-                        </a>
-                        <a href="{{ url_for('main.training_history') }}" onclick="toggleMobileSidebar()" class="flex items-center gap-3 px-3 py-2.5 rounded-2xl text-gray-900 dark:text-white transition-colors hover:text-[#30B566] dark:hover:text-[#30B566] hover:bg-primary/5 dark:hover:bg-[#333333] group">
-                            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            <span class="font-medium text-sm">Training History</span>
-                        </a>
-                    </nav>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Main Content -->
-        <main class="flex-1 overflow-y-auto bg-gradient-to-br from-white via-secondary/20 to-primary/5 dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E]">
-            <!-- Header -->
-            <header class="sticky top-0 z-30 bg-white/95 dark:bg-[#252525]/95 backdrop-blur shadow-sm rounded-b-2xl">
-                <div class="flex items-center justify-between px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3">
-                    <div class="flex items-center gap-4">
-                        <button class="lg:hidden p-2 rounded-lg text-gray-500 dark:text-white hover:bg-gray-100 dark:hover:bg-[#333333] transition-colors" onclick="toggleMobileSidebar()" aria-label="Open menu">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                            </svg>
-                        </button>
-                        <div class="flex items-center gap-2">
-                            <svg class="w-6 h-6 text-primaryDark dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                            </svg>
-                            <h1 class="text-lg sm:text-xl font-bold text-primaryDark dark:text-white">Chat Reports</h1>
-                        </div>
-                    </div>
-                    
-                    <!-- Right Side Actions -->
-                    <div class="flex items-center gap-3">
-                        <!-- Theme Toggle -->
-                        <button id="themeToggleNavbar" class="flex items-center justify-center p-2 rounded-full hover:bg-gray-100 dark:hover:bg-[#333333] transition-all focus:outline-none" aria-label="Toggle theme">
-                            <svg id="sunIconNavbar" class="w-5 h-5 text-gray-600 dark:text-white hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                            </svg>
-                            <svg id="moonIconNavbar" class="w-5 h-5 text-gray-600 dark:text-white block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-                            </svg>
-                        </button>
-                        
-                        <!-- Notification Icon -->
-                        <a href="{{ url_for('main.notifications') }}" class="relative flex items-center justify-center p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-all focus:outline-none" aria-label="Notifications">
-                            <svg class="w-5 h-5 text-gray-600 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
-                            </svg>
-                            <span class="absolute top-1 right-1 h-2 w-2 bg-red-500 rounded-full border-2 border-white dark:border-[#2A2A2A]"></span>
-                        </a>
-                        
-                        <!-- Profile Dropdown -->
-                        <div class="relative">
-                            <button id="profileDropdownBtn" class="flex items-center justify-center p-2 rounded-full hover:bg-gray-100 dark:hover:bg-[#333333] transition-all focus:outline-none" aria-label="Profile menu" aria-expanded="false" aria-haspopup="true">
-                                <div class="h-10 w-10 rounded-full bg-[#18CB96] flex items-center justify-center text-white font-semibold shadow-md hover:shadow-lg transition-shadow cursor-pointer">
-                                    JD
-                                </div>
-                            </button>
-                        
-                            <!-- Dropdown Menu -->
-                            <div id="profileDropdown" class="hidden absolute right-0 mt-2 w-64 bg-white dark:bg-[#2A2A2A] rounded-xl shadow-2xl py-2 z-50">
-                                <!-- User Info -->
-                                <div class="px-4 py-3 bg-gray-50/50 dark:bg-[#2A2A2A]">
-                                    <div class="flex items-center gap-3">
-                                        <div class="h-10 w-10 rounded-full bg-[#18CB96] flex items-center justify-center text-white font-semibold shadow-sm">
-                                            JD
-                                        </div>
-                                        <div class="flex-1 min-w-0">
-                                            <p class="text-sm font-semibold text-gray-900 dark:text-white truncate">John Doe</p>
-                                            <p class="text-xs text-gray-500 dark:text-white truncate">john@example.com</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Dropdown Items -->
-                                <div class="py-2">
-                                    <a href="{{ url_for('main.profile') }}" class="w-full flex items-center gap-3 px-4 py-2.5 text-left text-gray-700 dark:text-white hover:text-[#30B566] dark:hover:text-[#30B566] transition-colors rounded-lg mx-1 group" onclick="closeProfileDropdown()">
-                                        <svg class="w-5 h-5 group-hover:text-[#30B566] dark:group-hover:text-[#30B566] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                                        </svg>
-                                        <span class="text-sm font-medium">Profile</span>
-                                    </a>
-                                    <button class="w-full flex items-center gap-3 px-4 py-2.5 text-left text-gray-700 dark:text-white hover:text-[#30B566] dark:hover:text-[#30B566] transition-colors rounded-lg mx-1 group" aria-label="Logout" onclick="openLogoutModal()">
-                                        <svg class="w-5 h-5 group-hover:text-[#30B566] dark:group-hover:text-[#30B566] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-                                        </svg>
-                                        <span class="text-sm font-medium">Logout</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </header>
-            
-            <!-- Chat Reports Content -->
+{% extends "base/main_base.html" %}
+
+{% set current_page = 'chat_reports' %}
+
+{% block title %}WeReplay Admin Panel - Chat Reports{% endblock %}
+
+{% block page_title %}Chat Reports{% endblock %}
+
+{% block page_icon %}
+<svg class="w-6 h-6 text-primaryDark dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+</svg>
+{% endblock %}
+
+{% block main_content %}
+<!-- Chat Reports Content -->
             <div class="p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8">
                 <!-- Page Title + Description -->
                 <section
@@ -259,7 +40,7 @@
                                 </span>
                                 <span id="totalTopicsCount"
                                       class="text-lg sm:text-xl font-extrabold text-primaryDark dark:text-white leading-snug">
-                                    0
+                                    {{ chat_reports|length }}
                                 </span>
                             </div>
                             <div
@@ -338,13 +119,9 @@
                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Sentiment</label>
                             <select id="sentimentFilter" class="w-full px-4 py-2.5 bg-white dark:bg-[#1E1E1E] border input-border-gray rounded-xl text-gray-900 dark:text-white focus:ring-2 focus:ring-[#18CB96] text-sm">
                                 <option value="">All</option>
-                                <option value="normal">Normal</option>
-                                <option value="neutral">Neutral</option>
-                                <option value="frustrated">Frustrated</option>
-                                <option value="positive">Positive</option>
-                                <option value="happy">Happy</option>
-                                <option value="angry">Angry</option>
-                                <option value="excited">Excited</option>
+                                <option value="NORMAL">Normal</option>
+                                <option value="FRUSTRATED">Frustrated</option>
+                                <option value="POSITIVE">Positive</option>
                             </select>
                         </div>
                         
@@ -357,9 +134,6 @@
                                 <option value="bug">Bug</option>
                                 <option value="error">Error</option>
                                 <option value="feature_request">Feature Request</option>
-                                <option value="feedback">Feedback</option>
-                                <option value="complaint">Complaint</option>
-                                <option value="praise">Praise</option>
                                 <option value="other">Other</option>
                             </select>
                         </div>
@@ -437,7 +211,39 @@
                                 </tr>
                             </thead>
                             <tbody id="chatReportsTable">
-                                <!-- Table rows will be populated by JavaScript -->
+                                <!-- Server-side Rendering Initial State -->
+                                {% if chat_reports %}
+                                    {% for item in chat_reports[:10] %}
+                                    <tr class="{% if loop.index0 % 2 == 0 %}bg-primaryDark/5 dark:bg-[#2A2A2A]{% else %}bg-gray-50 dark:bg-[#1E1E1E]{% endif %} hover:bg-gray-100 dark:hover:bg-[#333333] transition-all duration-300 ease-out cursor-pointer" onclick="viewTopicDetails({{ item.id }})">
+                                        <td class="py-4 px-6 rounded-tl-xl rounded-bl-xl">
+                                            <div>
+                                                <p class="font-semibold text-gray-900 dark:text-white mb-1">{{ item.title }}</p>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400">{{ item.description }}</p>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <span class="px-2.5 py-1 text-xs font-medium rounded-full 
+                                                {% if item.sentiment == 'POSITIVE' %}bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400
+                                                {% elif item.sentiment == 'FRUSTRATED' %}bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-400
+                                                {% else %}bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400{% endif %}">
+                                                {{ item.sentiment }}
+                                            </span>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <span class="px-2.5 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300 rounded-full">{{ item.category or 'N/A' }}</span>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <span class="text-sm font-medium text-gray-900 dark:text-white">{{ item.message_count }}</span>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <span class="text-sm text-gray-600 dark:text-gray-400">{{ item.last_check_time or item.updated_at }}</span>
+                                        </td>
+                                        <td class="py-4 px-6 rounded-tr-xl rounded-br-xl">
+                                            <button onclick="event.stopPropagation(); viewTopicDetails({{ item.id }})" class="text-sm text-[#18CB96] hover:text-primaryDark font-medium transition-all duration-300 ease-out hover:scale-105">View Details</button>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                {% endif %}
                             </tbody>
                         </table>
                     </div>
@@ -470,371 +276,246 @@
             </div>
         </main>
     </div>
-    
-    <!-- Logout Modal -->
-    <div id="logoutModal" class="hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <!-- Backdrop with Blur -->
-        <div class="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onclick="closeLogoutModal()"></div>
-        <div class="flex min-h-full items-center justify-center p-4">
-            <div class="relative bg-gradient-to-b from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-2xl shadow-2xl max-w-md w-full p-6 transform transition-all ring-[#18CB96]/20 dark:ring-[#18CB96]/30">
-                <button onclick="closeLogoutModal()" class="absolute top-4 right-4 rounded-lg text-gray-400 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#333333] transition-colors" aria-label="Close modal">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
-                <div class="text-center">
-                    <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-red-100 dark:bg-red-900/30 mb-4">
-                        <svg class="h-8 w-8 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-                        </svg>
-                    </div>
-                    <h3 id="modal-title" class="text-xl font-bold text-gray-900 dark:text-white mb-2">Logout Confirmation</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">Are you sure you want to logout? You'll need to sign in again to access your account.</p>
-                    <div class="flex flex-col sm:flex-row gap-3 sm:justify-center">
-                        <button onclick="closeLogoutModal()" class="px-6 py-2.5 bg-gray-100 dark:bg-[#333333] text-gray-700 dark:text-gray-300 rounded-xl font-medium hover:bg-gray-200 dark:hover:bg-[#3A3A3A] transition-all duration-300 ease-out hover:scale-[1.02] shadow-sm hover:shadow-md">Cancel</button>
-                        <button onclick="confirmLogout()" class="px-6 py-2.5 bg-primary hover:bg-primaryDark dark:bg-[#18CB96] dark:hover:bg-[#14a87a] text-white rounded-xl font-medium transition-all duration-300 ease-out shadow-md hover:shadow-lg hover:shadow-[#18CB96]/30 hover:scale-[1.02] hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-[#18CB96]/50">Logout</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- JavaScript -->
-    <script>
-        // Load data from Flask backend
-        const chatReportsData = {{ chat_reports | tojson | safe }};
-        
-        // Header Stats (Top Summary Cards)
-        (function updateHeaderStats() {
-            const total = chatReportsData.length || 0;
-            const positive = chatReportsData.filter(item => item.sentiment && (item.sentiment.toLowerCase() === 'positive' || item.sentiment.toLowerCase() === 'happy' || item.sentiment.toLowerCase() === 'excited')).length;
-            const frustrated = chatReportsData.filter(item => item.sentiment && (item.sentiment.toLowerCase() === 'frustrated' || item.sentiment.toLowerCase() === 'angry')).length;
-            const totalMessages = chatReportsData.reduce((sum, item) => sum + (item.message_count || 0), 0);
-            const avgMessages = total ? Math.round(totalMessages / total) : 0;
-            const positivePercent = total ? Math.round((positive / total) * 100) : 0;
-            
-            const totalEl = document.getElementById('totalTopicsCount');
-            const positivePercentEl = document.getElementById('positivePercent');
-            const frustratedEl = document.getElementById('frustratedCount');
-            const avgMessagesEl = document.getElementById('avgMessages');
-            
-            if (totalEl) totalEl.textContent = total.toString();
-            if (positivePercentEl) positivePercentEl.textContent = `${positivePercent}%`;
-            if (frustratedEl) frustratedEl.textContent = frustrated.toString();
-            if (avgMessagesEl) avgMessagesEl.textContent = avgMessages.toString();
-        })();
-        
-        let currentPage = 1;
-        let rowsPerPage = 10;
-        let filteredData = [...chatReportsData];
-        
-        // Profile Dropdown Functions
-        const profileDropdownBtn = document.getElementById('profileDropdownBtn');
-        const profileDropdown = document.getElementById('profileDropdown');
-        
-        function closeProfileDropdown() {
-            if (profileDropdown) {
-                profileDropdown.classList.add('hidden');
-            }
-            if (profileDropdownBtn) {
-                profileDropdownBtn.setAttribute('aria-expanded', 'false');
-            }
-        }
-        
-        // Theme Toggle Function
-        function toggleTheme() {
-            const html = document.documentElement;
-            html.classList.toggle('dark');
-            const isDark = html.classList.contains('dark');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            
-            const sunIcons = document.querySelectorAll('#sunIconNavbar');
-            const moonIcons = document.querySelectorAll('#moonIconNavbar');
-            sunIcons.forEach(el => {
-                if (el) {
-                    el.classList.toggle('hidden', !isDark);
-                    el.classList.toggle('block', isDark);
-                }
-            });
-            moonIcons.forEach(el => {
-                if (el) {
-                    el.classList.toggle('hidden', isDark);
-                    el.classList.toggle('block', !isDark);
-                }
-            });
-        }
-        
-        // Initialize Theme
-        const html = document.documentElement;
-        const currentTheme = localStorage.getItem('theme') || 'light';
-        const isDark = currentTheme === 'dark';
-        
-        if (isDark) {
-            html.classList.add('dark');
-        } else {
-            html.classList.remove('dark');
-        }
-        
-        document.querySelectorAll('#sunIconNavbar').forEach(el => {
-            if (el) {
-                el.classList.toggle('hidden', !isDark);
-                el.classList.toggle('block', isDark);
-            }
-        });
-        document.querySelectorAll('#moonIconNavbar').forEach(el => {
-            if (el) {
-                el.classList.toggle('hidden', isDark);
-                el.classList.toggle('block', !isDark);
-            }
-        });
-        
-        // Theme Toggle Button
-        const themeToggleNavbar = document.getElementById('themeToggleNavbar');
-        if (themeToggleNavbar) {
-            themeToggleNavbar.addEventListener('click', () => toggleTheme());
-        }
-        
-        // Profile Dropdown Toggle
-        if (profileDropdownBtn && profileDropdown) {
-            profileDropdownBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                profileDropdown.classList.toggle('hidden');
-                const isExpanded = !profileDropdown.classList.contains('hidden');
-                profileDropdownBtn.setAttribute('aria-expanded', isExpanded);
-            });
-            
-            document.addEventListener('click', (e) => {
-                if (!profileDropdown.contains(e.target) && !profileDropdownBtn.contains(e.target)) {
-                    closeProfileDropdown();
-                }
-            });
-        }
-        
-        // Mobile Sidebar Toggle
-        function toggleMobileSidebar() {
-            const sidebar = document.getElementById('mobileSidebar');
-            sidebar.classList.toggle('hidden');
-        }
-        
-        document.addEventListener('click', (e) => {
-            const sidebar = document.getElementById('mobileSidebar');
-            if (sidebar && !sidebar.contains(e.target) && !e.target.closest('[onclick="toggleMobileSidebar()"]')) {
-                sidebar.classList.add('hidden');
-            }
-        });
-        
-        // Filter Functions
-        function applyFilters() {
-            const sentiment = document.getElementById('sentimentFilter').value;
-            const category = document.getElementById('categoryFilter').value;
-            const dateFrom = document.getElementById('dateFrom').value;
-            const dateTo = document.getElementById('dateTo').value;
-            const minMessages = document.getElementById('minMessages').value;
-            const maxMessages = document.getElementById('maxMessages').value;
-            const search = document.getElementById('searchFilter').value.toLowerCase();
-            
-            filteredData = chatReportsData.filter(item => {
-                if (sentiment && item.sentiment && item.sentiment.toLowerCase() !== sentiment.toLowerCase()) return false;
-                if (category && item.category !== category) return false;
-                if (minMessages && item.message_count < parseInt(minMessages)) return false;
-                if (maxMessages && item.message_count > parseInt(maxMessages)) return false;
-                if (search && !item.title.toLowerCase().includes(search) && !item.description.toLowerCase().includes(search)) return false;
-                return true;
-            });
-            
-            currentPage = 1;
-            renderTable();
-        }
-        
-        function resetFilters() {
-            document.getElementById('sentimentFilter').value = '';
-            document.getElementById('categoryFilter').value = '';
-            document.getElementById('dateFrom').value = '';
-            document.getElementById('dateTo').value = '';
-            document.getElementById('minMessages').value = '';
-            document.getElementById('maxMessages').value = '';
-            document.getElementById('searchFilter').value = '';
-            
-            filteredData = [...chatReportsData];
-            currentPage = 1;
-            renderTable();
-        }
-        
-        // Render Table
-        function renderTable() {
-            const tableBody = document.getElementById('chatReportsTable');
-            const emptyState = document.getElementById('emptyState');
-            
-            if (filteredData.length === 0) {
-                tableBody.innerHTML = '';
-                emptyState.classList.remove('hidden');
-                return;
-            }
-            
-            emptyState.classList.add('hidden');
-            
-            const start = (currentPage - 1) * rowsPerPage;
-            const end = start + rowsPerPage;
-            const pageData = filteredData.slice(start, end);
-            
-            tableBody.innerHTML = pageData.map((item, index) => {
-                const sentimentColors = {
-                    'normal': 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400',
-                    'neutral': 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-400',
-                    'frustrated': 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-400',
-                    'angry': 'bg-red-200 dark:bg-red-800/40 text-red-900 dark:text-red-300',
-                    'positive': 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400',
-                    'happy': 'bg-green-200 dark:bg-green-800/40 text-green-900 dark:text-green-300',
-                    'excited': 'bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-400'
-                };
-                
-                // Alternating row colors
-                const rowBgClass = index % 2 === 0 
-                    ? 'bg-primaryDark/5 dark:bg-[#2A2A2A]' 
-                    : 'bg-gray-50 dark:bg-[#1E1E1E]';
-                
-                // Check if it's the last row for rounded corners
-                const isLastRow = index === pageData.length - 1;
-                const firstCellClass = isLastRow ? 'rounded-bl-xl' : '';
-                const lastCellClass = isLastRow ? 'rounded-br-xl' : '';
-                
-                return `
-                    <tr class="${rowBgClass} hover:bg-gray-100 dark:hover:bg-[#333333] transition-all duration-300 ease-out cursor-pointer" onclick="viewTopicDetails(${item.id})">
-                        <td class="py-4 px-6 ${firstCellClass}">
-                            <div>
-                                <p class="font-semibold text-gray-900 dark:text-white mb-1">${item.title}</p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">${item.description}</p>
-                            </div>
-                        </td>
-                        <td class="py-4 px-6">
-                            <span class="px-2.5 py-1 text-xs font-medium rounded-full ${sentimentColors[item.sentiment ? item.sentiment.toLowerCase() : 'normal']}">${item.sentiment ? item.sentiment.charAt(0).toUpperCase() + item.sentiment.slice(1).toLowerCase() : 'Normal'}</span>
-                        </td>
-                        <td class="py-4 px-6">
-                            <span class="px-2.5 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300 rounded-full">${item.category}</span>
-                        </td>
-                        <td class="py-4 px-6">
-                            <span class="text-sm font-medium text-gray-900 dark:text-white">${item.message_count}</span>
-                        </td>
-                        <td class="py-4 px-6">
-                            <span class="text-sm text-gray-600 dark:text-gray-400">${item.updated_at}</span>
-                        </td>
-                        <td class="py-4 px-6 ${lastCellClass}">
-                            <button onclick="event.stopPropagation(); viewTopicDetails(${item.id})" class="text-sm text-[#18CB96] hover:text-primaryDark font-medium transition-all duration-300 ease-out hover:scale-105">View Details</button>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-            
-            updatePagination();
-        }
-        
-        // Pagination Functions
-        function updatePagination() {
-            const totalPages = Math.ceil(filteredData.length / rowsPerPage);
-            const start = (currentPage - 1) * rowsPerPage + 1;
-            const end = Math.min(currentPage * rowsPerPage, filteredData.length);
-            
-            document.getElementById('showingFrom').textContent = filteredData.length > 0 ? start : 0;
-            document.getElementById('showingTo').textContent = end;
-            document.getElementById('totalItems').textContent = filteredData.length;
-            
-            document.getElementById('prevBtn').disabled = currentPage === 1;
-            document.getElementById('nextBtn').disabled = currentPage === totalPages || totalPages === 0;
-            
-            const pageNumbers = document.getElementById('pageNumbers');
-            pageNumbers.innerHTML = '';
-            
-            for (let i = 1; i <= totalPages; i++) {
-                if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
-                    const btn = document.createElement('button');
-                    btn.className = `px-3 py-2 rounded-lg font-medium text-sm transition-all duration-300 ease-out hover:scale-[1.05] ${
-                        i === currentPage 
-                            ? 'bg-[#18CB96] text-white hover:bg-primaryDark shadow-md' 
-                            : 'bg-gray-100 dark:bg-[#333333] text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-[#3A3A3A]'
-                    }`;
-                    btn.textContent = i;
-                    btn.onclick = () => {
-                        currentPage = i;
-                        renderTable();
-                    };
-                    pageNumbers.appendChild(btn);
-                } else if (i === currentPage - 2 || i === currentPage + 2) {
-                    const span = document.createElement('span');
-                    span.className = 'px-2 text-gray-500 dark:text-gray-400';
-                    span.textContent = '...';
-                    pageNumbers.appendChild(span);
-                }
-            }
-        }
-        
-        function previousPage() {
-            if (currentPage > 1) {
-                currentPage--;
-                renderTable();
-            }
-        }
-        
-        function nextPage() {
-            const totalPages = Math.ceil(filteredData.length / rowsPerPage);
-            if (currentPage < totalPages) {
-                currentPage++;
-                renderTable();
-            }
-        }
-        
-        // Rows Per Page Change
-        document.getElementById('rowsPerPage').addEventListener('change', (e) => {
-            rowsPerPage = parseInt(e.target.value);
-            currentPage = 1;
-            renderTable();
-        });
+{% endblock %}
 
-        // View Topic Details
-        function viewTopicDetails(topicId) {
-            // Redirect to topic details page
-            window.location.href = `chat-reports-details.html?topicId=${topicId}`;
-        }
+{% block extra_scripts %}
+<script>
+    // Get data from Flask backend
+    const chatReportsData = {{ chat_reports|tojson|safe }};
+    
+    // Header Stats (Top Summary Cards)
+    (function updateHeaderStats() {
+        const total = chatReportsData.length || 0;
+        const positive = chatReportsData.filter(item => item.sentiment === 'POSITIVE').length;
+        const frustrated = chatReportsData.filter(item => item.sentiment === 'FRUSTRATED').length;
+        const totalMessages = chatReportsData.reduce((sum, item) => sum + (item.message_count || 0), 0);
+        const avgMessages = total ? Math.round(totalMessages / total) : 0;
+        const positivePercent = total ? Math.round((positive / total) * 100) : 0;
         
-        // Export Report
-        function exportReport() {
-            alert('Exporting report... This would download the report in selected format.');
-            // Implementation would call API: /api/chat-reports/export?format=pdf
-        }
+        const totalEl = document.getElementById('totalTopicsCount');
+        const positivePercentEl = document.getElementById('positivePercent');
+        const frustratedEl = document.getElementById('frustratedCount');
+        const avgMessagesEl = document.getElementById('avgMessages');
         
-        // Logout Modal Functions
-        function openLogoutModal() {
-            const modal = document.getElementById('logoutModal');
-            if (modal) {
-                modal.classList.remove('hidden');
-                closeProfileDropdown();
-                document.body.style.overflow = 'hidden';
-            }
-        }
+        if (totalEl) totalEl.textContent = total.toString();
+        if (positivePercentEl) positivePercentEl.textContent = $%;
+        if (frustratedEl) frustratedEl.textContent = frustrated.toString();
+        if (avgMessagesEl) avgMessagesEl.textContent = avgMessages.toString();
+    })();
+    
+    let currentPage = 1;
+    let rowsPerPage = 10;
+    let filteredData = [...chatReportsData];
+    
+    // Filter Functions
+    function applyFilters() {
+        const sentiment = document.getElementById('sentimentFilter').value;
+        const category = document.getElementById('categoryFilter').value;
+        const dateFrom = document.getElementById('dateFrom').value;
+        const dateTo = document.getElementById('dateTo').value;
+        const minMessages = document.getElementById('minMessages').value;
+        const maxMessages = document.getElementById('maxMessages').value;
+        const search = document.getElementById('searchFilter').value.toLowerCase();
         
-        function closeLogoutModal() {
-            const modal = document.getElementById('logoutModal');
-            if (modal) {
-                modal.classList.add('hidden');
-                document.body.style.overflow = '';
-            }
-        }
-        
-        function confirmLogout() {
-            closeLogoutModal();
-            window.location.href = '{{ url_for('auth.login') }}';
-        }
-        
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                const modal = document.getElementById('logoutModal');
-                if (modal && !modal.classList.contains('hidden')) {
-                    closeLogoutModal();
+        filteredData = chatReportsData.filter(item => {
+            // Sentiment (Case Insensitive)
+            if (sentiment && (item.sentiment || '').toUpperCase() !== sentiment.toUpperCase()) return false;
+            
+            // Category
+            if (category && item.category !== category) return false;
+            
+            // Message Count (using correct field 'message_count')
+            if (minMessages && (item.message_count || 0) < parseInt(minMessages)) return false;
+            if (maxMessages && (item.message_count || 0) > parseInt(maxMessages)) return false;
+            
+            // Date Range Filtering
+            if (dateFrom || dateTo) {
+                const itemDateStr = item.last_check_time || item.updated_at;
+                if (!itemDateStr) return false;
+                
+                const itemDate = new Date(itemDateStr);
+                // Reset time part for date comparison
+                itemDate.setHours(0, 0, 0, 0);
+                
+                if (dateFrom) {
+                    const fromDate = new Date(dateFrom);
+                    fromDate.setHours(0, 0, 0, 0);
+                    if (itemDate < fromDate) return false;
+                }
+                
+                if (dateTo) {
+                    const toDate = new Date(dateTo);
+                    toDate.setHours(0, 0, 0, 0);
+                    if (itemDate > toDate) return false;
                 }
             }
+            
+            // Search (Title & Description with Null Safety)
+            if (search) {
+                const title = (item.title || '').toLowerCase();
+                const description = (item.description || '').toLowerCase();
+                if (!title.includes(search) && !description.includes(search)) return false;
+            }
+            
+            return true;
         });
         
-        // Initialize
+        currentPage = 1;
         renderTable();
-    </script>
-</body>
-</html>
+    }
+    
+    function resetFilters() {
+        document.getElementById('sentimentFilter').value = '';
+        document.getElementById('categoryFilter').value = '';
+        document.getElementById('dateFrom').value = '';
+        document.getElementById('dateTo').value = '';
+        document.getElementById('minMessages').value = '';
+        document.getElementById('maxMessages').value = '';
+        document.getElementById('searchFilter').value = '';
+        
+        filteredData = [...chatReportsData];
+        currentPage = 1;
+        renderTable();
+    }
+    
+    // Render Table
+    function renderTable() {
+        const tableBody = document.getElementById('chatReportsTable');
+        const emptyState = document.getElementById('emptyState');
+        
+        if (filteredData.length === 0) {
+            tableBody.innerHTML = '';
+            emptyState.classList.remove('hidden');
+            return;
+        }
+        
+        emptyState.classList.add('hidden');
+        
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const pageData = filteredData.slice(start, end);
+        
+        tableBody.innerHTML = pageData.map((item, index) => {
+            const sentimentColors = {
+                'NORMAL': 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400',
+                'FRUSTRATED': 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-400',
+                'POSITIVE': 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400'
+            };
+            
+            // Alternating row colors
+            const rowBgClass = index % 2 === 0 
+                ? 'bg-primaryDark/5 dark:bg-[#2A2A2A]' 
+                : 'bg-gray-50 dark:bg-[#1E1E1E]';
+            
+            // Check if it's the last row for rounded corners
+            const isLastRow = index === pageData.length - 1;
+            const firstCellClass = isLastRow ? 'rounded-bl-xl' : '';
+            const lastCellClass = isLastRow ? 'rounded-br-xl' : '';
+            
+            return `
+                <tr class="${rowBgClass} hover:bg-gray-100 dark:hover:bg-[#333333] transition-all duration-300 ease-out cursor-pointer" onclick="viewTopicDetails(${item.id})">
+                    <td class="py-4 px-6 ${firstCellClass}">
+                        <div>
+                            <p class="font-semibold text-gray-900 dark:text-white mb-1">${item.title}</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">${item.description}</p>
+                        </div>
+                    </td>
+                    <td class="py-4 px-6">
+                        <span class="px-2.5 py-1 text-xs font-medium rounded-full ${sentimentColors[item.sentiment]}">${item.sentiment}</span>
+                    </td>
+                    <td class="py-4 px-6">
+                        <span class="px-2.5 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300 rounded-full">${item.category || 'N/A'}</span>
+                    </td>
+                    <td class="py-4 px-6">
+                        <span class="text-sm font-medium text-gray-900 dark:text-white">${item.message_count}</span>
+                    </td>
+                    <td class="py-4 px-6">
+                        <span class="text-sm text-gray-600 dark:text-gray-400">${item.last_check_time || item.updated_at}</span>
+                    </td>
+                    <td class="py-4 px-6 ${lastCellClass}">
+                        <button onclick="event.stopPropagation(); viewTopicDetails(${item.id})" class="text-sm text-[#18CB96] hover:text-primaryDark font-medium transition-all duration-300 ease-out hover:scale-105">View Details</button>
+                    </td>
+                </tr>
+            `;
+        }).join('');
+        
+        updatePagination();
+    }
+    
+    // Pagination Functions
+    function updatePagination() {
+        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+        const start = (currentPage - 1) * rowsPerPage + 1;
+        const end = Math.min(currentPage * rowsPerPage, filteredData.length);
+        
+        document.getElementById('showingFrom').textContent = filteredData.length > 0 ? start : 0;
+        document.getElementById('showingTo').textContent = end;
+        document.getElementById('totalItems').textContent = filteredData.length;
+        
+        document.getElementById('prevBtn').disabled = currentPage === 1;
+        document.getElementById('nextBtn').disabled = currentPage === totalPages || totalPages === 0;
+        
+        const pageNumbers = document.getElementById('pageNumbers');
+        pageNumbers.innerHTML = '';
+        
+        for (let i = 1; i <= totalPages; i++) {
+            if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+                const btn = document.createElement('button');
+                btn.className = `px-3 py-2 rounded-lg font-medium text-sm transition-all duration-300 ease-out hover:scale-[1.05] ${
+                    i === currentPage 
+                        ? 'bg-[#18CB96] text-white hover:bg-primaryDark shadow-md' 
+                        : 'bg-gray-100 dark:bg-[#333333] text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-[#3A3A3A]'
+                }`;
+                btn.textContent = i;
+                btn.onclick = () => {
+                    currentPage = i;
+                    renderTable();
+                };
+                pageNumbers.appendChild(btn);
+            } else if (i === currentPage - 2 || i === currentPage + 2) {
+                const span = document.createElement('span');
+                span.className = 'px-2 text-gray-500 dark:text-gray-400';
+                span.textContent = '...';
+                pageNumbers.appendChild(span);
+            }
+        }
+    }
+    
+    function previousPage() {
+        if (currentPage > 1) {
+            currentPage--;
+            renderTable();
+        }
+    }
+    
+    function nextPage() {
+        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+        if (currentPage < totalPages) {
+            currentPage++;
+            renderTable();
+        }
+    }
+    
+    // Rows Per Page Change
+    document.getElementById('rowsPerPage').addEventListener('change', (e) => {
+        rowsPerPage = parseInt(e.target.value);
+        currentPage = 1;
+        renderTable();
+    });
+
+    // View Topic Details
+    function viewTopicDetails(topicId) {
+        // Redirect to topic details page
+        window.location.href = "{{ url_for('main.chat_reports_details') }}?topicId=" + topicId;
+    }
+    
+    // Export Report
+    function exportReport() {
+        alert('Exporting report... This would download the report in selected format.');
+        // Implementation would call API: /api/chat-reports/export?format=pdf
+    }
+    
+    // Initialize
+    renderTable();
+</script>
+{% endblock %}

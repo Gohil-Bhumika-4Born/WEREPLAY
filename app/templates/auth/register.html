@@ -152,6 +152,13 @@
                 <line x1="1" y1="1" x2="23" y2="23" stroke="#6B7280" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line>
             </svg>
         </button>
+        <!-- Password Mismatch Error Message -->
+        <p id="passwordMismatchError" class="hidden mt-1 text-xs text-red-600 flex items-center gap-1">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+            </svg>
+            Passwords do not match
+        </p>
     </div>
     
     <!-- Terms and Conditions Checkbox -->
@@ -183,17 +190,65 @@
 </form>
 
 <script>
-    // Save email to localStorage so verify-otp page can read it if needed
+    // Password matching validation
+    function validatePasswordMatch() {
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirmPassword');
+        const errorMsg = document.getElementById('passwordMismatchError');
+        const submitBtn = document.querySelector('button[type="submit"]');
+        
+        // Only validate if confirmPassword has a value
+        if (confirmPassword.value) {
+            if (password.value !== confirmPassword.value) {
+                // Show error state
+                confirmPassword.classList.add('!border-red-500');
+                confirmPassword.classList.remove('border-gray-300');
+                errorMsg.classList.remove('hidden');
+                submitBtn.disabled = true;
+                submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                return false;
+            } else {
+                // Clear error state
+                confirmPassword.classList.remove('!border-red-500');
+                confirmPassword.classList.add('border-gray-300');
+                errorMsg.classList.add('hidden');
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                return true;
+            }
+        }
+        return true;
+    }
+    
+    // Save email to localStorage and validate passwords on form submit
     document.addEventListener('DOMContentLoaded', function () {
         const form = document.getElementById('registerForm');
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirmPassword');
+        
         if (!form) return;
+        
+        // Add real-time validation on password fields
+        if (password && confirmPassword) {
+            password.addEventListener('input', validatePasswordMatch);
+            confirmPassword.addEventListener('input', validatePasswordMatch);
+            confirmPassword.addEventListener('blur', validatePasswordMatch);
+        }
 
-        form.addEventListener('submit', function () {
+        // Validate on form submission
+        form.addEventListener('submit', function (e) {
+            // Validate password match before submitting
+            if (!validatePasswordMatch()) {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Save email to localStorage for verify-otp page
             const emailInput = document.getElementById('email');
             if (emailInput && emailInput.value) {
                 try {
                     localStorage.setItem('registerEmail', emailInput.value);
-                } catch (e) {
+                } catch (err) {
                     // ignore storage errors
                 }
             }

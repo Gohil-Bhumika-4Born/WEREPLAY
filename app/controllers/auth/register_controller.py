@@ -17,6 +17,12 @@ class RegisterController:
             email = request.form.get('email')
             phone = request.form.get('phone')
             password = request.form.get('password')
+            confirm_password = request.form.get('confirmPassword')
+            
+            # Validate passwords match
+            if password != confirm_password:
+                flash('Passwords do not match. Please try again.', 'error')
+                return render_template('auth/register.html')
             
             user, error = AuthService.register_user(username, email, phone, password)
             

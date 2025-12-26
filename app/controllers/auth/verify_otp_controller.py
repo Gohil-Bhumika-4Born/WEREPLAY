@@ -35,7 +35,7 @@ class VerifyOTPController:
                 login_user(user, remember=True)
                 
                 flash('Email verified successfully! Please complete your profile.', 'success')
-                return redirect(url_for('main.complete_profile'))
+                return redirect(url_for('auth.complete_profile'))
             else:
                 flash('Invalid or expired OTP. Please try again.', 'error')
         

@@ -29,7 +29,7 @@ class LoginController:
                 # Check if profile is completed
                 if not user.profile_completed:
                     flash('Please complete your profile to continue.', 'info')
-                    return redirect(url_for('main.complete_profile'))
+                    return redirect(url_for('auth.complete_profile'))
                 
                 flash('Login successful!', 'success')
                 return redirect(url_for('main.dashboard'))

@@ -1,7 +1,7 @@
 """
 Chat Reports controller for handling chat reports-related requests.
 """
-from flask import render_template
+from flask import render_template, request, redirect, url_for
 from flask_login import login_required
 
 
@@ -26,4 +26,11 @@ class ChatReportsController:
     @login_required
     def chat_reports_details_page():
         """Render chat reports details page."""
-        return render_template('main/chat-reports-details.html')
+        topic_id = request.args.get('topicId')
+        if not topic_id:
+            return redirect(url_for('main.chat_reports'))
+            
+        from app.models.chat_report import ChatReport
+        report = ChatReport.query.get_or_404(topic_id)
+        
+        return render_template('main/chat-reports-details.html', report=report)

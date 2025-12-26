@@ -14,7 +14,8 @@ from . import (
     logout_route,
     verify_otp_route,
     resend_otp_route,
-    reset_password_route
+    reset_password_route,
+    complete_profile_route
 )
 
 __all__ = ['auth_bp']
