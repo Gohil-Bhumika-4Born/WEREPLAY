@@ -118,6 +118,7 @@
                                         required 
                                         minlength="3"
                                         autocomplete="name"
+                                        value="{{ user.username if user else '' }}"
                                         class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent border border-gray-300 rounded-lg text-gray-500 transition-all duration-300 hover:border-[#18CB96] focus:border-[#18CB96] focus:outline-none focus:ring-2 focus:ring-[#18CB96]/20"
                                         placeholder=" "
                                     >
@@ -136,6 +137,7 @@
                                         required 
                                         readonly
                                         autocomplete="email"
+                                        value="{{ user.email if user else '' }}"
                                         class="w-full py-3.5 pl-10 pr-3 text-sm bg-gray-50 border border-gray-300 rounded-lg text-gray-500 cursor-not-allowed transition-all duration-300"
                                         placeholder=" "
                                     >
@@ -160,6 +162,7 @@
                                     required 
                                     pattern="[0-9]{10,15}"
                                     autocomplete="tel"
+                                    value="{{ user.phone if user else '' }}"
                                     class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent border border-gray-300 rounded-lg text-gray-500 transition-all duration-300 hover:border-[#18CB96] focus:border-[#18CB96] focus:outline-none focus:ring-2 focus:ring-[#18CB96]/20"
                                     placeholder=" "
                                 >

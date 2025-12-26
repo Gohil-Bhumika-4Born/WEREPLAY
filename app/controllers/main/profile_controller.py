@@ -65,17 +65,27 @@ class ProfileController:
             return redirect(url_for('main.dashboard'))
         
         if request.method == 'POST':
-            # Update user profile with form data
+            # Update basic information (allow user to modify name and phone)
+            current_user.username = request.form.get('fullName')
+            current_user.phone = request.form.get('phone')
+            
+            # Update business information
             current_user.business_name = request.form.get('businessName')
             current_user.business_category = request.form.get('businessCategory')
             current_user.website_url = request.form.get('websiteUrl')
+            
+            # Update address information
             current_user.country = request.form.get('country')
             current_user.state = request.form.get('state')
             current_user.city = request.form.get('city')
             current_user.pincode = request.form.get('pincode')
+            
+            # Update profile settings
             current_user.timezone = request.form.get('timezone')
             current_user.preferred_language = request.form.get('preferredLanguage')
             current_user.notification_preference = request.form.get('notificationPreference')
+            
+            # Mark profile as completed
             current_user.profile_completed = True
             
             try:
@@ -86,4 +96,4 @@ class ProfileController:
                 db.session.rollback()
                 flash(f'Error saving profile: {str(e)}', 'error')
         
-        return render_template('main/complete-profile.html')
+        return render_template('main/complete-profile.html', user=current_user)

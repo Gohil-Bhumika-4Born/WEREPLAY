@@ -4,6 +4,7 @@ All configuration values are loaded from environment variables.
 """
 import os
 from datetime import timedelta
+from urllib.parse import quote_plus
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -34,8 +35,8 @@ class Config:
     DB_PORT = os.environ.get('DB_PORT')
     DB_NAME = os.environ.get('DB_NAME')
     
-    # Build database URI
-    SQLALCHEMY_DATABASE_URI = f'mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
+    # Build database URI with URL-encoded credentials to handle special characters
+    SQLALCHEMY_DATABASE_URI = f'mysql+pymysql://{quote_plus(DB_USER)}:{quote_plus(DB_PASSWORD)}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
     
     # Flask-Mail Configuration
     MAIL_SERVER = os.environ.get('MAIL_SERVER')
