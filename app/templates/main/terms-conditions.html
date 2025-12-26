@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="WeReplay Admin Panel Terms and Conditions - Read our terms of service and usage policies.">
+    <meta name="keywords" content="WeReplay, Terms, Conditions, Terms of Service">
+    <meta name="author" content="WeReplay">
+    <meta name="theme-color" content="#18CB96">
+    
+    <title>WeReplay Admin Panel - Terms and Conditions</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='Images/WeReplay-favicon.svg') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='Images/WeReplay-favicon.svg') }}">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="bg-light font-sans antialiased">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <img src="{{ url_for('static', filename='Images/We-Replay-Logo.svg') }}" alt="WeReplay Logo" class="h-8 w-auto">
+                    <h1 class="text-xl font-bold text-dark">WeReplay</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="{{ url_for('auth.login') }}" class="text-sm text-gray hover:text-primary transition-colors">Login</a>
+                    <a href="{{ url_for('auth.register') }}" class="text-sm bg-primary hover:bg-primaryDark text-white px-4 py-2 rounded-lg transition-colors">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12">
+            <!-- Title -->
+            <div class="text-center mb-8">
+                <h1 class="text-3xl md:text-4xl font-bold text-dark mb-3">Terms and Conditions</h1>
+                <p class="text-gray text-sm">Last updated: December 25, 2025</p>
+            </div>
+
+            <!-- Content -->
+            <div class="prose prose-sm md:prose-base max-w-none">
+                <section class="mb-8">
+                    <h2 class="text-2xl font-semibold text-dark mb-4">1. Acceptance of Terms</h2>
+                    <p class="text-gray mb-4">
+                        By accessing and using the WeReplay Admin Panel ("Service"), you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to these Terms and Conditions, please do not use our Service.
+                    </p>
+                </section>
+
+                <section class="mb-8">
+                    <h2 class="text-2xl font-semibold text-dark mb-4">2. Description of Service</h2>
+                    <p class="text-gray mb-4">
+                        WeReplay provides a WhatsApp customer support automation platform that enables businesses to manage customer interactions, automate responses, and improve customer service efficiency through AI-powered tools.
+                    </p>
+                </section>
+
+                <section class="mb-8">
+                    <h2 class="text-2xl font-semibold text-dark mb-4">3. User Accounts</h2>
+                    <p class="text-gray mb-4">
+                        To use our Service, you must:
+                    </p>
+                    <ul class="list-disc list-inside text-gray space-y-2 mb-4">
+                        <li>Provide accurate and complete registration information</li>
+                        <li>Maintain the security of your account credentials</li>
+                        <li>Be at least 18 years of age or have parental consent</li>
+                        <li>Notify us immediately of any unauthorized use of your account</li>
+                        <li>Accept responsibility for all activities under your account</li>
+                    </ul>
+                </section>
+
+                <section class="mb-8">
+                    <h2 class="text-2xl font-semibold text-dark mb-4">4. Acceptable Use</h2>
+                    <p class="text-gray mb-4">
+                        You agree not to use the Service to:
+                    </p>
+                    <ul class="list-disc list-inside text-gray space-y-2 mb-4">
+                        <li>Violate any applicable laws or regulations</li>
+                        <li>Send spam, unsolicited messages, or engage in harassment</li>
+                        <li>Distribute malware, viruses, or harmful code</li>
+                        <li>Infringe on intellectual property rights</li>
+                        <li>Attempt to gain unauthorized access to our systems</li>
+                        <li>Interfere with or disrupt the Service</li>
+                    </ul>
+                </section>
+
+                <section class="mb-8">
+                    <h2 class="text-2xl font-semibold text-dark mb-4">5. Data and Privacy</h2>
+                    <p class="text-gray mb-4">
+                        We are committed to protecting your privacy. Our collection and use of personal information is governed by our Privacy Policy. By using the Service, you consent to our data practices as described in the Privacy Policy.
+                    </p>
+                </section>
+
+                <section class="mb-8">
+                    <h2 class="text-2xl font-semibold text-dark mb-4">6. Intellectual Property</h2>
+                    <p class="text-gray mb-4">
+                        All content, features, and functionality of the Service, including but not limited to text, graphics, logos, and software, are owned by WeReplay and are protected by international copyright, trademark, and other intellectual property laws.
+                    </p>
+                </section>
+
+                <section class="mb-8">
+                    <h2 class="text-2xl font-semibold text-dark mb-4">7. Service Availability</h2>
+                    <p class="text-gray mb-4">
+                        While we strive to provide uninterrupted service, we do not guarantee that the Service will be available at all times. We reserve the right to modify, suspend, or discontinue the Service at any time without prior notice.
+                    </p>
+                </section>
+
+                <section class="mb-8">
+                    <h2 class="text-2xl font-semibold text-dark mb-4">8. Limitation of Liability</h2>
+                    <p class="text-gray mb-4">
+                        To the maximum extent permitted by law, WeReplay shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use or inability to use the Service.
+                    </p>
+                </section>
+
+                <section class="mb-8">
+                    <h2 class="text-2xl font-semibold text-dark mb-4">9. Termination</h2>
+                    <p class="text-gray mb-4">
+                        We reserve the right to terminate or suspend your account and access to the Service immediately, without prior notice or liability, for any reason, including breach of these Terms and Conditions.
+                    </p>
+                </section>
+
+                <section class="mb-8">
+                    <h2 class="text-2xl font-semibold text-dark mb-4">10. Changes to Terms</h2>
+                    <p class="text-gray mb-4">
+                        We reserve the right to modify these Terms and Conditions at any time. We will notify users of any material changes by posting the new Terms and Conditions on this page and updating the "Last updated" date.
+                    </p>
+                </section>
+
+                <section class="mb-8">
+                    <h2 class="text-2xl font-semibold text-dark mb-4">11. Contact Information</h2>
+                    <p class="text-gray mb-4">
+                        If you have any questions about these Terms and Conditions, please contact us through our support channels available in the Admin Panel.
+                    </p>
+                </section>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="mt-10 pt-8 border-t border-gray-200 flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="{{ url_for('auth.register') }}" class="inline-flex items-center justify-center px-6 py-3 bg-primary hover:bg-primaryDark text-white font-semibold rounded-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30">
+                    I Accept - Sign Up
+                </a>
+                <a href="{{ url_for('auth.login') }}" class="inline-flex items-center justify-center px-6 py-3 bg-white hover:bg-gray-50 text-gray-700 font-semibold rounded-xl border border-gray-300 transition-all duration-300">
+                    Back to Login
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mt-12">
+        <div class="text-center text-sm text-gray">
+            <p>&copy; 2025 WeReplay. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

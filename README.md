@@ -77,8 +77,7 @@ pip install -r requirements.txt
 
 ### 4. Configure Environment Variables
 
-Copy `.env` and update with your settings:
-- `SECRET_KEY`: Change to a secure random key in production
+Copy `.env.example` to `.env` and update with your settings:
 - `DATABASE_URL`: Database connection string
 
 ### 5. Initialize Database (Optional - for future use)
@@ -144,10 +143,9 @@ flask db upgrade
 
 1. Set `FLASK_ENV=production` in `.flaskenv`
 2. Use a production WSGI server (gunicorn, uWSGI)
-3. Set a strong `SECRET_KEY`
-4. Use a production database (PostgreSQL, MySQL)
-5. Configure proper logging
-6. Enable HTTPS
+3. Use a production database (PostgreSQL, MySQL)
+4. Configure proper logging
+5. Enable HTTPS
 
 ## License
 

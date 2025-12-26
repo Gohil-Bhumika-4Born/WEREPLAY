@@ -208,7 +208,7 @@
                         <div class="relative">
                             <button id="profileDropdownBtn" class="flex items-center justify-center p-2 rounded-full hover:bg-gray-100 dark:hover:bg-[#333333] transition-all focus:outline-none" aria-label="Profile menu" aria-expanded="false" aria-haspopup="true">
                                 <div class="h-10 w-10 rounded-full bg-[#18CB96] flex items-center justify-center text-white font-semibold shadow-md hover:shadow-lg transition-shadow cursor-pointer">
-                                    JD
+                                    {% if user.username %}{{ user.username[:2].upper() }}{% else %}U{% endif %}
                                 </div>
                             </button>
 
@@ -218,11 +218,11 @@
                                 <div class="px-4 py-3 bg-gray-50/50 dark:bg-[#2A2A2A]">
                                     <div class="flex items-center gap-3">
                                         <div class="h-10 w-10 rounded-full bg-[#18CB96] flex items-center justify-center text-white font-semibold shadow-sm">
-                                            JD
+                                            {% if user.username %}{{ user.username[:2].upper() }}{% else %}U{% endif %}
                                         </div>
                                         <div class="flex-1 min-w-0">
-                                            <p class="text-sm font-semibold text-gray-900 dark:text-white truncate">John Doe</p>
-                                            <p class="text-xs text-gray-500 dark:text-white truncate">john@example.com</p>
+                                            <p class="text-sm font-semibold text-gray-900 dark:text-white truncate">{{ user.username or 'User' }}</p>
+                                            <p class="text-xs text-gray-500 dark:text-white truncate">{{ user.email or 'No email' }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -256,11 +256,11 @@
                     <div class="bg-white dark:bg-[#2A2A2A] rounded-2xl shadow-lg p-6 sm:p-8">
                         <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6">
                             <div class="h-20 w-20 sm:h-24 sm:w-24 rounded-full bg-[#18CB96] flex items-center justify-center text-white text-2xl sm:text-3xl font-bold shadow-lg">
-                                JD
+                                {% if user.username %}{{ user.username[:2].upper() }}{% else %}U{% endif %}
                             </div>
                             <div class="flex-1 text-center sm:text-left">
-                                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-1">John Doe</h2>
-                                <p class="text-sm text-gray-600 dark:text-white mb-4 break-all">john@example.com</p>
+                                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-1">{{ user.username or 'User' }}</h2>
+                                <p class="text-sm text-gray-600 dark:text-white mb-4 break-all">{{ user.email or 'No email provided' }}</p>
 
                                 <div class="flex flex-wrap justify-center sm:justify-start gap-3">
                                     <a href="{{ url_for('main.profile_edit') }}" class="inline-flex items-center justify-center px-5 sm:px-6 py-2.5 bg-[#18CB96] hover:bg-[#14a87a] text-white rounded-xl text-sm font-medium shadow-md hover:shadow-lg hover:shadow-[#18CB96]/30 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-[#18CB96]/40 transition-all">
@@ -287,15 +287,15 @@
                             <dl class="space-y-3 text-sm">
                                 <div>
                                     <dt class="text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wide">Name</dt>
-                                    <dd class="text-gray-900 dark:text-white">John Doe</dd>
+                                    <dd class="text-gray-900 dark:text-white">{{ user.username or 'Not provided' }}</dd>
                                 </div>
                                 <div>
                                     <dt class="text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wide">Email</dt>
-                                    <dd class="text-gray-900 dark:text-white break-all">john@example.com</dd>
+                                    <dd class="text-gray-900 dark:text-white break-all">{{ user.email or 'Not provided' }}</dd>
                                 </div>
                                 <div>
                                     <dt class="text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wide">Phone</dt>
-                                    <dd class="text-gray-900 dark:text-white">+1 234 567 8900</dd>
+                                    <dd class="text-gray-900 dark:text-white">{{ user.phone or 'Not provided' }}</dd>
                                 </div>
                             </dl>
                         </article>
@@ -311,11 +311,11 @@
                             <dl class="space-y-3 text-sm">
                                 <div>
                                     <dt class="text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wide">Business Name</dt>
-                                    <dd class="text-gray-900 dark:text-white">Acme Corporation</dd>
+                                    <dd class="text-gray-900 dark:text-white">{{ user.business_name or 'Not provided' }}</dd>
                                 </div>
                                 <div>
                                     <dt class="text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wide">Business Category</dt>
-                                    <dd class="text-gray-900 dark:text-white">Software</dd>
+                                    <dd class="text-gray-900 dark:text-white">{{ user.business_category or 'Not provided' }}</dd>
                                 </div>
                             </dl>
                         </article>
@@ -332,7 +332,13 @@
                             <dl class="space-y-3 text-sm">
                                 <div>
                                     <dt class="text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wide">Address</dt>
-                                    <dd class="text-gray-900 dark:text-white">123 Main Street, New York, NY 10001, United States</dd>
+                                    <dd class="text-gray-900 dark:text-white">
+                                        {% if user.city or user.state or user.country or user.pincode %}
+                                            {% if user.city %}{{ user.city }}{% endif %}{% if user.state and user.city %}, {% endif %}{% if user.state %}{{ user.state }}{% endif %}{% if user.pincode %} {{ user.pincode }}{% endif %}{% if user.country and (user.city or user.state) %}, {% endif %}{% if user.country %}{{ user.country }}{% endif %}
+                                        {% else %}
+                                            Not provided
+                                        {% endif %}
+                                    </dd>
                                 </div>
                             </dl>
                         </article>
@@ -349,15 +355,15 @@
                             <dl class="space-y-3 text-sm">
                                 <div>
                                     <dt class="text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wide">Language</dt>
-                                    <dd class="text-gray-900 dark:text-white">English</dd>
+                                    <dd class="text-gray-900 dark:text-white">{{ user.preferred_language or 'Not set' }}</dd>
                                 </div>
                                 <div>
                                     <dt class="text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wide">Timezone</dt>
-                                    <dd class="text-gray-900 dark:text-white">EST (Eastern Standard Time)</dd>
+                                    <dd class="text-gray-900 dark:text-white">{{ user.timezone or 'Not set' }}</dd>
                                 </div>
                                 <div>
                                     <dt class="text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wide">Notification Preference</dt>
-                                    <dd class="text-gray-900 dark:text:white">Both (Email &amp; WhatsApp)</dd>
+                                    <dd class="text-gray-900 dark:text-white">{{ user.notification_preference or 'Not set' }}</dd>
                                 </div>
                             </dl>
                         </article>

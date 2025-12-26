@@ -175,7 +175,7 @@
                         <div class="relative">
                             <button id="profileDropdownBtn" class="flex items-center justify-center p-2 rounded-full hover:bg-gray-100 dark:hover:bg-[#333333] transition-all focus:outline-none" aria-label="Profile menu" aria-expanded="false" aria-haspopup="true">
                                 <div class="h-10 w-10 rounded-full bg-[#18CB96] flex items-center justify-center text-white font-semibold shadow-md hover:shadow-lg transition-shadow cursor-pointer">
-                                    JD
+                                    {% if user.username %}{{ user.username[:2].upper() }}{% else %}U{% endif %}
                                 </div>
                             </button>
 
@@ -185,11 +185,11 @@
                                 <div class="px-4 py-3 bg-gray-50/50 dark:bg-[#2A2A2A]">
                                     <div class="flex items-center gap-3">
                                         <div class="h-10 w-10 rounded-full bg-[#18CB96] flex items-center justify-center text-white font-semibold shadow-sm">
-                                            JD
+                                            {% if user.username %}{{ user.username[:2].upper() }}{% else %}U{% endif %}
                                         </div>
                                         <div class="flex-1 min-w-0">
-                                            <p class="text-sm font-semibold text-gray-900 dark:text-white truncate">John Doe</p>
-                                            <p class="text-xs text-gray-500 dark:text-white truncate">john@example.com</p>
+                                            <p class="text-sm font-semibold text-gray-900 dark:text-white truncate">{{ user.username or 'User' }}</p>
+                                            <p class="text-xs text-gray-500 dark:text-white truncate">{{ user.email or 'No email' }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -223,11 +223,11 @@
                     <div class="bg-white dark:bg-[#2A2A2A] rounded-2xl shadow-lg p-6 sm:p-8 flex flex-col sm:flex-row items-center sm:items-center gap-6">
                         <div class="flex items-center gap-4 sm:gap-6">
                             <div class="h-20 w-20 sm:h-24 sm:w-24 rounded-full bg-[#18CB96] flex items-center justify-center text-white text-2xl sm:text-3xl font-bold shadow-lg">
-                                JD
+                                {% if user.username %}{{ user.username[:2].upper() }}{% else %}U{% endif %}
                             </div>
                             <div>
-                                <h2 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-1">John Doe</h2>
-                                <p class="text-sm text-gray-600 dark:text-gray-300 break-all mb-3">john@example.com</p>
+                                <h2 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-1">{{ user.username or 'User' }}</h2>
+                                <p class="text-sm text-gray-600 dark:text-gray-300 break-all mb-3">{{ user.email or 'No email provided' }}</p>
                                 <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Update your profile details to keep your account information accurate.</p>
                             </div>
                         </div>
@@ -235,7 +235,7 @@
 
                     <!-- Form Card -->
                     <div class="bg-white dark:bg-[#2A2A2A] rounded-2xl shadow-lg p-6 sm:p-8">
-                        <form id="editProfileForm" class="space-y-8">
+                        <form id="editProfileForm" method="POST" action="{{ url_for('main.profile_edit') }}" class="space-y-8">
                             <!-- Basic Info Section -->
                             <div class="space-y-5">
                                 <div class="flex items-center justify-between flex-wrap gap-3">
@@ -261,7 +261,7 @@
                                             autocomplete="name"
                                             class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent border border-gray-300 rounded-lg text-gray-500 transition-all duration-300 hover:border-[#18CB96] focus:border-[#18CB96] focus:outline-none focus:ring-2 focus:ring-[#18CB96]/20"
                                             placeholder=" "
-                                            value="John Doe"
+                                            value="{{ user.username or '' }}"
                                         />
                                         <label for="fullName" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none transition-all duration-300 bg-transparent px-1 z-[1]">Full Name</label>
                                     </div>
@@ -280,7 +280,7 @@
                                             autocomplete="email"
                                             class="w-full py-3.5 pl-10 pr-9 text-sm bg-gray-50 border border-gray-300 rounded-lg text-gray-500 cursor-not-allowed transition-all duration-300"
                                             placeholder=" "
-                                            value="john@example.com"
+                                            value="{{ user.email or '' }}"
                                         />
                                         <label for="email" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none transition-all duration-300 bg-transparent px-1 z-[1]">Email Address (Verified)</label>
                                         <div class="absolute right-3 top-1/2 -translate-y-1/2">
@@ -305,7 +305,7 @@
                                         autocomplete="tel"
                                         class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent border border-gray-300 rounded-lg text-gray-500 transition-all duration-300 hover:border-[#18CB96] focus:border-[#18CB96] focus:outline-none focus:ring-2 focus:ring-[#18CB96]/20"
                                         placeholder=" "
-                                        value="+1 234 567 8900"
+                                        value="{{ user.phone or '' }}"
                                     />
                                     <label for="phone" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none transition-all duration-300 bg-transparent px-1 z-[1]">Phone Number</label>
                                 </div>
@@ -335,7 +335,7 @@
                                         autocomplete="organization"
                                         class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent border border-gray-300 rounded-lg text-gray-500 transition-all duration-300 hover:border-[#18CB96] focus:border-[#18CB96] focus:outline-none focus:ring-2 focus:ring-[#18CB96]/20"
                                         placeholder=" "
-                                        value="Acme Corporation"
+                                        value="{{ user.business_name or '' }}"
                                     />
                                     <label for="businessName" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none transition-all duration-300 bg-transparent px-1 z-[1]">Business Name</label>
                                 </div>
@@ -380,7 +380,7 @@
                                         autocomplete="url"
                                         class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent border border-gray-300 rounded-lg text-gray-500 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gray-200"
                                         placeholder=" "
-                                        value="https://www.acme.com"
+                                        value="{{ user.website_url or '' }}"
                                     />
                                     <label for="websiteUrl" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none transition-all duration-300 bg-transparent px-1 z-[1]">Website URL <span class="text-xs">(Optional)</span></label>
                                 </div>
@@ -440,7 +440,7 @@
                                             autocomplete="address-level1"
                                             class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent border border-gray-300 rounded-lg text-gray-500 transition-all duration-300 hover:border-[#18CB96] focus:border-[#18CB96] focus:outline-none focus:ring-2 focus:ring-[#18CB96]/20"
                                             placeholder=" "
-                                            value="New York"
+                                            value="{{ user.state or '' }}"
                                         />
                                         <label for="state" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none transition-all duration-300 bg-transparent px-1 z-[1]">State</label>
                                     </div>
@@ -459,7 +459,7 @@
                                             autocomplete="address-level2"
                                             class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent border border-gray-300 rounded-lg text-gray-500 transition-all duration-300 hover:border-[#18CB96] focus:border-[#18CB96] focus:outline-none focus:ring-2 focus:ring-[#18CB96]/20"
                                             placeholder=" "
-                                            value="New York"
+                                            value="{{ user.city or '' }}"
                                         />
                                         <label for="city" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none transition-all duration-300 bg-transparent px-1 z-[1]">City</label>
                                     </div>
@@ -479,7 +479,7 @@
                                         autocomplete="postal-code"
                                         class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent border border-gray-300 rounded-lg text-gray-500 transition-all duration-300 hover:border-[#18CB96] focus:border-[#18CB96] focus:outline-none focus:ring-2 focus:ring-[#18CB96]/20"
                                         placeholder=" "
-                                        value="10001"
+                                        value="{{ user.pincode or '' }}"
                                     />
                                     <label for="pincode" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none transition-all duration-300 bg-transparent px-1 z-[1]">Pincode</label>
                                 </div>
@@ -752,21 +752,14 @@
             }
         });
 
-        // Edit profile form submit (demo: just redirect back to profile)
+        // Edit profile form submit
         const editProfileForm = document.getElementById('editProfileForm');
         if (editProfileForm) {
             editProfileForm.addEventListener('submit', function (e) {
-                e.preventDefault();
-
                 const submitBtn = editProfileForm.querySelector('button[type="submit"]');
                 const originalText = submitBtn.textContent;
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'Saving...';
-
-                // Simulate save and redirect
-                setTimeout(() => {
-                    window.location.href = '{{ url_for('main.profile') }}';
-                }, 600);
             });
         }
     </script>
