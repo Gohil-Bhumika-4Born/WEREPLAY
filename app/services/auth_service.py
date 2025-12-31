@@ -21,7 +21,8 @@ class AuthService:
             password: Plain text password
             
         Returns:
-            User object if authentication successful, None otherwise
+            tuple: (User object, error_code) where error_code is None if successful
+                   Error codes: 'USER_NOT_FOUND', 'INVALID_PASSWORD', 'NOT_VERIFIED'
         """
         # Try to find user by email or username
         user = User.query.filter(
@@ -29,17 +30,17 @@ class AuthService:
         ).first()
         
         if not user:
-            return None
+            return None, 'USER_NOT_FOUND'
         
         # Check if password is correct
         if not user.check_password(password):
-            return None
+            return None, 'INVALID_PASSWORD'
         
         # Check if user is verified
         if not user.is_verified:
-            return None
+            return None, 'NOT_VERIFIED'
         
-        return user
+        return user, None
     
     @staticmethod
     def register_user(username, email, phone, password):

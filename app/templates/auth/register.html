@@ -18,8 +18,17 @@
 {% endblock %}
 
 {% block form_content %}
+<!-- General Error Message -->
+{% if errors and errors.general %}
+<div class="mb-4 p-3 rounded-lg text-sm bg-red-50 text-red-600 border border-red-200 flex items-center gap-2">
+    <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+    </svg>
+    {{ errors.general }}
+</div>
+{% endif %}
 <!-- Registration Form -->
-<form action="{{ url_for('auth.register') }}" method="POST" class="space-y-5 w-full max-w-2xl mx-auto" id="registerForm">
+<form action="{{ url_for('auth.register') }}" method="POST" class="space-y-5 w-full max-w-2xl mx-auto" id="registerForm" novalidate>
     <!-- Full Name and Email Side by Side -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <!-- Full Name Field -->
@@ -30,14 +39,23 @@
             <input 
                 type="text" 
                 id="fullName" 
-                name="fullName" 
+                name="fullName"
+                value="{{ form_data.fullName if form_data else '' }}" 
                 required 
                 minlength="3"
                 autocomplete="name"
-                class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent border border-gray-300 rounded-lg text-gray-500 transition-all duration-300 hover:border-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent border {% if errors and errors.fullName %}border-red-500{% else %}border-gray-300{% endif %} rounded-lg text-gray-500 transition-all duration-300 hover:border-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                 placeholder=" "
             >
             <label for="fullName" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none transition-all duration-300 bg-transparent px-1 z-[1]">Full Name</label>
+            {% if errors and errors.fullName %}
+            <p class="mt-1 text-xs text-red-600 flex items-center gap-1">
+                <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                </svg>
+                {{ errors.fullName }}
+            </p>
+            {% endif %}
         </div>
         
         <!-- Email Field -->
@@ -48,13 +66,22 @@
             <input 
                 type="email" 
                 id="email" 
-                name="email" 
+                name="email"
+                value="{{ form_data.email if form_data else '' }}" 
                 required 
                 autocomplete="email"
-                class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent border border-gray-300 rounded-lg text-gray-500 transition-all duration-300 hover:border-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent border {% if errors and errors.email %}border-red-500{% else %}border-gray-300{% endif %} rounded-lg text-gray-500 transition-all duration-300 hover:border-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                 placeholder=" "
             >
             <label for="email" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none transition-all duration-300 bg-transparent px-1 z-[1]">Email Address</label>
+            {% if errors and errors.email %}
+            <p class="mt-1 text-xs text-red-600 flex items-center gap-1">
+                <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                </svg>
+                {{ errors.email }}
+            </p>
+            {% endif %}
         </div>
     </div>
     
@@ -66,14 +93,23 @@
         <input 
             type="tel" 
             id="phone" 
-            name="phone" 
+            name="phone"
+            value="{{ form_data.phone if form_data else '' }}" 
             required 
             pattern="[0-9]{10,15}"
             autocomplete="tel"
-            class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent border border-gray-300 rounded-lg text-gray-500 transition-all duration-300 hover:border-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent border {% if errors and errors.phone %}border-red-500{% else %}border-gray-300{% endif %} rounded-lg text-gray-500 transition-all duration-300 hover:border-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
             placeholder=" "
         >
         <label for="phone" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none transition-all duration-300 bg-transparent px-1 z-[1]">Phone Number</label>
+        {% if errors and errors.phone %}
+        <p class="mt-1 text-xs text-red-600 flex items-center gap-1">
+            <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+            </svg>
+            {{ errors.phone }}
+        </p>
+        {% endif %}
     </div>
     
     <!-- Password Field -->
@@ -128,7 +164,7 @@
             required 
             minlength="8"
             autocomplete="new-password"
-            class="w-full py-3.5 pl-10 pr-10 text-sm bg-transparent border border-gray-300 rounded-lg text-gray-500 transition-all duration-300 hover:border-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            class="w-full py-3.5 pl-10 pr-10 text-sm bg-transparent border {% if errors and errors.confirmPassword %}border-red-500{% else %}border-gray-300{% endif %} rounded-lg text-gray-500 transition-all duration-300 hover:border-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
             placeholder=" "
         >
         <label for="confirmPassword" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none transition-all duration-300 bg-transparent px-1 z-[1]">Confirm Password</label>
@@ -153,11 +189,11 @@
             </svg>
         </button>
         <!-- Password Mismatch Error Message -->
-        <p id="passwordMismatchError" class="hidden mt-1 text-xs text-red-600 flex items-center gap-1">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+        <p id="passwordMismatchError" class="{% if not errors or not errors.confirmPassword %}hidden{% endif %} mt-1 text-xs text-red-600 flex items-center gap-1">
+            <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
             </svg>
-            Passwords do not match
+            {% if errors and errors.confirmPassword %}{{ errors.confirmPassword }}{% else %}Passwords do not match{% endif %}
         </p>
     </div>
     

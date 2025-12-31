@@ -20,7 +20,7 @@
     <div class="mb-3 text-center">
         <p class="text-sm text-gray">
             We have sent a 6-digit OTP to
-            <span id="emailText" class="font-semibold text-dark break-all">{{ session.get('user_email', '') }}</span>
+            <span id="emailText" class="font-semibold text-dark break-all">{{ email or session.get('user_email', '') }}</span>
         </p>
     </div>
     
@@ -28,14 +28,24 @@
     <div class="mb-0">
         <label class="block text-sm text-gray-500 mb-3 text-center">Enter OTP Code</label>
         <div class="flex justify-center gap-3" id="otpContainer">
-            <input type="text" id="otp1" name="otp1" maxlength="1" pattern="[0-9]" required class="w-14 h-14 text-center text-2xl font-bold border border-gray rounded-lg text-gray focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all duration-300" autocomplete="off">
-            <input type="text" id="otp2" name="otp2" maxlength="1" pattern="[0-9]" required class="w-14 h-14 text-center text-2xl font-bold border border-gray rounded-lg text-gray focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all duration-300" autocomplete="off">
-            <input type="text" id="otp3" name="otp3" maxlength="1" pattern="[0-9]" required class="w-14 h-14 text-center text-2xl font-bold border border-gray rounded-lg text-gray focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all duration-300" autocomplete="off">
-            <input type="text" id="otp4" name="otp4" maxlength="1" pattern="[0-9]" required class="w-14 h-14 text-center text-2xl font-bold border border-gray rounded-lg text-gray focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all duration-300" autocomplete="off">
-            <input type="text" id="otp5" name="otp5" maxlength="1" pattern="[0-9]" required class="w-14 h-14 text-center text-2xl font-bold border border-gray rounded-lg text-gray focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all duration-300" autocomplete="off">
-            <input type="text" id="otp6" name="otp6" maxlength="1" pattern="[0-9]" required class="w-14 h-14 text-center text-2xl font-bold border border-gray rounded-lg text-gray focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all duration-300" autocomplete="off">
+            <input type="text" id="otp1" name="otp1" maxlength="1" pattern="[0-9]" required class="w-14 h-14 text-center text-2xl font-bold border {% if errors and errors.otp %}border-red-500{% else %}border-gray{% endif %} rounded-lg text-gray focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all duration-300" autocomplete="off">
+            <input type="text" id="otp2" name="otp2" maxlength="1" pattern="[0-9]" required class="w-14 h-14 text-center text-2xl font-bold border {% if errors and errors.otp %}border-red-500{% else %}border-gray{% endif %} rounded-lg text-gray focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all duration-300" autocomplete="off">
+            <input type="text" id="otp3" name="otp3" maxlength="1" pattern="[0-9]" required class="w-14 h-14 text-center text-2xl font-bold border {% if errors and errors.otp %}border-red-500{% else %}border-gray{% endif %} rounded-lg text-gray focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all duration-300" autocomplete="off">
+            <input type="text" id="otp4" name="otp4" maxlength="1" pattern="[0-9]" required class="w-14 h-14 text-center text-2xl font-bold border {% if errors and errors.otp %}border-red-500{% else %}border-gray{% endif %} rounded-lg text-gray focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all duration-300" autocomplete="off">
+            <input type="text" id="otp5" name="otp5" maxlength="1" pattern="[0-9]" required class="w-14 h-14 text-center text-2xl font-bold border {% if errors and errors.otp %}border-red-500{% else %}border-gray{% endif %} rounded-lg text-gray focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all duration-300" autocomplete="off">
+            <input type="text" id="otp6" name="otp6" maxlength="1" pattern="[0-9]" required class="w-14 h-14 text-center text-2xl font-bold border {% if errors and errors.otp %}border-red-500{% else %}border-gray{% endif %} rounded-lg text-gray focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all duration-300" autocomplete="off">
         </div>
         <input type="hidden" id="otp" name="otp" value="">
+
+        <!-- Inline OTP Error Message -->
+        {% if errors and errors.otp %}
+        <p class="mt-2 text-xs text-red-600 flex items-center justify-center gap-1">
+            <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+            </svg>
+            {{ errors.otp }}
+        </p>
+        {% endif %}
     </div>
     
     <!-- Success/Error Message -->
@@ -68,6 +78,10 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // Priority: backend variable > session default
+        // If 'email' is passed from backend (on error), we don't need JS to set it, 
+        // as Jinja handles it in the HTML above.
+        
         // OTP Input Handling - Auto focus next input
         const otpInputs = document.querySelectorAll('#otpContainer input');
         

@@ -48,5 +48,33 @@
     {% block content %}{% endblock %}
     
     {% block extra_scripts %}{% endblock %}
+
+    <!-- Enhanced Back Button Prevention -->
+    <script>
+        (function () {
+            // Detect if page is loaded from back-forward cache (bfcache)
+            window.addEventListener('pageshow', function(event) {
+                // If page is loaded from cache (persisted), force reload
+                if (event.persisted) {
+                    window.location.reload();
+                }
+            });
+
+            // Prevent back button navigation using history manipulation
+            window.history.pushState(null, "", window.location.href);
+            window.onpopstate = function () {
+                window.history.pushState(null, "", window.location.href);
+            };
+
+            // Additional check: if this is an auth page, disable browser cache
+            var isAuthPage = window.location.pathname.includes('/auth/');
+            if (isAuthPage) {
+                // Force no-cache on auth pages
+                window.onbeforeunload = function() {
+                    window.scrollTo(0, 0);
+                };
+            }
+        })();
+    </script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 """
 Complete profile controller for handling profile completion after registration.
 """
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, session
 from flask_login import current_user
 from app.extensions import db
 
@@ -20,37 +20,105 @@ class CompleteProfileController:
         # If profile already completed, redirect to dashboard
         if current_user.profile_completed:
             return redirect(url_for('main.dashboard'))
+            
+        errors = {}
+        form_data = {}
         
         if request.method == 'POST':
-            # Update basic information (allow user to modify name and phone)
-            current_user.username = request.form.get('fullName')
-            current_user.phone = request.form.get('phone')
+            # Collect form data
+            form_data = {
+                'fullName': request.form.get('fullName'),
+                'phone': request.form.get('phone'),
+                'businessName': request.form.get('businessName'),
+                'businessCategory': request.form.get('businessCategory'),
+                'websiteUrl': request.form.get('websiteUrl'),
+                'country': request.form.get('country'),
+                'state': request.form.get('state'),
+                'city': request.form.get('city'),
+                'pincode': request.form.get('pincode'),
+                'timezone': request.form.get('timezone'),
+                'preferredLanguage': request.form.get('preferredLanguage'),
+                'notificationPreference': request.form.get('notificationPreference')
+            }
+            
+            # Validation
+            if not form_data['fullName'] or len(form_data['fullName'].strip()) < 3:
+                errors['fullName'] = 'Full name must be at least 3 characters long.'
+                
+            if not form_data['phone']:
+                errors['phone'] = 'Phone number is required.'
+            elif not form_data['phone'].isdigit() or len(form_data['phone']) < 10 or len(form_data['phone']) > 15:
+                errors['phone'] = 'Please enter a valid phone number (10-15 digits).'
+                
+            if not form_data['businessName'] or len(form_data['businessName'].strip()) < 2:
+                errors['businessName'] = 'Please enter business name'
+                
+            if not form_data['businessCategory']:
+                errors['businessCategory'] = 'Please select a business category.'
+                
+            if not form_data['country']:
+                errors['country'] = 'Please select a country.'
+                
+            if not form_data['state']:
+                errors['state'] = 'State is required.'
+                
+            if not form_data['city']:
+                errors['city'] = 'City is required.'
+                
+            if not form_data['pincode']:
+                errors['pincode'] = 'Pincode is required.'
+                
+            if not form_data['timezone']:
+                errors['timezone'] = 'Please select a timezone.'
+                
+            if not form_data['preferredLanguage']:
+                errors['preferredLanguage'] = 'Please select a preferred language.'
+                
+            if not form_data['notificationPreference']:
+                errors['notificationPreference'] = 'Please select a notification preference.'
+
+            if errors:
+                return render_template('auth/complete-profile.html', user=current_user, errors=errors, form_data=form_data)
+            
+            # Update basic information
+            current_user.username = form_data['fullName']
+            current_user.phone = form_data['phone']
             
             # Update business information
-            current_user.business_name = request.form.get('businessName')
-            current_user.business_category = request.form.get('businessCategory')
-            current_user.website_url = request.form.get('websiteUrl')
+            current_user.business_name = form_data['businessName']
+            current_user.business_category = form_data['businessCategory']
+            current_user.website_url = form_data['websiteUrl']
             
             # Update address information
-            current_user.country = request.form.get('country')
-            current_user.state = request.form.get('state')
-            current_user.city = request.form.get('city')
-            current_user.pincode = request.form.get('pincode')
+            current_user.country = form_data['country']
+            current_user.state = form_data['state']
+            current_user.city = form_data['city']
+            current_user.pincode = form_data['pincode']
             
             # Update profile settings
-            current_user.timezone = request.form.get('timezone')
-            current_user.preferred_language = request.form.get('preferredLanguage')
-            current_user.notification_preference = request.form.get('notificationPreference')
+            current_user.timezone = form_data['timezone']
+            current_user.preferred_language = form_data['preferredLanguage']
+            current_user.notification_preference = form_data['notificationPreference']
             
             # Mark profile as completed
             current_user.profile_completed = True
             
             try:
                 db.session.commit()
+                
+                # Clear all authentication flow session flags
+                session.pop('registration_complete', None)
+                session.pop('otp_verified', None)
+                
+                # Refresh session to ensure user stays logged in
+                from flask_login import login_user
+                login_user(current_user, remember=True)
+                
                 flash('Profile completed successfully!', 'success')
                 return redirect(url_for('main.dashboard'))
             except Exception as e:
                 db.session.rollback()
                 flash(f'Error saving profile: {str(e)}', 'error')
+                return render_template('auth/complete-profile.html', user=current_user, errors={'general': str(e)}, form_data=form_data)
         
-        return render_template('auth/complete-profile.html', user=current_user)
+        return render_template('auth/complete-profile.html', user=current_user, form_data={})
