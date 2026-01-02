@@ -16,6 +16,14 @@ class LoginController:
         if current_user.is_authenticated:
             return redirect(url_for('main.dashboard'))
         
+        # If registration in progress (OTP not yet verified), redirect to OTP page
+        if session.get('user_id') and session.get('registration_complete') and not session.get('otp_verified'):
+            return redirect(url_for('auth.verify_otp'))
+        
+        # If OTP verified but profile not completed, redirect to complete profile
+        if session.get('otp_verified') and current_user.is_authenticated and not current_user.profile_completed:
+            return redirect(url_for('auth.complete_profile'))
+        
         errors = {}
         identifier = ''
         success_message = None
@@ -46,6 +54,7 @@ class LoginController:
                 session.pop('reset_email', None)
                 session.pop('reset_otp_sent', None)
                 session.pop('reset_otp_verified', None)
+                session.pop('password_reset_completed', None)
                 
                 # Check if profile is completed
                 if not user.profile_completed:

@@ -16,11 +16,18 @@ class ResetPasswordController:
         if current_user.is_authenticated:
             return redirect(url_for('main.dashboard'))
         
+        # If password reset was just completed, redirect to login
+        if session.get('password_reset_completed'):
+            return redirect(url_for('auth.login', reset_success='true'))
+        
         # If user already in password reset flow, redirect to next step
         if session.get('reset_otp_sent'):
             return redirect(url_for('auth.reset_password_verify_otp'))
         
         if request.method == 'POST':
+            # Clear any previous password reset completion flag
+            session.pop('password_reset_completed', None)
+            
             email = request.form.get('email')
             
             # Generate and send password reset OTP
@@ -46,6 +53,10 @@ class ResetPasswordController:
         # Redirect if already logged in
         if current_user.is_authenticated:
             return redirect(url_for('main.dashboard'))
+        
+        # If password reset was just completed, redirect to login
+        if session.get('password_reset_completed'):
+            return redirect(url_for('auth.login', reset_success='true'))
         
         # If OTP already verified, redirect to new password page
         if session.get('reset_otp_verified'):
@@ -90,6 +101,10 @@ class ResetPasswordController:
         if current_user.is_authenticated:
             return redirect(url_for('main.dashboard'))
         
+        # If password reset was just completed, redirect to login
+        if session.get('password_reset_completed'):
+            return redirect(url_for('auth.login', reset_success='true'))
+        
         # If OTP not verified, redirect to OTP verification
         if not session.get('reset_otp_verified'):
             return redirect(url_for('auth.reset_password_verify_otp'))
@@ -116,6 +131,9 @@ class ResetPasswordController:
                 return render_template('auth/reset-password-new-password.html', errors=errors)
             
             if AuthService.reset_password(user_id, new_password):
+                # Set completion flag BEFORE clearing other session data
+                session['password_reset_completed'] = True
+                
                 # Clear all password reset session data
                 session.pop('reset_user_id', None)
                 session.pop('reset_email', None)

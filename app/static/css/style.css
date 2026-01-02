@@ -11,7 +11,15 @@
 .floating-label-group input[type="password"],
 .floating-label-group input[type="url"] {
     color: #6b7280 !important; /* Tailwind text-gray-500 */
-    border-color: #d1d5db !important; /* Tailwind border-gray-300 */
+}
+
+/* Default border color - removed !important to allow error states */
+.floating-label-group input[type="text"]:not(.border-red-500),
+.floating-label-group input[type="email"]:not(.border-red-500),
+.floating-label-group input[type="tel"]:not(.border-red-500),
+.floating-label-group input[type="password"]:not(.border-red-500),
+.floating-label-group input[type="url"]:not(.border-red-500) {
+    border-color: #d1d5db;
 }
 
 .floating-label-group input:focus,
@@ -51,26 +59,26 @@
     background: #14a87a;
 }
 
-/* Ensure select dropdowns maintain gray border */
-select {
-    border-color: #d1d5db !important;
+/* Ensure select dropdowns maintain gray border - but allow error states */
+select:not(.border-red-500) {
+    border-color: #d1d5db;
 }
-select:hover {
-    border-color: #d1d5db !important;
+select:not(.border-red-500):hover {
+    border-color: #d1d5db;
 }
-select:focus {
-    border-color: #d1d5db !important;
+select:not(.border-red-500):focus {
+    border-color: #d1d5db;
 }
 
-/* Ensure URL inputs maintain gray border */
-input[type="url"] {
-    border-color: #d1d5db !important;
+/* Ensure URL inputs maintain gray border - but allow error states */
+input[type="url"]:not(.border-red-500) {
+    border-color: #d1d5db;
 }
-input[type="url"]:hover {
-    border-color: #d1d5db !important;
+input[type="url"]:not(.border-red-500):hover {
+    border-color: #d1d5db;
 }
-input[type="url"]:focus {
-    border-color: #d1d5db !important;
+input[type="url"]:not(.border-red-500):focus {
+    border-color: #d1d5db;
 }
 
 /* Smooth transitions for theme switching - optimized for performance */

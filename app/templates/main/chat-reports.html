@@ -213,9 +213,10 @@
                             <tbody id="chatReportsTable">
                                 <!-- Server-side Rendering Initial State -->
                                 {% if chat_reports %}
-                                    {% for item in chat_reports[:10] %}
+                                     {% for item in chat_reports[:10] %}
+                                    {% set is_last_row = loop.index == chat_reports[:10]|length %}
                                     <tr class="{% if loop.index0 % 2 == 0 %}bg-primaryDark/5 dark:bg-[#2A2A2A]{% else %}bg-gray-50 dark:bg-[#1E1E1E]{% endif %} hover:bg-gray-100 dark:hover:bg-[#333333] transition-all duration-300 ease-out cursor-pointer" onclick="viewTopicDetails({{ item.id }})">
-                                        <td class="py-4 px-6 rounded-tl-xl rounded-bl-xl">
+                                        <td class="py-4 px-6 {% if is_last_row %}rounded-bl-xl{% endif %}">
                                             <div>
                                                 <p class="font-semibold text-gray-900 dark:text-white mb-1">{{ item.title }}</p>
                                                 <p class="text-sm text-gray-600 dark:text-gray-400">{{ item.description }}</p>
@@ -238,7 +239,7 @@
                                         <td class="py-4 px-6">
                                             <span class="text-sm text-gray-600 dark:text-gray-400">{{ item.last_check_time or item.updated_at }}</span>
                                         </td>
-                                        <td class="py-4 px-6 rounded-tr-xl rounded-br-xl">
+                                        <td class="py-4 px-6 {% if is_last_row %}rounded-br-xl{% endif %}">
                                             <button onclick="event.stopPropagation(); viewTopicDetails({{ item.id }})" class="text-sm text-[#18CB96] hover:text-primaryDark font-medium transition-all duration-300 ease-out hover:scale-105">View Details</button>
                                         </td>
                                     </tr>
@@ -298,7 +299,7 @@
         const avgMessagesEl = document.getElementById('avgMessages');
         
         if (totalEl) totalEl.textContent = total.toString();
-        if (positivePercentEl) positivePercentEl.textContent = $%;
+        if (positivePercentEl) positivePercentEl.textContent = `${positivePercent}%`;
         if (frustratedEl) frustratedEl.textContent = frustrated.toString();
         if (avgMessagesEl) avgMessagesEl.textContent = avgMessages.toString();
     })();

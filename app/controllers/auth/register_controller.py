@@ -19,6 +19,9 @@ class RegisterController:
         # If registration already completed and waiting for OTP, redirect to OTP page
         if session.get('user_id') or session.get('registration_complete'):
             return redirect(url_for('auth.verify_otp'))
+        
+        # Clear password reset completion flag if user navigates here
+        session.pop('password_reset_completed', None)
 
         errors = {}
         form_data = {}
