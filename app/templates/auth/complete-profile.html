@@ -14,13 +14,14 @@
 {% block page_description %}Fill in your details to complete your account setup{% endblock %}
 
 {% block form_wrapper_class %}{% endblock %}
-{% block form_overflow %}overflow-y-auto custom-scrollbar{% endblock %}
+{% block form_overflow %}overflow-hidden{% endblock %}
 {% block title_shrink %}flex-shrink-0{% endblock %}
 
 {% block form_content %}
 <!-- Complete Profile Form -->
-<div class="flex-1 overflow-y-auto custom-scrollbar pr-2 pb-4">
-    <form action="{{ url_for('auth.complete_profile') }}" method="POST" class="space-y-6 w-full max-w-2xl mx-auto pb-8" id="profileForm" novalidate>
+    <form action="{{ url_for('auth.complete_profile') }}" method="POST" class="flex flex-col h-full w-full max-w-2xl mx-auto overflow-hidden" id="profileForm" novalidate>
+        <div class="flex-1 overflow-y-auto custom-scrollbar pr-2 pb-4">
+            <div class="space-y-6 pb-6">
         <!-- Basic Info Section -->
         <div class="space-y-5">
             <div class="flex items-center gap-3 mb-4">
@@ -36,12 +37,7 @@
                     </svg>
                     <input type="text" id="fullName" name="fullName" required minlength="3" value="{{ form_data.get('fullName') if form_data else (current_user.username or '') }}" class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent border {% if errors and errors.fullName %}border-red-500{% else %}border-gray-300{% endif %} rounded-lg text-gray-500 transition-all duration-300 hover:border-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder=" ">
                     <label for="fullName" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none transition-all duration-300 bg-transparent px-1 z-[1]">Full Name</label>
-                    {% if errors and errors.fullName %}
-                    <p class="mt-1 text-xs text-red-600 flex items-center gap-1">
-                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-                        {{ errors.fullName }}
-                    </p>
-                    {% endif %}
+                    <!-- Error Removed -->
                 </div>
                 
                 <!-- Email (readonly) -->
@@ -66,12 +62,7 @@
                 </svg>
                 <input type="tel" id="phone" name="phone" required pattern="[0-9]{10,15}" value="{{ form_data.get('phone') if form_data else (current_user.phone or '') }}" class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent border {% if errors and errors.phone %}border-red-500{% else %}border-gray-300{% endif %} rounded-lg text-gray-500 transition-all duration-300 hover:border-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder=" ">
                 <label for="phone" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none bg-transparent px-1 z-[1]">Phone Number</label>
-                {% if errors and errors.phone %}
-                <p class="mt-1 text-xs text-red-600 flex items-center gap-1">
-                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-                    {{ errors.phone }}
-                </p>
-                {% endif %}
+                <!-- Error Removed -->
             </div>
         </div>
         
@@ -89,12 +80,7 @@
                 </svg>
                 <input type="text" id="businessName" name="businessName" required minlength="2" value="{{ form_data.get('businessName', '') }}" class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent border {% if errors and errors.businessName %}border-red-500{% else %}border-gray-300{% endif %} rounded-lg text-gray-500 transition-all duration-300 hover:border-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder=" ">
                 <label for="businessName" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none bg-transparent px-1 z-[1]">Business Name</label>
-                {% if errors and errors.businessName %}
-                <p class="mt-1 text-xs text-red-600 flex items-center gap-1">
-                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-                    {{ errors.businessName }}
-                </p>
-                {% endif %}
+                <!-- Error Removed -->
             </div>
             
             <!-- Business Category -->
@@ -119,12 +105,7 @@
                 <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
-                {% if errors and errors.businessCategory %}
-                <p class="mt-1 text-xs text-red-600 flex items-center gap-1">
-                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-                    {{ errors.businessCategory }}
-                </p>
-                {% endif %}
+                <!-- Error Removed -->
             </div>
             
             <!-- Website URL (Optional) -->
@@ -161,12 +142,7 @@
                 <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
-                {% if errors and errors.country %}
-                <p class="mt-1 text-xs text-red-600 flex items-center gap-1">
-                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-                    {{ errors.country }}
-                </p>
-                {% endif %}
+                <!-- Error Removed -->
             </div>
             
             <!-- State and City -->
@@ -178,12 +154,7 @@
                     </svg>
                     <input type="text" id="state" name="state" required value="{{ form_data.get('state', '') }}" class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent border {% if errors and errors.state %}border-red-500{% else %}border-gray-300{% endif %} rounded-lg text-gray-500 transition-all duration-300 hover:border-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder=" ">
                     <label for="state" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none bg-transparent px-1 z-[1]">State</label>
-                    {% if errors and errors.state %}
-                    <p class="mt-1 text-xs text-red-600 flex items-center gap-1">
-                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-                        {{ errors.state }}
-                    </p>
-                    {% endif %}
+                    <!-- Error Removed -->
                 </div>
                 
                 <div class="floating-label-group relative">
@@ -193,12 +164,7 @@
                     </svg>
                     <input type="text" id="city" name="city" required value="{{ form_data.get('city', '') }}" class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent border {% if errors and errors.city %}border-red-500{% else %}border-gray-300{% endif %} rounded-lg text-gray-500 transition-all duration-300 hover:border-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder=" ">
                     <label for="city" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none bg-transparent px-1 z-[1]">City</label>
-                    {% if errors and errors.city %}
-                    <p class="mt-1 text-xs text-red-600 flex items-center gap-1">
-                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-                        {{ errors.city }}
-                    </p>
-                    {% endif %}
+                    <!-- Error Removed -->
                 </div>
             </div>
             
@@ -209,12 +175,7 @@
                 </svg>
                 <input type="text" id="pincode" name="pincode" required pattern="[0-9]{4,10}" value="{{ form_data.get('pincode', '') }}" class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent border {% if errors and errors.pincode %}border-red-500{% else %}border-gray-300{% endif %} rounded-lg text-gray-500 transition-all duration-300 hover:border-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder=" ">
                 <label for="pincode" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none bg-transparent px-1 z-[1]">Pincode</label>
-                {% if errors and errors.pincode %}
-                <p class="mt-1 text-xs text-red-600 flex items-center gap-1">
-                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-                    {{ errors.pincode }}
-                </p>
-                {% endif %}
+                <!-- Error Removed -->
             </div>
         </div>
         
@@ -241,12 +202,7 @@
                 <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
-                {% if errors and errors.timezone %}
-                <p class="mt-1 text-xs text-red-600 flex items-center gap-1">
-                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-                    {{ errors.timezone }}
-                </p>
-                {% endif %}
+                <!-- Error Removed -->
             </div>
             
             <!-- Language -->
@@ -265,12 +221,7 @@
                 <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
-                {% if errors and errors.preferredLanguage %}
-                <p class="mt-1 text-xs text-red-600 flex items-center gap-1">
-                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-                    {{ errors.preferredLanguage }}
-                </p>
-                {% endif %}
+                <!-- Error Removed -->
             </div>
             
             <!-- Notification Preference -->
@@ -287,23 +238,21 @@
                 <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
-                {% if errors and errors.notificationPreference %}
-                <p class="mt-1 text-xs text-red-600 flex items-center gap-1">
-                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-                    {{ errors.notificationPreference }}
-                </p>
-                {% endif %}
+                <!-- Error Removed -->
             </div>
         </div>
         
         <!-- Save Button -->
-        <div class="pt-3 flex justify-center">
+            </div>
+        </div>
+        
+        <!-- Save Button -->
+        <div class="pt-4 pb-2 flex justify-center shrink-0 bg-white mt-auto">
             <button type="submit" class="w-64 bg-primary hover:bg-primaryDark active:bg-primaryDark text-white font-semibold py-2.5 px-8 rounded-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#18CB96]/30 active:translate-y-0 focus:outline-none focus:ring-4 focus:ring-[#18CB96]/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
                 Save & Continue
             </button>
         </div>
     </form>
-</div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

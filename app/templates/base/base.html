@@ -77,5 +77,49 @@
             }
         })();
     </script>
+    <!-- Toast Notifications -->
+    <script src="{{ url_for('static', filename='js/toast.js') }}"></script>
+    <script>
+        // Initialize toasts from Flask Flash messages
+        document.addEventListener('DOMContentLoaded', () => {
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        // Map Flask categories to Toast types
+                        // Flask: 'message', 'error', 'success', 'warning'
+                        // Toast: 'info', 'error', 'success', 'warning'
+                        setTimeout(() => {
+                            window.toast.show(
+                                {{ message | tojson }}, 
+                                '{{ "error" if category == "error" else "success" if category == "success" else "warning" if category == "warning" else "info" }}'
+                            );
+                        }, {{ loop.index0 * 300 }}); // Stagger appearance
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            // Handle Form Errors (Inline Errors converted to Toasts)
+            {% if errors %}
+                {% for field, error_msg in errors.items() %}
+                    setTimeout(() => {
+                        window.toast.show(
+                            {{ error_msg | tojson }},
+                            'error'
+                        );
+                    }, {{ loop.index0 * 300 + 500 }}); // Stagger after flash messages
+                {% endfor %}
+            {% endif %}
+
+            // Handle specific success messages (e.g. from login page)
+            {% if success_message %}
+                setTimeout(() => {
+                    window.toast.show(
+                        {{ success_message | tojson }},
+                        'success'
+                    );
+                }, 500);
+            {% endif %}
+        });
+    </script>
 </body>
 </html>

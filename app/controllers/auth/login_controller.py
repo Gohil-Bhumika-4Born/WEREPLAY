@@ -62,6 +62,7 @@ class LoginController:
                     return redirect(url_for('auth.complete_profile'))
                 
                 # Successful login - redirect to dashboard
+                flash('Login successful! Welcome back.', 'success')
                 return redirect(url_for('main.dashboard'))
             else:
                 # Map error codes to field-specific inline errors

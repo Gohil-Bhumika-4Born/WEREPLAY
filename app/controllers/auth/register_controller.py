@@ -46,6 +46,11 @@ class RegisterController:
                 errors['confirmPassword'] = 'Passwords do not match. Please try again.'
                 return render_template('auth/register.html', errors=errors, form_data=form_data)
             
+            # Validate terms acceptance
+            if not request.form.get('acceptTerms'):
+                errors['terms'] = 'You must agree to the Terms of use to register.'
+                return render_template('auth/register.html', errors=errors, form_data=form_data)
+            
             user, error = AuthService.register_user(username, email, phone, password)
             
             if user:

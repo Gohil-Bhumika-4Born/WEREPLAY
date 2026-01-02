@@ -15,7 +15,7 @@
 
 {% block form_content %}
 <!-- OTP Verification Form -->
-<form method="POST" action="{{ url_for('auth.verify_otp') }}" class="space-y-5 w-full max-w-2xl mx-auto" id="otpForm">
+<form method="POST" action="{{ url_for('auth.verify_otp') }}" class="space-y-5 w-full max-w-2xl mx-auto" id="otpForm" novalidate>
     <!-- Email Info Text -->
     <div class="mb-3 text-center">
         <p class="text-sm text-gray">
@@ -38,18 +38,11 @@
         <input type="hidden" id="otp" name="otp" value="">
 
         <!-- Inline OTP Error Message -->
-        {% if errors and errors.otp %}
-        <p class="mt-2 text-xs text-red-600 flex items-center justify-center gap-1">
-            <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-            </svg>
-            {{ errors.otp }}
-        </p>
-        {% endif %}
+
     </div>
     
     <!-- Success/Error Message -->
-    <div id="message" class="hidden text-center text-sm py-2 rounded-lg"></div>
+
     
     <!-- Verify OTP Button -->
     <div class="pt-3 flex justify-center">
@@ -203,19 +196,7 @@
         });
         
         function showMessage(message, type) {
-            const messageDiv = document.getElementById('message');
-            messageDiv.textContent = message;
-            messageDiv.className = `text-center text-sm py-2 rounded-lg ${
-                type === 'success' 
-                    ? 'bg-green-50 text-green-600 border border-green-200' 
-                    : 'bg-red-50 text-red-600 border border-red-200'
-            }`;
-            messageDiv.classList.remove('hidden');
-            
-            // Auto hide after 5 seconds
-            setTimeout(() => {
-                messageDiv.classList.add('hidden');
-            }, 5000);
+            window.toast.show(message, type === 'success' ? 'success' : 'error');
         }
         
         // Focus first OTP input on load

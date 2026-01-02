@@ -19,14 +19,9 @@
 
 {% block form_content %}
 <!-- General Error Message -->
-{% if errors and errors.general %}
-<div class="mb-4 p-3 rounded-lg text-sm bg-red-50 text-red-600 border border-red-200 flex items-center gap-2">
-    <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-    </svg>
-    {{ errors.general }}
-</div>
-{% endif %}
+<!-- General Error Message -->
+<!-- Handled globally by toast.js in base.html -->
+
 <!-- Registration Form -->
 <form action="{{ url_for('auth.register') }}" method="POST" class="space-y-5 w-full max-w-2xl mx-auto" id="registerForm" novalidate>
     <!-- Full Name and Email Side by Side -->
@@ -48,14 +43,7 @@
                 placeholder=" "
             >
             <label for="fullName" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none transition-all duration-300 bg-transparent px-1 z-[1]">Full Name</label>
-            {% if errors and errors.fullName %}
-            <p class="mt-1 text-xs text-red-600 flex items-center gap-1">
-                <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-                </svg>
-                {{ errors.fullName }}
-            </p>
-            {% endif %}
+            <!-- Error Message Removed -->
         </div>
         
         <!-- Email Field -->
@@ -74,14 +62,7 @@
                 placeholder=" "
             >
             <label for="email" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none transition-all duration-300 bg-transparent px-1 z-[1]">Email Address</label>
-            {% if errors and errors.email %}
-            <p class="mt-1 text-xs text-red-600 flex items-center gap-1">
-                <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-                </svg>
-                {{ errors.email }}
-            </p>
-            {% endif %}
+            <!-- Error Message Removed -->
         </div>
     </div>
     
@@ -102,14 +83,7 @@
             placeholder=" "
         >
         <label for="phone" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none transition-all duration-300 bg-transparent px-1 z-[1]">Phone Number</label>
-        {% if errors and errors.phone %}
-        <p class="mt-1 text-xs text-red-600 flex items-center gap-1">
-            <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-            </svg>
-            {{ errors.phone }}
-        </p>
-        {% endif %}
+        <!-- Error Message Removed -->
     </div>
     
     <!-- Password Field -->
@@ -211,6 +185,8 @@
                 I agree to WeReplay <a href="{{ url_for('main.terms_conditions') }}" class="text-primary hover:text-primaryDark font-medium transition-colors" target="_blank">Terms of use</a>
             </span>
         </label>
+        <!-- Terms Error Message -->
+        <!-- Error Message Removed -->
     </div>
     
     <!-- Register Button -->
@@ -226,68 +202,130 @@
 </form>
 
 <script>
-    // Password matching validation
-    function validatePasswordMatch() {
-        const password = document.getElementById('password');
-        const confirmPassword = document.getElementById('confirmPassword');
-        const errorMsg = document.getElementById('passwordMismatchError');
-        const submitBtn = document.querySelector('button[type="submit"]');
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('registerForm');
         
-        // Only validate if confirmPassword has a value
-        if (confirmPassword.value) {
-            if (password.value !== confirmPassword.value) {
-                // Show error state
-                confirmPassword.classList.add('!border-red-500');
-                confirmPassword.classList.remove('border-gray-300');
-                errorMsg.classList.remove('hidden');
-                submitBtn.disabled = true;
-                submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        if (!form) return;
+
+        const fullNameInput = document.getElementById('fullName');
+        const emailInput = document.getElementById('email');
+        const phoneInput = document.getElementById('phone');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const acceptTermsInput = document.getElementById('acceptTerms');
+        const submitBtn = form.querySelector('button[type="submit"]');
+
+        const passwordMismatchError = document.getElementById('passwordMismatchError');
+
+        // Validation helper functions
+        function showError(inputElement, message) {
+            window.toast.show(message, 'error');
+            if (inputElement && inputElement.classList) {
+                inputElement.classList.add('!border-red-500', 'focus:!border-red-500');
+                inputElement.classList.remove('border-gray-300');
+            }
+        }
+
+        function hideError(inputElement) {
+            if (inputElement && inputElement.classList) {
+                inputElement.classList.remove('!border-red-500', 'focus:!border-red-500');
+                inputElement.classList.add('border-gray-300');
+            }
+        }
+
+        function checkPasswordMatch() {
+             if (confirmPasswordInput.value && passwordInput.value !== confirmPasswordInput.value) {
+                confirmPasswordInput.classList.add('!border-red-500');
+                confirmPasswordInput.classList.remove('border-gray-300');
+                if (passwordMismatchError) passwordMismatchError.classList.remove('hidden');
                 return false;
             } else {
-                // Clear error state
-                confirmPassword.classList.remove('!border-red-500');
-                confirmPassword.classList.add('border-gray-300');
-                errorMsg.classList.add('hidden');
-                submitBtn.disabled = false;
-                submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                confirmPasswordInput.classList.remove('!border-red-500');
+                confirmPasswordInput.classList.add('border-gray-300');
+                if (passwordMismatchError) passwordMismatchError.classList.add('hidden');
                 return true;
             }
         }
-        return true;
-    }
-    
-    // Save email to localStorage and validate passwords on form submit
-    document.addEventListener('DOMContentLoaded', function () {
-        const form = document.getElementById('registerForm');
-        const password = document.getElementById('password');
-        const confirmPassword = document.getElementById('confirmPassword');
-        
-        if (!form) return;
-        
-        // Add real-time validation on password fields
-        if (password && confirmPassword) {
-            password.addEventListener('input', validatePasswordMatch);
-            confirmPassword.addEventListener('input', validatePasswordMatch);
-            confirmPassword.addEventListener('blur', validatePasswordMatch);
+
+        // Real-time validation inputs
+        [fullNameInput, emailInput, phoneInput, passwordInput, confirmPasswordInput].forEach(input => {
+            if (input) {
+                input.addEventListener('input', function() {
+                    hideError(this);
+                });
+            }
+        });
+
+        if (confirmPasswordInput) {
+            confirmPasswordInput.addEventListener('input', checkPasswordMatch);
+        }
+        if (passwordInput) {
+            passwordInput.addEventListener('input', checkPasswordMatch);
         }
 
-        // Validate on form submission
         form.addEventListener('submit', function (e) {
-            // Validate password match before submitting
-            if (!validatePasswordMatch()) {
-                e.preventDefault();
-                return false;
-            }
+            e.preventDefault();
             
+            // 1. Check Empty Fields
+            let firstInvalidInput = null;
+            
+            // Helper to check valid
+            const checkRequired = (input, msg) => {
+                if (!input.value.trim()) {
+                    if (!firstInvalidInput) firstInvalidInput = input;
+                    showError(input, msg);
+                    return false;
+                }
+                return true;
+            };
+
+            let isValid = true;
+            isValid = checkRequired(fullNameInput, 'Please enter your full name.') && isValid;
+            isValid = checkRequired(emailInput, 'Please enter your email address.') && isValid;
+            isValid = checkRequired(phoneInput, 'Please enter your phone number.') && isValid;
+            isValid = checkRequired(passwordInput, 'Please enter a password.') && isValid;
+            isValid = checkRequired(confirmPasswordInput, 'Please confirm your password.') && isValid;
+
+            if (!isValid) return;
+
+            // 2. Validate Password Length & Complexity (Basic check)
+            if (passwordInput.value.length < 8) {
+                showError(passwordInput, 'Password must be at least 8 characters long.');
+                return;
+            }
+
+            // 3. Check Match
+            if (passwordInput.value !== confirmPasswordInput.value) {
+                showError(confirmPasswordInput, 'Passwords do not match.');
+                return;
+            }
+
+            // 4. Check Terms
+            if (!acceptTermsInput.checked) {
+                window.toast.show('You must agree to the Terms of use to register.', 'error');
+                return;
+            }
+
+            // If all good, show loader and submit
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-75', 'cursor-wait');
+            submitBtn.innerHTML = `
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Creating Account...
+            `;
+
             // Save email to localStorage for verify-otp page
-            const emailInput = document.getElementById('email');
             if (emailInput && emailInput.value) {
                 try {
                     localStorage.setItem('registerEmail', emailInput.value);
-                } catch (err) {
-                    // ignore storage errors
-                }
+                } catch (err) {}
             }
+            
+            // Use native submit since we prevented default
+            form.submit();
         });
     });
 </script>
