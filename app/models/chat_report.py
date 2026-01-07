@@ -11,7 +11,7 @@ class ChatReport(db.Model):
     __tablename__ = 'app_chat_reports'
     
     id = db.Column(db.Integer, primary_key=True)
-    app_id = db.Column(db.Integer, db.ForeignKey('apps.id'), nullable=False)
+    app_id = db.Column(db.String(6), nullable=True)  # References users.id (stored as string)
     title = db.Column(db.String(500), nullable=False)
     description = db.Column(db.Text, nullable=False)
     message_count = db.Column(db.Integer, nullable=False)

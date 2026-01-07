@@ -3,7 +3,7 @@ Authentication service for handling user authentication logic.
 """
 from datetime import datetime, timedelta
 from flask import current_app
-from app.models.user import User
+from app.models.user import User, generate_app_name_id
 from app.extensions import db
 from app.services.email_service import EmailService
 
@@ -64,8 +64,20 @@ class AuthService:
         if existing_user:
             return None, "User with this email or username already exists"
         
+        # Generate unique app_name_id
+        max_retries = 10
+        app_name_id = None
+        for _ in range(max_retries):
+            candidate_id = generate_app_name_id()
+            if not User.query.filter_by(app_name_id=candidate_id).first():
+                app_name_id = candidate_id
+                break
+        
+        if not app_name_id:
+            return None, "Failed to generate unique app ID. Please try again."
+
         # Create new user (unverified by default)
-        user = User(username=username, email=email, phone=phone, is_verified=False)
+        user = User(username=username, email=email, phone=phone, is_verified=False, app_name_id=app_name_id)
         user.set_password(password)
         
         # Generate OTP and set expiration

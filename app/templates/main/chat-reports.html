@@ -40,7 +40,7 @@
                                 </span>
                                 <span id="totalTopicsCount"
                                       class="text-lg sm:text-xl font-extrabold text-primaryDark dark:text-white leading-snug">
-                                    {{ chat_reports|length }}
+                                    {{ stats.total }}
                                 </span>
                             </div>
                             <div
@@ -50,7 +50,7 @@
                                 </span>
                                 <span id="positivePercent"
                                       class="text-lg sm:text-xl font-extrabold text-primaryDark dark:text-primary leading-snug">
-                                    0%
+                                    {{ stats.positive_percent }}%
                                 </span>
                             </div>
                             <div
@@ -60,7 +60,7 @@
                                 </span>
                                 <span id="frustratedCount"
                                       class="text-lg sm:text-xl font-extrabold text-red-600 dark:text-red-300 leading-snug">
-                                    0
+                                    {{ stats.frustrated }}
                                 </span>
                             </div>
                             <div
@@ -70,7 +70,7 @@
                                 </span>
                                 <span id="avgMessages"
                                       class="text-lg sm:text-xl font-extrabold text-gray-900 dark:text-white leading-snug">
-                                    0
+                                    {{ stats.avg_messages }}
                                 </span>
                             </div>
                         </div>
@@ -117,44 +117,44 @@
                         <!-- Sentiment Filter -->
                         <div>
                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Sentiment</label>
-                            <select id="sentimentFilter" class="w-full px-4 py-2.5 bg-white dark:bg-[#1E1E1E] border input-border-gray rounded-xl text-gray-900 dark:text-white focus:ring-2 focus:ring-[#18CB96] text-sm">
-                                <option value="">All</option>
-                                <option value="NORMAL">Normal</option>
-                                <option value="FRUSTRATED">Frustrated</option>
-                                <option value="POSITIVE">Positive</option>
+                            <select id="sentimentFilter" onchange="applyFilters()" class="w-full px-4 py-2.5 bg-white dark:bg-[#1E1E1E] border input-border-gray rounded-xl text-gray-900 dark:text-white focus:ring-2 focus:ring-[#18CB96] text-sm">
+                                <option value="" {% if not filters.sentiment %}selected{% endif %}>All</option>
+                                <option value="NORMAL" {% if filters.sentiment == 'NORMAL' %}selected{% endif %}>Normal</option>
+                                <option value="FRUSTRATED" {% if filters.sentiment == 'FRUSTRATED' %}selected{% endif %}>Frustrated</option>
+                                <option value="POSITIVE" {% if filters.sentiment == 'POSITIVE' %}selected{% endif %}>Positive</option>
                             </select>
                         </div>
                         
                         <!-- Category Filter -->
                         <div>
                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Category</label>
-                            <select id="categoryFilter" class="w-full px-4 py-2.5 bg-white dark:bg-[#1E1E1E] border input-border-gray rounded-xl text-gray-900 dark:text-white focus:ring-2 focus:ring-[#18CB96] text-sm">
-                                <option value="">All</option>
-                                <option value="question">Question</option>
-                                <option value="bug">Bug</option>
-                                <option value="error">Error</option>
-                                <option value="feature_request">Feature Request</option>
-                                <option value="other">Other</option>
+                            <select id="categoryFilter" onchange="applyFilters()" class="w-full px-4 py-2.5 bg-white dark:bg-[#1E1E1E] border input-border-gray rounded-xl text-gray-900 dark:text-white focus:ring-2 focus:ring-[#18CB96] text-sm">
+                                <option value="" {% if not filters.category %}selected{% endif %}>All</option>
+                                <option value="question" {% if filters.category == 'question' %}selected{% endif %}>Question</option>
+                                <option value="bug" {% if filters.category == 'bug' %}selected{% endif %}>Bug</option>
+                                <option value="error" {% if filters.category == 'error' %}selected{% endif %}>Error</option>
+                                <option value="feature_request" {% if filters.category == 'feature_request' %}selected{% endif %}>Feature Request</option>
+                                <option value="other" {% if filters.category == 'other' %}selected{% endif %}>Other</option>
                             </select>
                         </div>
                         
                         <!-- Date Range Filter -->
                         <div>
                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Date From</label>
-                            <input type="date" id="dateFrom" class="w-full px-4 py-2.5 bg-white dark:bg-[#1E1E1E] border input-border-gray rounded-xl text-gray-900 dark:text-white focus:ring-2 focus:ring-[#18CB96] text-sm">
+                            <input type="date" id="dateFrom" value="{{ filters.date_from }}" onchange="applyFilters()" class="w-full px-4 py-2.5 bg-white dark:bg-[#1E1E1E] border input-border-gray rounded-xl text-gray-900 dark:text-white focus:ring-2 focus:ring-[#18CB96] text-sm">
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Date To</label>
-                            <input type="date" id="dateTo" class="w-full px-4 py-2.5 bg-white dark:bg-[#1E1E1E] border input-border-gray rounded-xl text-gray-900 dark:text-white focus:ring-2 focus:ring-[#18CB96] text-sm">
+                            <input type="date" id="dateTo" value="{{ filters.date_to }}" onchange="applyFilters()" class="w-full px-4 py-2.5 bg-white dark:bg-[#1E1E1E] border input-border-gray rounded-xl text-gray-900 dark:text-white focus:ring-2 focus:ring-[#18CB96] text-sm">
                         </div>
                         
                         <!-- Message Count Range -->
                         <div>
                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Message Count</label>
                             <div class="flex gap-2">
-                                <input type="number" id="minMessages" placeholder="Min" class="w-full px-3 py-2.5 bg-white dark:bg-[#1E1E1E] border input-border-gray rounded-xl text-gray-900 dark:text-white focus:ring-2 focus:ring-[#18CB96] text-sm">
-                                <input type="number" id="maxMessages" placeholder="Max" class="w-full px-3 py-2.5 bg-white dark:bg-[#1E1E1E] border input-border-gray rounded-xl text-gray-900 dark:text-white focus:ring-2 focus:ring-[#18CB96] text-sm">
+                                <input type="number" id="minMessages" value="{{ filters.min_messages or '' }}" onchange="applyFilters()" placeholder="Min" class="w-full px-3 py-2.5 bg-white dark:bg-[#1E1E1E] border input-border-gray rounded-xl text-gray-900 dark:text-white focus:ring-2 focus:ring-[#18CB96] text-sm">
+                                <input type="number" id="maxMessages" value="{{ filters.max_messages or '' }}" onchange="applyFilters()" placeholder="Max" class="w-full px-3 py-2.5 bg-white dark:bg-[#1E1E1E] border input-border-gray rounded-xl text-gray-900 dark:text-white focus:ring-2 focus:ring-[#18CB96] text-sm">
                             </div>
                         </div>
                     </div>
@@ -173,6 +173,8 @@
                                 type="text"
                                 id="searchFilter"
                                 placeholder="Search by title or description..."
+                                value="{{ filters.search }}"
+                                onkeydown="if(event.key === 'Enter') applyFilters()"
                                 class="w-full pl-9 pr-3 py-2.5 bg-white/90 dark:bg-[#1E1E1E] border input-border-gray rounded-xl text-gray-900 dark:text-white focus:ring-2 focus:ring-[#18CB96] text-sm placeholder:text-gray-400 dark:placeholder:text-gray-500">
                         </div>
                     </div>
@@ -180,14 +182,14 @@
                 
                 <!-- Chat Reports Table -->
                 <section class="bg-white/95 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/10 dark:shadow-black/40 overflow-hidden">
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 sm:p-6">
                         <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 sm:mb-0">Chat Topics</h3>
                         <div class="flex flex-wrap gap-2">
                             <select id="rowsPerPage" class="px-3 py-2 bg-white dark:bg-[#1E1E1E] border input-border-gray rounded-lg text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-[#18CB96]">
-                                <option value="10">10 per page</option>
-                                <option value="20">20 per page</option>
-                                <option value="50">50 per page</option>
-                                <option value="100">100 per page</option>
+                                <option value="10" {% if filters.per_page == 10 %}selected{% endif %}>10 per page</option>
+                                <option value="20" {% if filters.per_page == 20 %}selected{% endif %}>20 per page</option>
+                                <option value="50" {% if filters.per_page == 50 %}selected{% endif %}>50 per page</option>
+                                <option value="100" {% if filters.per_page == 100 %}selected{% endif %}>100 per page</option>
                             </select>
                             <button onclick="exportReport()" class="px-4 py-2 bg-[#18CB96] hover:bg-primaryDark text-white rounded-lg font-medium transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-lg hover:shadow-[#18CB96]/30 text-sm flex items-center gap-2">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -211,10 +213,9 @@
                                 </tr>
                             </thead>
                             <tbody id="chatReportsTable">
-                                <!-- Server-side Rendering Initial State -->
-                                {% if chat_reports %}
-                                     {% for item in chat_reports[:10] %}
-                                    {% set is_last_row = loop.index == chat_reports[:10]|length %}
+                                {% if pagination.items %}
+                                    {% for item in pagination.items %}
+                                    {% set is_last_row = loop.last %}
                                     <tr class="{% if loop.index0 % 2 == 0 %}bg-primaryDark/5 dark:bg-[#2A2A2A]{% else %}bg-gray-50 dark:bg-[#1E1E1E]{% endif %} hover:bg-gray-100 dark:hover:bg-[#333333] transition-all duration-300 ease-out cursor-pointer" onclick="viewTopicDetails({{ item.id }})">
                                         <td class="py-4 px-6 {% if is_last_row %}rounded-bl-xl{% endif %}">
                                             <div>
@@ -237,43 +238,71 @@
                                             <span class="text-sm font-medium text-gray-900 dark:text-white">{{ item.message_count }}</span>
                                         </td>
                                         <td class="py-4 px-6">
-                                            <span class="text-sm text-gray-600 dark:text-gray-400">{{ item.last_check_time or item.updated_at }}</span>
+                                            <span class="text-sm text-gray-600 dark:text-gray-400">{{ item.last_check_time }}</span>
                                         </td>
                                         <td class="py-4 px-6 {% if is_last_row %}rounded-br-xl{% endif %}">
                                             <button onclick="event.stopPropagation(); viewTopicDetails({{ item.id }})" class="text-sm text-[#18CB96] hover:text-primaryDark font-medium transition-all duration-300 ease-out hover:scale-105">View Details</button>
                                         </td>
                                     </tr>
                                     {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6" class="p-12 text-center">
+                                            <div class="flex flex-col items-center justify-center">
+                                                <svg class="w-16 h-16 mx-auto text-gray-400 dark:text-gray-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                                </svg>
+                                                <p class="text-lg font-medium text-gray-900 dark:text-white mb-2">No chat topics found</p>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400">Try adjusting your filters or search criteria</p>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 {% endif %}
                             </tbody>
                         </table>
                     </div>
                     
-                    <!-- Empty State -->
-                    <div id="emptyState" class="hidden p-12 text-center">
-                        <svg class="w-16 h-16 mx-auto text-gray-400 dark:text-gray-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                        </svg>
-                        <p class="text-lg font-medium text-gray-900 dark:text-white mb-2">No chat topics found</p>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">Try adjusting your filters or search criteria</p>
-                    </div>
+                    <!-- Empty State (Server Side handles this in the table body now) -->
+                    <!-- <div id="emptyState" class="hidden p-12 text-center"> ... </div> -->
                 </section>
                 
-                <!-- Pagination -->
+                <!-- Server-Side Pagination -->
+                {% if pagination.total > 0 %}
                 <section class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white/95 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/5 dark:shadow-black/30 p-4 sm:p-6">
                     <div class="text-sm text-gray-600 dark:text-gray-400">
-                        Showing <span id="showingFrom" class="font-medium text-gray-900 dark:text-white">1</span> to <span id="showingTo" class="font-medium text-gray-900 dark:text-white">10</span> of <span id="totalItems" class="font-medium text-gray-900 dark:text-white">32</span> results
+                        Showing <span class="font-medium text-gray-900 dark:text-white">{{ (pagination.page - 1) * pagination.per_page + 1 }}</span> to <span class="font-medium text-gray-900 dark:text-white">{{ [(pagination.page * pagination.per_page), pagination.total]|min }}</span> of <span class="font-medium text-gray-900 dark:text-white">{{ pagination.total }}</span> results
                     </div>
                     <div class="flex items-center gap-2">
-                        <button onclick="previousPage()" id="prevBtn" class="px-4 py-2 bg-gray-100 dark:bg-[#333333] hover:bg-gray-200 dark:hover:bg-[#3A3A3A] text-gray-700 dark:text-gray-300 rounded-full font-medium transition-all duration-300 ease-out hover:scale-[1.02] text-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100">
+                        <!-- Previous Button -->
+                        <button onclick="goToPage({{ pagination.prev_num }})" {% if not pagination.has_prev %}disabled{% endif %} class="px-4 py-2 bg-gray-100 dark:bg-[#333333] hover:bg-gray-200 dark:hover:bg-[#3A3A3A] text-gray-700 dark:text-gray-300 rounded-full font-medium transition-all duration-300 ease-out hover:scale-[1.02] text-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100">
                             Previous
                         </button>
-                        <div class="flex items-center gap-1" id="pageNumbers"></div>
-                        <button onclick="nextPage()" id="nextBtn" class="px-4 py-2 bg-gray-100 dark:bg-[#333333] hover:bg-gray-200 dark:hover:bg-[#3A3A3A] text-gray-700 dark:text-gray-300 rounded-full font-medium transition-all duration-300 ease-out hover:scale-[1.02] text-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100">
+                        
+                        <div class="flex items-center gap-1">
+                            {% for page_num in pagination.iter_pages(left_edge=1, right_edge=1, left_current=2, right_current=2) %}
+                                {% if page_num %}
+                                    {% if page_num == pagination.page %}
+                                        <button class="px-3 py-2 rounded-lg font-medium text-sm bg-[#18CB96] text-white shadow-md cursor-default">
+                                            {{ page_num }}
+                                        </button>
+                                    {% else %}
+                                        <button onclick="goToPage({{ page_num }})" class="px-3 py-2 rounded-lg font-medium text-sm bg-gray-100 dark:bg-[#333333] text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-[#3A3A3A] transition-all duration-300 ease-out hover:scale-[1.05]">
+                                            {{ page_num }}
+                                        </button>
+                                    {% endif %}
+                                {% else %}
+                                    <span class="px-2 text-gray-500 dark:text-gray-400">...</span>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+                        <!-- Next Button -->
+                        <button onclick="goToPage({{ pagination.next_num }})" {% if not pagination.has_next %}disabled{% endif %} class="px-4 py-2 bg-gray-100 dark:bg-[#333333] hover:bg-gray-200 dark:hover:bg-[#3A3A3A] text-gray-700 dark:text-gray-300 rounded-full font-medium transition-all duration-300 ease-out hover:scale-[1.02] text-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100">
                             Next
                         </button>
                     </div>
                 </section>
+                {% endif %}
             </div>
         </main>
     </div>
@@ -281,227 +310,58 @@
 
 {% block extra_scripts %}
 <script>
-    // Get data from Flask backend
-    const chatReportsData = {{ chat_reports|tojson|safe }};
-    
-    // Header Stats (Top Summary Cards)
-    (function updateHeaderStats() {
-        const total = chatReportsData.length || 0;
-        const positive = chatReportsData.filter(item => item.sentiment === 'POSITIVE').length;
-        const frustrated = chatReportsData.filter(item => item.sentiment === 'FRUSTRATED').length;
-        const totalMessages = chatReportsData.reduce((sum, item) => sum + (item.message_count || 0), 0);
-        const avgMessages = total ? Math.round(totalMessages / total) : 0;
-        const positivePercent = total ? Math.round((positive / total) * 100) : 0;
-        
-        const totalEl = document.getElementById('totalTopicsCount');
-        const positivePercentEl = document.getElementById('positivePercent');
-        const frustratedEl = document.getElementById('frustratedCount');
-        const avgMessagesEl = document.getElementById('avgMessages');
-        
-        if (totalEl) totalEl.textContent = total.toString();
-        if (positivePercentEl) positivePercentEl.textContent = `${positivePercent}%`;
-        if (frustratedEl) frustratedEl.textContent = frustrated.toString();
-        if (avgMessagesEl) avgMessagesEl.textContent = avgMessages.toString();
-    })();
-    
-    let currentPage = 1;
-    let rowsPerPage = 10;
-    let filteredData = [...chatReportsData];
-    
-    // Filter Functions
-    function applyFilters() {
+    // URL Construction for Server-Side Filtering
+    function buildFilterParams(pageOverride) {
         const sentiment = document.getElementById('sentimentFilter').value;
         const category = document.getElementById('categoryFilter').value;
         const dateFrom = document.getElementById('dateFrom').value;
         const dateTo = document.getElementById('dateTo').value;
         const minMessages = document.getElementById('minMessages').value;
         const maxMessages = document.getElementById('maxMessages').value;
-        const search = document.getElementById('searchFilter').value.toLowerCase();
+        const search = document.getElementById('searchFilter').value;
+        const rowsPerPage = document.getElementById('rowsPerPage').value;
         
-        filteredData = chatReportsData.filter(item => {
-            // Sentiment (Case Insensitive)
-            if (sentiment && (item.sentiment || '').toUpperCase() !== sentiment.toUpperCase()) return false;
-            
-            // Category
-            if (category && item.category !== category) return false;
-            
-            // Message Count (using correct field 'message_count')
-            if (minMessages && (item.message_count || 0) < parseInt(minMessages)) return false;
-            if (maxMessages && (item.message_count || 0) > parseInt(maxMessages)) return false;
-            
-            // Date Range Filtering
-            if (dateFrom || dateTo) {
-                const itemDateStr = item.last_check_time || item.updated_at;
-                if (!itemDateStr) return false;
-                
-                const itemDate = new Date(itemDateStr);
-                // Reset time part for date comparison
-                itemDate.setHours(0, 0, 0, 0);
-                
-                if (dateFrom) {
-                    const fromDate = new Date(dateFrom);
-                    fromDate.setHours(0, 0, 0, 0);
-                    if (itemDate < fromDate) return false;
-                }
-                
-                if (dateTo) {
-                    const toDate = new Date(dateTo);
-                    toDate.setHours(0, 0, 0, 0);
-                    if (itemDate > toDate) return false;
-                }
-            }
-            
-            // Search (Title & Description with Null Safety)
-            if (search) {
-                const title = (item.title || '').toLowerCase();
-                const description = (item.description || '').toLowerCase();
-                if (!title.includes(search) && !description.includes(search)) return false;
-            }
-            
-            return true;
-        });
+        let params = new URLSearchParams(window.location.search);
         
-        currentPage = 1;
-        renderTable();
+        // Update params with new values
+        if (sentiment) params.set('sentiment', sentiment); else params.delete('sentiment');
+        if (category) params.set('category', category); else params.delete('category');
+        if (dateFrom) params.set('date_from', dateFrom); else params.delete('date_from');
+        if (dateTo) params.set('date_to', dateTo); else params.delete('date_to');
+        if (minMessages) params.set('min_messages', minMessages); else params.delete('min_messages');
+        if (maxMessages) params.set('max_messages', maxMessages); else params.delete('max_messages');
+        if (search) params.set('search', search); else params.delete('search');
+        if (rowsPerPage) params.set('per_page', rowsPerPage);
+        
+        // Handle Page
+        if (pageOverride) {
+            params.set('page', pageOverride);
+        } else {
+            // Reset to page 1 on filter change
+            params.set('page', 1); 
+        }
+        
+        return params.toString();
+    }
+    
+    function applyFilters() {
+        const queryParams = buildFilterParams();
+        window.location.href = "{{ url_for('main.chat_reports') }}?" + queryParams;
+    }
+    
+    function goToPage(pageNum) {
+        if (!pageNum) return;
+        const queryParams = buildFilterParams(pageNum);
+        window.location.href = "{{ url_for('main.chat_reports') }}?" + queryParams;
     }
     
     function resetFilters() {
-        document.getElementById('sentimentFilter').value = '';
-        document.getElementById('categoryFilter').value = '';
-        document.getElementById('dateFrom').value = '';
-        document.getElementById('dateTo').value = '';
-        document.getElementById('minMessages').value = '';
-        document.getElementById('maxMessages').value = '';
-        document.getElementById('searchFilter').value = '';
-        
-        filteredData = [...chatReportsData];
-        currentPage = 1;
-        renderTable();
+        window.location.href = "{{ url_for('main.chat_reports') }}";
     }
     
-    // Render Table
-    function renderTable() {
-        const tableBody = document.getElementById('chatReportsTable');
-        const emptyState = document.getElementById('emptyState');
-        
-        if (filteredData.length === 0) {
-            tableBody.innerHTML = '';
-            emptyState.classList.remove('hidden');
-            return;
-        }
-        
-        emptyState.classList.add('hidden');
-        
-        const start = (currentPage - 1) * rowsPerPage;
-        const end = start + rowsPerPage;
-        const pageData = filteredData.slice(start, end);
-        
-        tableBody.innerHTML = pageData.map((item, index) => {
-            const sentimentColors = {
-                'NORMAL': 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400',
-                'FRUSTRATED': 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-400',
-                'POSITIVE': 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400'
-            };
-            
-            // Alternating row colors
-            const rowBgClass = index % 2 === 0 
-                ? 'bg-primaryDark/5 dark:bg-[#2A2A2A]' 
-                : 'bg-gray-50 dark:bg-[#1E1E1E]';
-            
-            // Check if it's the last row for rounded corners
-            const isLastRow = index === pageData.length - 1;
-            const firstCellClass = isLastRow ? 'rounded-bl-xl' : '';
-            const lastCellClass = isLastRow ? 'rounded-br-xl' : '';
-            
-            return `
-                <tr class="${rowBgClass} hover:bg-gray-100 dark:hover:bg-[#333333] transition-all duration-300 ease-out cursor-pointer" onclick="viewTopicDetails(${item.id})">
-                    <td class="py-4 px-6 ${firstCellClass}">
-                        <div>
-                            <p class="font-semibold text-gray-900 dark:text-white mb-1">${item.title}</p>
-                            <p class="text-sm text-gray-600 dark:text-gray-400">${item.description}</p>
-                        </div>
-                    </td>
-                    <td class="py-4 px-6">
-                        <span class="px-2.5 py-1 text-xs font-medium rounded-full ${sentimentColors[item.sentiment]}">${item.sentiment}</span>
-                    </td>
-                    <td class="py-4 px-6">
-                        <span class="px-2.5 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300 rounded-full">${item.category || 'N/A'}</span>
-                    </td>
-                    <td class="py-4 px-6">
-                        <span class="text-sm font-medium text-gray-900 dark:text-white">${item.message_count}</span>
-                    </td>
-                    <td class="py-4 px-6">
-                        <span class="text-sm text-gray-600 dark:text-gray-400">${item.last_check_time || item.updated_at}</span>
-                    </td>
-                    <td class="py-4 px-6 ${lastCellClass}">
-                        <button onclick="event.stopPropagation(); viewTopicDetails(${item.id})" class="text-sm text-[#18CB96] hover:text-primaryDark font-medium transition-all duration-300 ease-out hover:scale-105">View Details</button>
-                    </td>
-                </tr>
-            `;
-        }).join('');
-        
-        updatePagination();
-    }
-    
-    // Pagination Functions
-    function updatePagination() {
-        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
-        const start = (currentPage - 1) * rowsPerPage + 1;
-        const end = Math.min(currentPage * rowsPerPage, filteredData.length);
-        
-        document.getElementById('showingFrom').textContent = filteredData.length > 0 ? start : 0;
-        document.getElementById('showingTo').textContent = end;
-        document.getElementById('totalItems').textContent = filteredData.length;
-        
-        document.getElementById('prevBtn').disabled = currentPage === 1;
-        document.getElementById('nextBtn').disabled = currentPage === totalPages || totalPages === 0;
-        
-        const pageNumbers = document.getElementById('pageNumbers');
-        pageNumbers.innerHTML = '';
-        
-        for (let i = 1; i <= totalPages; i++) {
-            if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
-                const btn = document.createElement('button');
-                btn.className = `px-3 py-2 rounded-lg font-medium text-sm transition-all duration-300 ease-out hover:scale-[1.05] ${
-                    i === currentPage 
-                        ? 'bg-[#18CB96] text-white hover:bg-primaryDark shadow-md' 
-                        : 'bg-gray-100 dark:bg-[#333333] text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-[#3A3A3A]'
-                }`;
-                btn.textContent = i;
-                btn.onclick = () => {
-                    currentPage = i;
-                    renderTable();
-                };
-                pageNumbers.appendChild(btn);
-            } else if (i === currentPage - 2 || i === currentPage + 2) {
-                const span = document.createElement('span');
-                span.className = 'px-2 text-gray-500 dark:text-gray-400';
-                span.textContent = '...';
-                pageNumbers.appendChild(span);
-            }
-        }
-    }
-    
-    function previousPage() {
-        if (currentPage > 1) {
-            currentPage--;
-            renderTable();
-        }
-    }
-    
-    function nextPage() {
-        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
-        if (currentPage < totalPages) {
-            currentPage++;
-            renderTable();
-        }
-    }
-    
-    // Rows Per Page Change
-    document.getElementById('rowsPerPage').addEventListener('change', (e) => {
-        rowsPerPage = parseInt(e.target.value);
-        currentPage = 1;
-        renderTable();
+    // Auto-apply rows per page change
+    document.getElementById('rowsPerPage').addEventListener('change', () => {
+        applyFilters();
     });
 
     // View Topic Details
@@ -513,10 +373,6 @@
     // Export Report
     function exportReport() {
         alert('Exporting report... This would download the report in selected format.');
-        // Implementation would call API: /api/chat-reports/export?format=pdf
     }
-    
-    // Initialize
-    renderTable();
 </script>
 {% endblock %}

@@ -5,6 +5,14 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from app.extensions import db
+import random
+import string
+
+def generate_app_name_id():
+    """Generate a random 6-character ID for app_name_id."""
+    chars = string.ascii_uppercase + string.digits
+    return ''.join(random.choice(chars) for _ in range(6))
+
 
 
 class User(UserMixin, db.Model):
@@ -18,6 +26,9 @@ class User(UserMixin, db.Model):
     phone = db.Column(db.String(20), nullable=True)
     password_hash = db.Column(db.String(255), nullable=False)
     is_verified = db.Column(db.Boolean, default=False, nullable=False)
+    
+    # App Association (standalone field, no foreign key)
+    app_name_id = db.Column(db.String(6), nullable=True, index=True)
     
     # Business Information
     business_name = db.Column(db.String(255), nullable=True)
