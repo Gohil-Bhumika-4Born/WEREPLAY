@@ -1,0 +1,374 @@
+{% extends "base/main_base.html" %}
+
+{% set current_page = 'training_history' %}
+
+{% block title %}WeReplay Admin Panel - Training History{% endblock %}
+
+{% block page_title %}Training History{% endblock %}
+
+{% block page_icon %}
+<svg class="w-6 h-6 text-primaryDark dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+</svg>
+{% endblock %}
+
+{% block main_content %}
+<!-- Training History Content -->
+            <div class="p-4 sm:p-6 lg:p-8">
+                <!-- Header Section -->
+                
+                <section class="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-white/90 dark:bg-[#252525] border border-primary/15 dark:border-primary/20 shadow-lg shadow-primary/5 dark:shadow-black/30 px-4 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-6 mb-6">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-primaryDark/10 opacity-80 pointer-events-none"></div>
+                    <div class="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        <div class="space-y-1">
+                            <p class="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.22em] text-primaryDark/80 dark:text-white">Model Versions</p>
+                            <p class="text-sm sm:text-base text-gray-700 dark:text-gray-200 font-medium">Track your AI model training history and versions</p>
+                        </div>
+                        <div class="flex flex-wrap gap-2 sm:gap-3">
+                            
+                            <a href="chat-reports.html" class="inline-flex items-center gap-2 px-4 py-2.5 bg-primaryDark dark:bg-[#1E1E1E] hover:bg-primaryDark hover:text-white dark:hover:bg-primaryLight/80 text-white dark:text-gray-100 rounded-xl text-xs sm:text-sm font-semibold border border-gray-200 dark:border-gray-700 transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                </svg>
+                                <span>Start New Training</span>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+                <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+                    <!-- Main Content Area - Model Versions List -->
+                    <div class="xl:col-span-2 space-y-4">
+                        <!-- Model Version v4 (Latest - Completed with Animation) -->
+                        <div class="relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl shadow-lg shadow-primary/10 dark:shadow-black/40 border-2 border-[#18CB96]/30 dark:border-[#18CB96]/40 p-6 cursor-pointer hover:shadow-xl transition-all" onclick="selectVersion('v4')">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+                            <div class="relative z-10">
+                                <div class="flex items-start justify-between mb-4">
+                                    <div class="flex items-center gap-3">
+                                        <div id="checkAnimation" class="flex items-center justify-center w-10 h-10 rounded-full bg-green-100 dark:bg-green-900/30 animate-bounce">
+                                            <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-lg font-bold text-gray-900 dark:text-white">WeReplayx Model v4</h3>
+                                            <p class="text-xs text-gray-500 dark:text-gray-400">Completed 2 hours ago</p>
+                                        </div>
+                                        <span class="px-2.5 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 rounded-full text-xs font-medium">Active</span>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">Training Cost</p>
+                                        <p class="text-sm font-semibold text-gray-900 dark:text-white">$2.45</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Training Stats -->
+                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+                                    <div class="p-3 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-lg border border-primary/20 dark:border-primary/30">
+                                        <p class="text-xs text-gray-600 dark:text-gray-400 mb-1">Training Time</p>
+                                        <p class="text-sm font-semibold text-gray-900 dark:text-white">2m 15s</p>
+                                        <p class="text-[10px] text-gray-500 dark:text-gray-500 mt-1">Est. was 2m 30s</p>
+                                    </div>
+                                    <div class="p-3 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-lg border border-primary/20 dark:border-primary/30">
+                                        <p class="text-xs text-gray-600 dark:text-gray-400 mb-1">Documents</p>
+                                        <p class="text-sm font-semibold text-gray-900 dark:text-white">5 files</p>
+                                    </div>
+                                    <div class="p-3 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-lg border border-primary/20 dark:border-primary/30">
+                                        <p class="text-xs text-gray-600 dark:text-gray-400 mb-1">Accuracy</p>
+                                        <p class="text-sm font-semibold text-gray-900 dark:text-white">96%</p>
+                                    </div>
+                                    <div class="p-3 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-lg border border-primary/20 dark:border-primary/30">
+                                        <p class="text-xs text-gray-600 dark:text-gray-400 mb-1">Total Tokens</p>
+                                        <p class="text-sm font-semibold text-gray-900 dark:text-white">18,450</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Documents Used -->
+                                <div class="mb-4">
+                                    <p class="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">Documents Used:</p>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="group relative px-2.5 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 rounded-lg text-xs font-medium cursor-help">
+                                            invoice.pdf
+                                            <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-48 p-2 bg-gray-900 dark:bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
+                                                Invoice processing document with payment terms, billing cycles, and refund policies
+                                                <div class="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-gray-800"></div>
+                                            </div>
+                                        </span>
+                                        <span class="group relative px-2.5 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 rounded-lg text-xs font-medium cursor-help">
+                                            faq.txt
+                                            <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-48 p-2 bg-gray-900 dark:bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
+                                                Frequently asked questions about product features, pricing, and support
+                                                <div class="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-gray-800"></div>
+                                            </div>
+                                        </span>
+                                        <span class="group relative px-2.5 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 rounded-lg text-xs font-medium cursor-help">
+                                            postman_collection.json
+                                            <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-56 p-2 bg-gray-900 dark:bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
+                                                Postman API collection with 12 endpoints including authentication, user management, and data APIs
+                                                <div class="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-gray-800"></div>
+                                            </div>
+                                        </span>
+                                        <span class="group relative px-2.5 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 rounded-lg text-xs font-medium cursor-help">
+                                            policy.pdf
+                                            <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-48 p-2 bg-gray-900 dark:bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
+                                                Company policies including privacy policy, terms of service, and user agreements
+                                                <div class="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-gray-800"></div>
+                                            </div>
+                                        </span>
+                                        <span class="group relative px-2.5 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 rounded-lg text-xs font-medium cursor-help">
+                                            guidelines.md
+                                            <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-48 p-2 bg-gray-900 dark:bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
+                                                Development guidelines and coding standards for the project
+                                                <div class="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-gray-800"></div>
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Model Version v3 -->
+                        <div class="relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-6 cursor-pointer hover:shadow-xl transition-all" onclick="selectVersion('v3')">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+                            <div class="relative z-10">
+                                <div class="flex items-start justify-between mb-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800">
+                                            <svg class="w-6 h-6 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-lg font-bold text-gray-900 dark:text-white">WeReplayx Model v3</h3>
+                                            <p class="text-xs text-gray-500 dark:text-gray-400">Completed 3 days ago</p>
+                                        </div>
+                                        <span class="px-2.5 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium">Inactive</span>
+                                        <span class="px-2.5 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-400 rounded-full text-xs font-medium">⚠ Retrain Recommended</span>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">Training Cost</p>
+                                        <p class="text-sm font-semibold text-gray-900 dark:text-white">$1.89</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+                                    <div class="p-3 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-lg border border-primary/20 dark:border-primary/30">
+                                        <p class="text-xs text-gray-600 dark:text-gray-400 mb-1">Training Time</p>
+                                        <p class="text-sm font-semibold text-gray-900 dark:text-white">1m 52s</p>
+                                        <p class="text-[10px] text-gray-500 dark:text-gray-500 mt-1">Est. was 2m 15s</p>
+                                    </div>
+                                    <div class="p-3 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-lg border border-primary/20 dark:border-primary/30">
+                                        <p class="text-xs text-gray-600 dark:text-gray-400 mb-1">Documents</p>
+                                        <p class="text-sm font-semibold text-gray-900 dark:text-white">3 files</p>
+                                    </div>
+                                    <div class="p-3 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-lg border border-primary/20 dark:border-primary/30">
+                                        <p class="text-xs text-gray-600 dark:text-gray-400 mb-1">Accuracy</p>
+                                        <p class="text-sm font-semibold text-gray-900 dark:text-white">94%</p>
+                                    </div>
+                                    <div class="p-3 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-lg border border-primary/20 dark:border-primary/30">
+                                        <p class="text-xs text-gray-600 dark:text-gray-400 mb-1">Total Tokens</p>
+                                        <p class="text-sm font-semibold text-gray-900 dark:text-white">12,300</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <p class="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">Documents Used:</p>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="group relative px-2.5 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 rounded-lg text-xs font-medium cursor-help">
+                                            invoice.pdf
+                                            <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-48 p-2 bg-gray-900 dark:bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
+                                                Invoice processing document with payment terms and billing information
+                                                <div class="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-gray-800"></div>
+                                            </div>
+                                        </span>
+                                        <span class="group relative px-2.5 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 rounded-lg text-xs font-medium cursor-help">
+                                            faq.txt
+                                            <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-48 p-2 bg-gray-900 dark:bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
+                                                Frequently asked questions document
+                                                <div class="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-gray-800"></div>
+                                            </div>
+                                        </span>
+                                        <span class="group relative px-2.5 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 rounded-lg text-xs font-medium cursor-help">
+                                            policy.pdf
+                                            <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-48 p-2 bg-gray-900 dark:bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
+                                                Company policy documents
+                                                <div class="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-gray-800"></div>
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="p-3 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-lg">
+                                    <p class="text-xs font-semibold text-orange-900 dark:text-orange-300 mb-1">⚠ New documents uploaded after this training</p>
+                                    <p class="text-xs text-orange-700 dark:text-orange-400">2 new documents are available. Retraining recommended to include latest data.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Model Version v2 -->
+                        <div class="relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-6 cursor-pointer hover:shadow-xl transition-all" onclick="selectVersion('v2')">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+                            <div class="relative z-10">
+                                <div class="flex items-start justify-between mb-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800">
+                                            <svg class="w-6 h-6 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-lg font-bold text-gray-900 dark:text-white">WeReplayx Model v2</h3>
+                                            <p class="text-xs text-gray-500 dark:text-gray-400">Completed 1 week ago</p>
+                                        </div>
+                                        <span class="px-2.5 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium">Inactive</span>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">Training Cost</p>
+                                        <p class="text-sm font-semibold text-gray-900 dark:text-white">$1.45</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+                                    <div class="p-3 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-lg border border-primary/20 dark:border-primary/30">
+                                        <p class="text-xs text-gray-600 dark:text-gray-400 mb-1">Training Time</p>
+                                        <p class="text-sm font-semibold text-gray-900 dark:text-white">1m 28s</p>
+                                        <p class="text-[10px] text-gray-500 dark:text-gray-500 mt-1">Est. was 1m 45s</p>
+                                    </div>
+                                    <div class="p-3 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-lg border border-primary/20 dark:border-primary/30">
+                                        <p class="text-xs text-gray-600 dark:text-gray-400 mb-1">Documents</p>
+                                        <p class="text-sm font-semibold text-gray-900 dark:text-white">2 files</p>
+                                    </div>
+                                    <div class="p-3 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-lg border border-primary/20 dark:border-primary/30">
+                                        <p class="text-xs text-gray-600 dark:text-gray-400 mb-1">Accuracy</p>
+                                        <p class="text-sm font-semibold text-gray-900 dark:text-white">91%</p>
+                                    </div>
+                                    <div class="p-3 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-lg border border-primary/20 dark:border-primary/30">
+                                        <p class="text-xs text-gray-600 dark:text-gray-400 mb-1">Total Tokens</p>
+                                        <p class="text-sm font-semibold text-gray-900 dark:text-white">8,900</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <p class="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">Documents Used:</p>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="group relative px-2.5 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 rounded-lg text-xs font-medium cursor-help">
+                                            invoice.pdf
+                                            <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-48 p-2 bg-gray-900 dark:bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
+                                                Invoice processing document
+                                                <div class="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-gray-800"></div>
+                                            </div>
+                                        </span>
+                                        <span class="group relative px-2.5 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 rounded-lg text-xs font-medium cursor-help">
+                                            faq.txt
+                                            <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-48 p-2 bg-gray-900 dark:bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
+                                                FAQ document
+                                                <div class="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-gray-800"></div>
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Side Preview Panel (Always Visible - ChatGPT Style) -->
+                    <div class="xl:col-span-1">
+                        <div class="relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-6 sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+                            <div class="relative z-10">
+                            <h3 id="previewTitle" class="text-lg font-bold text-gray-900 dark:text-white mb-4">Model Version Details</h3>
+                            
+                            <div id="versionPreview" class="space-y-4">
+                                <!-- Default Preview Content -->
+                                <div class="text-center py-8">
+                                    <svg class="w-16 h-16 text-gray-400 dark:text-gray-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">Select a model version to view details</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Postman Collection Analysis (Hidden by default, shown when postman file selected) -->
+                            <div id="postmanAnalysis" class="hidden space-y-4 mt-4">
+                                <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                                    <h4 class="text-sm font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                                        <svg class="w-5 h-5 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                        </svg>
+                                        Postman Collection Analysis
+                                    </h4>
+                                    
+                                    <!-- Endpoints Summary -->
+                                    <div class="mb-4 p-3 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-lg border border-primary/20 dark:border-primary/30">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <span class="text-xs font-semibold text-gray-700 dark:text-gray-300">Total Endpoints</span>
+                                            <span class="text-sm font-bold text-gray-900 dark:text-white">12</span>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-xs font-semibold text-gray-700 dark:text-gray-300">Methods</span>
+                                            <div class="flex gap-1">
+                                                <span class="px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 rounded text-[10px] font-medium">GET: 5</span>
+                                                <span class="px-2 py-0.5 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400 rounded text-[10px] font-medium">POST: 4</span>
+                                                <span class="px-2 py-0.5 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-400 rounded text-[10px] font-medium">PUT: 2</span>
+                                                <span class="px-2 py-0.5 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-400 rounded text-[10px] font-medium">DELETE: 1</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Sample Responses -->
+                                    <div class="mb-4">
+                                        <div class="flex items-center justify-between mb-2">
+                                            <span class="text-xs font-semibold text-gray-700 dark:text-gray-300">Sample Responses</span>
+                                            <span class="px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 rounded text-[10px] font-medium">9 available</span>
+                                        </div>
+                                        <div class="space-y-2">
+                                            <div class="p-2 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded border border-primary/20 dark:border-primary/30">
+                                                <p class="text-xs font-medium text-gray-900 dark:text-white">GET /api/users</p>
+                                                <p class="text-[10px] text-gray-500 dark:text-gray-400">200 OK - User list response</p>
+                                            </div>
+                                            <div class="p-2 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded border border-primary/20 dark:border-primary/30">
+                                                <p class="text-xs font-medium text-gray-900 dark:text-white">POST /api/auth/login</p>
+                                                <p class="text-[10px] text-gray-500 dark:text-gray-400">200 OK - Token response</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Missing Responses Warning -->
+                                    <div class="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                                        <div class="flex items-start gap-2">
+                                            <svg class="w-4 h-4 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            <div>
+                                                <p class="text-xs font-semibold text-red-900 dark:text-red-300 mb-1">Missing Responses</p>
+                                                <p class="text-[10px] text-red-700 dark:text-red-400 mb-2">3 endpoints without response examples:</p>
+                                                <ul class="text-[10px] text-red-700 dark:text-red-400 space-y-1 ml-2">
+                                                    <li>• GET /api/products</li>
+                                                    <li>• PUT /api/users/:id</li>
+                                                    <li>• DELETE /api/orders/:id</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Bad Schemas Warning -->
+                                    <div class="p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+                                        <div class="flex items-start gap-2">
+                                            <svg class="w-4 h-4 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                                            </svg>
+                                            <div>
+                                                <p class="text-xs font-semibold text-yellow-900 dark:text-yellow-300 mb-1">Bad Schemas</p>
+                                                <p class="text-[10px] text-yellow-700 dark:text-yellow-400">2 endpoints have incorrect request format schema</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+{% endblock %}

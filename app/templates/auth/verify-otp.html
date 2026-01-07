@@ -1,0 +1,206 @@
+{% extends "base/auth_base.html" %}
+
+{% set illustration_image = "OTP-removebg.png" %}
+
+{% block title %}WeReplay Admin Panel - Email Verification{% endblock %}
+{% block meta_description %}Verify your email OTP for WeReplay Admin Panel. Enter the 6-digit code sent to your email.{% endblock %}
+{% block meta_keywords %}WeReplay, Admin Panel, OTP Verification, Email Verification{% endblock %}
+
+{% block illustration_title %}Verify Your Email{% endblock %}
+{% block illustration_description %}We've sent a 6-digit verification code to your email address. Please enter it below to continue.{% endblock %}
+{% block illustration_alt %}OTP Verification illustration{% endblock %}
+
+{% block page_title %}Email Verification{% endblock %}
+{% block page_description %}{% endblock %}
+
+{% block form_content %}
+<!-- OTP Verification Form -->
+<form method="POST" action="{{ url_for('auth.verify_otp') }}" class="space-y-5 w-full max-w-2xl mx-auto" id="otpForm" novalidate>
+    <!-- Email Info Text -->
+    <div class="mb-3 text-center">
+        <p class="text-sm text-gray">
+            We have sent a 6-digit OTP to
+            <span id="emailText" class="font-semibold text-dark break-all">{{ email or session.get('user_email', '') }}</span>
+        </p>
+    </div>
+    
+    <!-- OTP Input Field (6 digits) -->
+    <div class="mb-0">
+        <label class="block text-sm text-gray-500 mb-3 text-center">Enter OTP Code</label>
+        <div class="flex justify-center gap-3" id="otpContainer">
+            <input type="text" id="otp1" name="otp1" maxlength="1" pattern="[0-9]" required class="w-14 h-14 text-center text-2xl font-bold border {% if errors and errors.otp %}border-red-500{% else %}border-gray{% endif %} rounded-lg text-gray focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all duration-300" autocomplete="off">
+            <input type="text" id="otp2" name="otp2" maxlength="1" pattern="[0-9]" required class="w-14 h-14 text-center text-2xl font-bold border {% if errors and errors.otp %}border-red-500{% else %}border-gray{% endif %} rounded-lg text-gray focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all duration-300" autocomplete="off">
+            <input type="text" id="otp3" name="otp3" maxlength="1" pattern="[0-9]" required class="w-14 h-14 text-center text-2xl font-bold border {% if errors and errors.otp %}border-red-500{% else %}border-gray{% endif %} rounded-lg text-gray focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all duration-300" autocomplete="off">
+            <input type="text" id="otp4" name="otp4" maxlength="1" pattern="[0-9]" required class="w-14 h-14 text-center text-2xl font-bold border {% if errors and errors.otp %}border-red-500{% else %}border-gray{% endif %} rounded-lg text-gray focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all duration-300" autocomplete="off">
+            <input type="text" id="otp5" name="otp5" maxlength="1" pattern="[0-9]" required class="w-14 h-14 text-center text-2xl font-bold border {% if errors and errors.otp %}border-red-500{% else %}border-gray{% endif %} rounded-lg text-gray focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all duration-300" autocomplete="off">
+            <input type="text" id="otp6" name="otp6" maxlength="1" pattern="[0-9]" required class="w-14 h-14 text-center text-2xl font-bold border {% if errors and errors.otp %}border-red-500{% else %}border-gray{% endif %} rounded-lg text-gray focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all duration-300" autocomplete="off">
+        </div>
+        <input type="hidden" id="otp" name="otp" value="">
+
+        <!-- Inline OTP Error Message -->
+
+    </div>
+    
+    <!-- Success/Error Message -->
+
+    
+    <!-- Verify OTP Button -->
+    <div class="pt-3 flex justify-center">
+        <button 
+            type="submit" 
+            id="verifyBtn"
+            class="w-64 bg-primary hover:bg-primaryDark active:bg-primaryDark text-white font-semibold py-2.5 px-8 rounded-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#18CB96]/30 active:translate-y-0 focus:outline-none focus:ring-4 focus:ring-[#18CB96]/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+            aria-label="Verify OTP"
+        >
+            Verify OTP
+        </button>
+    </div>
+    
+    <!-- Resend OTP Button -->
+    <div class="pt-2 flex justify-center">
+        <button 
+            type="button" 
+            id="resendBtn"
+            class="text-sm text-primary hover:text-primaryDark font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            aria-label="Resend OTP"
+        >
+            Resend OTP
+        </button>
+    </div>
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Priority: backend variable > session default
+        // If 'email' is passed from backend (on error), we don't need JS to set it, 
+        // as Jinja handles it in the HTML above.
+        
+        // OTP Input Handling - Auto focus next input
+        const otpInputs = document.querySelectorAll('#otpContainer input');
+        
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('input', function(e) {
+                // Only allow numbers
+                this.value = this.value.replace(/[^0-9]/g, '');
+                
+                // Auto focus next input
+                if (this.value && index < otpInputs.length - 1) {
+                    otpInputs[index + 1].focus();
+                }
+                
+                // Update hidden OTP field
+                updateOTPValue();
+            });
+            
+            input.addEventListener('keydown', function(e) {
+                // Handle backspace
+                if (e.key === 'Backspace' && !this.value && index > 0) {
+                    otpInputs[index - 1].focus();
+                }
+                
+                // Handle paste
+                if (e.key === 'v' && (e.ctrlKey || e.metaKey)) {
+                    e.preventDefault();
+                    navigator.clipboard.readText().then(text => {
+                        const digits = text.replace(/[^0-9]/g, '').slice(0, 6);
+                        digits.split('').forEach((digit, i) => {
+                            if (otpInputs[i]) {
+                                otpInputs[i].value = digit;
+                            }
+                        });
+                        updateOTPValue();
+                        if (digits.length === 6) {
+                            otpInputs[5].focus();
+                        } else if (digits.length > 0) {
+                            otpInputs[digits.length].focus();
+                        }
+                    });
+                }
+            });
+        });
+        
+        function updateOTPValue() {
+            const otp = Array.from(otpInputs).map(input => input.value).join('');
+            document.getElementById('otp').value = otp;
+        }
+        
+        // Form submission
+        document.getElementById('otpForm').addEventListener('submit', function(e) {
+            const otp = document.getElementById('otp').value;
+            
+            if (otp.length !== 6) {
+                e.preventDefault();
+                showMessage('Please enter a valid 6-digit OTP code', 'error');
+                return;
+            }
+            
+            // Disable button during submission
+            const verifyBtn = document.getElementById('verifyBtn');
+            verifyBtn.disabled = true;
+            verifyBtn.textContent = 'Verifying...';
+        });
+        
+        // Resend OTP with countdown timer
+        let resendCountdown = 0;
+        const resendBtn = document.getElementById('resendBtn');
+        
+        function startResendCountdown() {
+            resendCountdown = 60;
+            resendBtn.disabled = true;
+            
+            const interval = setInterval(() => {
+                resendCountdown--;
+                resendBtn.textContent = `Resend OTP (${resendCountdown}s)`;
+                
+                if (resendCountdown <= 0) {
+                    clearInterval(interval);
+                    resendBtn.disabled = false;
+                    resendBtn.textContent = 'Resend OTP';
+                }
+            }, 1000);
+        }
+        
+        resendBtn.addEventListener('click', function() {
+            if (resendBtn.disabled) return;
+            
+            resendBtn.disabled = true;
+            resendBtn.textContent = 'Sending...';
+            
+            // Call backend API to resend OTP
+            fetch('{{ url_for("auth.resend_otp") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showMessage(data.message, 'success');
+                    // Clear OTP inputs
+                    otpInputs.forEach(input => input.value = '');
+                    otpInputs[0].focus();
+                    // Start countdown
+                    startResendCountdown();
+                } else {
+                    showMessage(data.message, 'error');
+                    resendBtn.disabled = false;
+                    resendBtn.textContent = 'Resend OTP';
+                }
+            })
+            .catch(error => {
+                showMessage('Failed to resend OTP. Please try again.', 'error');
+                resendBtn.disabled = false;
+                resendBtn.textContent = 'Resend OTP';
+            });
+        });
+        
+        function showMessage(message, type) {
+            window.toast.show(message, type === 'success' ? 'success' : 'error');
+        }
+        
+        // Focus first OTP input on load
+        otpInputs[0].focus();
+    });
+</script>
+{% endblock %}

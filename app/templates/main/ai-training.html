@@ -1,0 +1,291 @@
+{% extends "base/main_base.html" %}
+
+{% set current_page = 'ai_training' %}
+
+{% block title %}WeReplay Admin Panel - AI Training{% endblock %}
+
+{% block page_title %}AI Training{% endblock %}
+
+{% block page_icon %}
+<svg class="w-6 h-6 text-primaryDark dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+</svg>
+{% endblock %}
+
+{% block main_content %}
+<!-- AI Training Content -->
+            <div class="p-4 sm:p-6 lg:p-8">
+                <section class="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-white/90 dark:bg-[#252525] border border-primary/15 dark:border-primary/20 shadow-lg shadow-primary/5 dark:shadow-black/30 px-4 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-6 mb-6">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-primaryDark/10 opacity-80 pointer-events-none"></div>
+                    <div class="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        <div class="space-y-1">
+                            <p class="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.22em] text-primaryDark/80 dark:text-white">Quick Actions</p>
+                            <p class="text-sm sm:text-base text-gray-700 dark:text-gray-200 font-medium">Upload documents or jump directly to chat reports from here.</p>
+                        </div>
+                        <div class="flex flex-wrap gap-2 sm:gap-3">
+                            <a href="documents-upload.html" class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#18CB96] hover:bg-primaryDark/90 dark:bg-[#18CB96] dark:hover:bg-primaryDark/90 text-white rounded-xl text-xs sm:text-sm font-semibold shadow-md hover:shadow-lg hover:shadow-[#18CB96]/30 transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                </svg>
+                                <span>Upload Document</span>
+                            </a>
+                            <a href="documents.html" class="inline-flex items-center gap-2 px-4 py-2.5 bg-primaryDark dark:bg-[#1E1E1E] hover:bg-primaryDark hover:text-white dark:hover:bg-primaryLight/80 text-white dark:text-gray-100 rounded-xl text-xs sm:text-sm font-semibold border border-gray-200 dark:border-gray-700 transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                                <span>View Document List</span>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+                <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+                    <!-- Main Content Area -->
+                    <div class="xl:col-span-2 space-y-6">
+                        <!-- Training Overview Header -->
+                        <div class="relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-6">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+                            <div class="relative z-10">
+                            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+                                <div>
+                                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Training Overview</h2>
+                                    <div class="flex flex-wrap items-center gap-4 text-sm">
+                                        <div>
+                                            <span class="text-gray-600 dark:text-gray-400">Current Model:</span>
+                                            <span class="font-semibold text-gray-900 dark:text-white ml-2">WeReplayx Model v3</span>
+                                        </div>
+                                        <div>
+                                            <span class="px-2.5 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 rounded-full text-xs font-medium">Ready</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <button onclick="startTraining()" id="trainBtn" class="px-4 py-2.5 bg-[#18CB96] hover:bg-primaryDark/90 dark:bg-[#18CB96] dark:hover:bg-primaryDark/90 text-white rounded-xl font-semibold shadow-md hover:shadow-lg hover:shadow-[#18CB96]/30 transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5 text-sm">
+                                        Train AI Now
+                                    </button>
+                                    <button onclick="resetModel()" class="px-4 py-2.5 bg-primaryDark dark:bg-[#1E1E1E] hover:bg-gray-100 dark:hover:bg-[#333333] text-white dark:text-gray-300 rounded-xl font-semibold border border-primaryDark dark:border-gray-700 transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5 text-sm shadow-sm hover:shadow-md">
+                                        Reset Model
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                                <div class="p-4 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl border border-primary/20 dark:border-primary/30 shadow-sm hover:shadow-md transition-all">
+                                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-1">Last Training</p>
+                                    <p class="text-sm font-semibold text-gray-900 dark:text-white">3 hours ago</p>
+                                </div>
+                                <div class="p-4 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl border border-primary/20 dark:border-primary/30 shadow-sm hover:shadow-md transition-all">
+                                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-1">Training Time</p>
+                                    <p class="text-sm font-semibold text-gray-900 dark:text-white">45 sec/doc</p>
+                                </div>
+                                <div class="p-4 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl border border-primary/20 dark:border-primary/30 shadow-sm hover:shadow-md transition-all">
+                                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-1">Accuracy Score</p>
+                                    <p class="text-sm font-semibold text-gray-900 dark:text-white">94%</p>
+                                </div>
+                                <div class="p-4 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl border border-primary/20 dark:border-primary/30 shadow-sm hover:shadow-md transition-all">
+                                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-1">Total Tokens</p>
+                                    <p class="text-sm font-semibold text-gray-900 dark:text-white">153,400</p>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Training Progress Box (ChatGPT style) -->
+                        <div id="trainingProgress" class="hidden relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-6">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+                            <div class="relative z-10">
+                            <div class="mb-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-sm font-medium text-gray-900 dark:text-white">Training Progress</span>
+                                    <span id="progressPercent" class="text-sm font-semibold text-[#18CB96]">0%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 dark:bg-[#1E1E1E] rounded-full h-3 overflow-hidden">
+                                    <div id="progressBar" class="bg-[#18CB96] h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <p id="currentDocument" class="text-sm text-gray-600 dark:text-gray-400 mb-2">Preparing training...</p>
+                            <p id="estimatedTime" class="text-xs text-gray-500 dark:text-gray-500">Estimated time left: Calculating...</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Document List for Training -->
+                        <div class="relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-6">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+                            <div class="relative z-10">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Documents for Training</h3>
+                                <button onclick="selectAll()" class="text-sm text-[#18CB96] hover:underline font-medium">Select All</button>
+                            </div>
+                            
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-4 p-4 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl border border-primary/20 dark:border-primary/30 hover:bg-gray-100 dark:hover:bg-[#333333] transition-all shadow-sm hover:shadow-md">
+                                    <input type="checkbox" checked class="w-4 h-4 text-[#18CB96] border-gray-300 rounded focus:ring-[#18CB96]">
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                                            </svg>
+                                            <p class="font-semibold text-gray-900 dark:text-white">invoice.pdf</p>
+                                        </div>
+                                        <div class="flex flex-wrap items-center gap-3 text-xs text-gray-600 dark:text-gray-400">
+                                            <span>3,120 tokens</span>
+                                            <span>•</span>
+                                            <span class="text-green-600 dark:text-green-400">Included in Training</span>
+                                            <span>•</span>
+                                            <span>Last processed: Today</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center gap-4 p-4 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl border border-primary/20 dark:border-primary/30 hover:bg-gray-100 dark:hover:bg-[#333333] transition-all shadow-sm hover:shadow-md">
+                                    <input type="checkbox" checked class="w-4 h-4 text-[#18CB96] border-gray-300 rounded focus:ring-[#18CB96]">
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                            </svg>
+                                            <p class="font-semibold text-gray-900 dark:text-white">faq.txt</p>
+                                        </div>
+                                        <div class="flex flex-wrap items-center gap-3 text-xs text-gray-600 dark:text-gray-400">
+                                            <span>1,900 tokens</span>
+                                            <span>•</span>
+                                            <span class="text-green-600 dark:text-green-400">Included in Training</span>
+                                            <span>•</span>
+                                            <span>Last processed: Today</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center gap-4 p-4 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl border border-primary/20 dark:border-primary/30 hover:bg-gray-100 dark:hover:bg-[#333333] transition-all shadow-sm hover:shadow-md">
+                                    <input type="checkbox" class="w-4 h-4 text-[#18CB96] border-gray-300 rounded focus:ring-[#18CB96]">
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <svg class="w-5 h-5 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                            </svg>
+                                            <p class="font-semibold text-gray-900 dark:text-white">postman_collection.json</p>
+                                        </div>
+                                        <div class="flex flex-wrap items-center gap-3 text-xs text-gray-600 dark:text-gray-400">
+                                            <span>9,114 tokens</span>
+                                            <span>•</span>
+                                            <span class="text-gray-500 dark:text-gray-500">Not included</span>
+                                            <span>•</span>
+                                            <span>Last processed: Yesterday</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Training Errors Panel -->
+                        <div class="relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-6">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+                            <div class="relative z-10">
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Training Errors & Suggestions</h3>
+                            <div class="space-y-3">
+                                <div class="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl">
+                                    <div class="flex items-start gap-3">
+                                        <svg class="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                        <div class="flex-1">
+                                            <p class="font-semibold text-red-900 dark:text-red-300 mb-1">Missing API Responses</p>
+                                            <p class="text-sm text-red-700 dark:text-red-400 mb-2">postman_collection.json has 3 endpoints without response examples</p>
+                                            <button class="text-xs text-red-600 dark:text-red-400 hover:underline font-medium">Reprocess Document →</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl">
+                                    <div class="flex items-start gap-3">
+                                        <svg class="w-5 h-5 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                                        </svg>
+                                        <div class="flex-1">
+                                            <p class="font-semibold text-yellow-900 dark:text-yellow-300 mb-1">Invalid Postman Schema</p>
+                                            <p class="text-sm text-yellow-700 dark:text-yellow-400 mb-2">Some endpoints have incorrect request format</p>
+                                            <button class="text-xs text-yellow-600 dark:text-yellow-400 hover:underline font-medium">Fix Schema →</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Side Preview Panel (Always Visible - ChatGPT Style) -->
+                    <div class="xl:col-span-1">
+                        <div class="relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-6 sticky top-24">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+                            <div class="relative z-10">
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Document Preview</h3>
+                            
+                            <div class="space-y-4">
+                                <!-- Selected Document Info -->
+                                <div class="p-4 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl border border-primary/20 dark:border-primary/30 shadow-sm">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                                        </svg>
+                                        <p class="font-semibold text-gray-900 dark:text-white">invoice.pdf</p>
+                                    </div>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-3">Invoice processing document with payment terms and billing information</p>
+                                    
+                                    <div class="space-y-2 text-xs">
+                                        <div class="flex justify-between">
+                                            <span class="text-gray-600 dark:text-gray-400">Type:</span>
+                                            <span class="text-gray-900 dark:text-white font-medium">PDF</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span class="text-gray-600 dark:text-gray-400">Size:</span>
+                                            <span class="text-gray-900 dark:text-white font-medium">1.2 MB</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span class="text-gray-600 dark:text-gray-400">Tokens:</span>
+                                            <span class="text-gray-900 dark:text-white font-medium">3,120</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span class="text-gray-600 dark:text-gray-400">Status:</span>
+                                            <span class="px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 rounded-full text-xs font-medium">Processed</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Extracted Content Preview -->
+                                <div>
+                                    <h4 class="text-sm font-semibold text-gray-900 dark:text-white mb-2">Extracted Content</h4>
+                                    <div class="p-3 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-lg border border-primary/20 dark:border-primary/30 max-h-64 overflow-y-auto custom-scrollbar shadow-sm">
+                                        <p class="text-xs text-gray-700 dark:text-gray-300 leading-relaxed">
+                                            Invoice processing document contains payment terms, billing cycles, refund policies, and customer account management procedures. Includes detailed information about subscription renewals, payment methods accepted, and invoice generation rules...
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Detected Fields -->
+                                <div>
+                                    <h4 class="text-sm font-semibold text-gray-900 dark:text-white mb-2">Detected Fields</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400 rounded text-xs">Payment Terms</span>
+                                        <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400 rounded text-xs">Billing</span>
+                                        <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400 rounded text-xs">Refunds</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Actions -->
+                                <div class="pt-4 border-t border-primaryDark text-primaryDark dark:border-gray-700">
+                                    <button onclick="previewDocument()" class="w-full px-4 py-2.5 bg-primaryDark text-white dark:bg-[#1E1E1E] hover:bg-primaryDark hover:text-white dark:hover:bg-[#333333] text-primaryDark dark:text-gray-300 rounded-xl font-semibold border border-primaryDark dark:border-gray-700 transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5 text-sm mb-2 shadow-sm hover:shadow-md">
+                                        Full Preview
+                                    </button>
+                                    <button onclick="reprocessDocument()" class="w-full px-4 py-2.5 bg-[#18CB96] hover:bg-primaryDark/90 dark:bg-[#18CB96] dark:hover:bg-primaryDark/90 text-white rounded-xl font-semibold shadow-md hover:shadow-lg hover:shadow-[#18CB96]/30 transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5 text-sm">
+                                        Reprocess
+                                    </button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+{% endblock %}

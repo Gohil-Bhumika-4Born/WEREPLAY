@@ -1,0 +1,215 @@
+{% extends "base/main_base.html" %}
+
+{% set current_page = 'download' %}
+
+{% block title %}WeReplay Admin Panel - Download Software{% endblock %}
+
+{% block page_title %}Download Software{% endblock %}
+
+{% block page_icon %}
+<svg class="w-6 h-6 text-primaryDark dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+</svg>
+{% endblock %}
+
+{% block main_content %}
+<!-- Content -->
+            <div class="p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8">
+                <!-- Header Section -->
+                <section class="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-white/90 dark:bg-[#252525] border border-primary/15 dark:border-primary/20 shadow-lg shadow-primary/5 dark:shadow-black/30 px-4 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-6">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-primaryDark/10 opacity-80 pointer-events-none"></div>
+                    <div class="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-6">
+                        <div class="flex-1">
+                            <p class="text-[11px] sm:text-xs font-semibold tracking-[0.22em] uppercase text-primaryDark/80 dark:text-white mb-1">Download Desktop Application</p>
+                            <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white leading-tight mb-2">Download WeReplayx Desktop App</h2>
+                            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 max-w-xl">
+                                Stay connected with your WhatsApp customers using the WeReplayx desktop app. Monitor conversations, trigger training and manage documents in real-time.
+                            </p>
+                        </div>
+                        <div class="flex flex-col items-start gap-2">
+                            <p class="text-[11px] sm:text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Available Platform</p>
+                            <div class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] border border-primary/20 dark:border-primary/30 shadow-sm">
+                                <svg class="w-5 h-5 text-gray-700 dark:text-gray-200" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z" />
+                                </svg>
+                                <span class="text-xs sm:text-sm font-semibold text-gray-800 dark:text-gray-100">Windows 10 / 11</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- OS Cards -->
+                <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <article class="lg:col-span-2 relative overflow-hidden bg-white/95 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-6 flex flex-col sm:flex-row gap-6">
+                        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+                        <div class="relative z-10 flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-2xl bg-gradient-to-br from-[#18CB96]/20 to-[#14a87a]/20 border border-primary/30">
+                            <svg class="w-10 h-10 text-[#18CB96]" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z" />
+                            </svg>
+                        </div>
+                        <div class="relative z-10 flex-1 min-w-0">
+                            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
+                                <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">Windows Installer (.exe)</h3>
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-semibold bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">Stable • Recommended</span>
+                            </div>
+                            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-4">Version <span class="font-semibold text-gray-900 dark:text-white">v1.3.0</span> • Released on <span class="font-semibold text-gray-900 dark:text-white">12 Jan 2025</span> • <span class="font-semibold text-gray-900 dark:text-white">85 MB</span></p>
+                            <div class="flex flex-wrap gap-2 mb-5">
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-gray-100 dark:bg-[#333333] text-sm font-medium text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600">Auto-update enabled</span>
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-gray-100 dark:bg-[#333333] text-sm font-medium text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600">Requires Windows 10+</span>
+                            </div>
+                            <button onclick="openDownloadModal()" class="inline-flex items-center gap-2 px-5 py-2.5 bg-[#18CB96] hover:bg-primaryDark dark:bg-[#18CB96] dark:hover:bg-primaryDark text-white rounded-xl text-sm font-semibold shadow-md hover:shadow-lg hover:shadow-[#18CB96]/30 transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" />
+                                </svg>
+                                Download for Windows
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- Features Summary -->
+                    <aside class="relative overflow-hidden bg-white/95 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-6 flex flex-col gap-4">
+                        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+                        <div class="relative z-10">
+                            <h3 class="text-base font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 text-primaryDark dark:text-white text-xs">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </span>
+                                Desktop App Highlights
+                            </h3>
+                            <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-2.5 mb-4">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-[#18CB96] mt-0.5">•</span>
+                                    <span>Monitor conversations in real-time</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-[#18CB96] mt-0.5">•</span>
+                                    <span>Trigger training jobs with one click</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-[#18CB96] mt-0.5">•</span>
+                                    <span>Quick access to documents & chat reports</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-[#18CB96] mt-0.5">•</span>
+                                    <span>Desktop notifications for important events</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-[#18CB96] mt-0.5">•</span>
+                                    <span>Auto-sync with your web dashboard</span>
+                                </li>
+                            </ul>
+                            <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Having trouble installing? <a href="support.html?category=software-installation" class="text-[#18CB96] hover:underline font-medium">Contact support →</a></p>
+                            </div>
+                        </div>
+                    </aside>
+                </section>
+
+                <!-- Install Guide -->
+                <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <article class="relative overflow-hidden bg-white/95 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-6">
+                        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+                        <div class="relative z-10">
+                            <h3 class="text-base font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 text-primaryDark dark:text-white text-xs">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                                    </svg>
+                                </span>
+                                Installation Guide (Windows)
+                            </h3>
+                            <ol class="space-y-3 text-sm text-gray-700 dark:text-gray-300">
+                                <li class="flex items-start gap-2.5">
+                                    <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary/10 text-primaryDark dark:text-white text-xs font-semibold mt-0.5 flex-shrink-0">1</span>
+                                    <span>Download the installer using the button above.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary/10 text-primaryDark dark:text-white text-xs font-semibold mt-0.5 flex-shrink-0">2</span>
+                                    <span>Run the <span class="font-mono bg-gray-100 dark:bg-[#333333] px-1.5 py-0.5 rounded">WeReplayx-Setup.exe</span> file and follow the steps.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary/10 text-primaryDark dark:text-white text-xs font-semibold mt-0.5 flex-shrink-0">3</span>
+                                    <span>Allow network permissions when prompted by Windows Defender.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary/10 text-primaryDark dark:text-white text-xs font-semibold mt-0.5 flex-shrink-0">4</span>
+                                    <span>Launch the app and login with your WeReplayx account.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary/10 text-primaryDark dark:text-white text-xs font-semibold mt-0.5 flex-shrink-0">5</span>
+                                    <span>Connect your WhatsApp number from the Settings screen.</span>
+                                </li>
+                            </ol>
+                        </div>
+                    </article>
+
+                    <article class="relative overflow-hidden bg-white/95 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-6">
+                        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+                        <div class="relative z-10">
+                            <h3 class="text-base font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 text-primaryDark dark:text-white text-xs">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                    </svg>
+                                </span>
+                                Auto-update & Release Notes
+                            </h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">The desktop app supports background auto-updates. When a new version is available, you'll see a small badge near the profile icon.</p>
+                            <ul class="space-y-3 text-sm text-gray-700 dark:text-gray-300">
+                                <li class="flex items-start gap-2.5 p-3 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl border border-primary/20 dark:border-primary/30">
+                                    <span class="font-semibold text-primaryDark dark:text-white">v1.3.0</span>
+                                    <span>– Improved WhatsApp reconnect flow, enhanced logs viewer.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5 p-3 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl border border-primary/20 dark:border-primary/30">
+                                    <span class="font-semibold text-primaryDark dark:text-white">v1.2.1</span>
+                                    <span>– Added desktop notifications for training completion.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5 p-3 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl border border-primary/20 dark:border-primary/30">
+                                    <span class="font-semibold text-primaryDark dark:text-white">v1.2.0</span>
+                                    <span>– Initial public release.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </article>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Download Modal -->
+    <div id="downloadModal" class="hidden fixed inset-0 z-50 overflow-y-auto" aria-modal="true" role="dialog">
+        <div class="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onclick="closeDownloadModal()"></div>
+        <div class="flex min-h-full items-center justify-center p-4">
+            <div class="relative bg-gradient-to-b from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-2xl shadow-2xl max-w-lg w-full p-6 transform transition-all ring-[#18CB96]/20 dark:ring-[#18CB96]/30">
+                <button onclick="closeDownloadModal()" class="absolute top-4 right-4 rounded-lg text-gray-400 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#333333] transition-colors" aria-label="Close modal">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+                <div class="mb-4">
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Download WeReplayx Desktop</h2>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">Choose your platform and start the download. Currently Windows is supported.</p>
+                </div>
+                <div class="space-y-3 mb-4">
+                    <button onclick="startDownload()" class="w-full flex items-center justify-between px-4 py-4 rounded-xl bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] border border-primary/20 dark:border-primary/30 hover:bg-gray-50 dark:hover:bg-[#333333] text-sm text-gray-800 dark:text-gray-100 transition-all duration-200 shadow-sm hover:shadow-md">
+                        <div class="flex items-center gap-3">
+                            <div class="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-xl bg-[#18CB96]/10">
+                                <svg class="w-6 h-6 text-[#18CB96]" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z" />
+                                </svg>
+                            </div>
+                            <div class="text-left">
+                                <p class="font-semibold text-gray-900 dark:text-white">Windows (.exe)</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">v1.3.0 • 85 MB • Released 12 Jan 2025</p>
+                            </div>
+                        </div>
+                        <span class="text-sm font-semibold text-[#18CB96]">Download →</span>
+                    </button>
+                </div>
+                <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 text-center">Trouble downloading? <a href="support.html?category=software-installation" class="text-[#18CB96] hover:underline font-medium">Visit support →</a></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

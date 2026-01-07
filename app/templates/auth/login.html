@@ -1,0 +1,125 @@
+{% extends "base/auth_base.html" %}
+
+{% set illustration_image = "Login-bg.png" %}
+
+{% block title %}WeReplay Admin Panel - Login{% endblock %}
+{% block meta_description %}Login to your WeReplay Admin Panel account.{% endblock %}
+{% block meta_keywords %}WeReplay, Admin Panel, Login, Sign In{% endblock %}
+
+{% block illustration_title %}Welcome back to WeReplay{% endblock %}
+{% block illustration_description %}Login to access your WhatsApp customer support automation dashboard.{% endblock %}
+{% block illustration_alt %}Secure Login illustration{% endblock %}
+
+{% block page_title %}Login{% endblock %}
+{% block page_description %}Enter your credentials to access the WeReplay Admin Panel{% endblock %}
+
+{% block extra_head %}
+<script src="{{ url_for('static', filename='js/password-toggle.js') }}"></script>
+{% endblock %}
+
+{% block form_content %}
+<!-- Success Message (for password reset success) -->
+<!-- Handled globally by toast.js in base.html -->
+
+
+<!-- General Error Message (for non-field-specific errors like verification) -->
+<!-- General Error Message (for non-field-specific errors like verification) -->
+<!-- Handled globally by toast.js in base.html -->
+
+
+<!-- Login Form -->
+<form id="loginForm" method="POST" action="{{ url_for('auth.login') }}" class="space-y-5 w-full max-w-2xl mx-auto" novalidate>
+    <!-- Email / Phone Field -->
+    <div class="floating-label-group relative mb-0">
+        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-primary pointer-events-none z-10 input-icon transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        </svg>
+        <input 
+            type="text" 
+            id="loginIdentifier" 
+            name="loginIdentifier" 
+            value="{{ identifier if identifier is defined else '' }}"
+            required 
+            autocomplete="username"
+            class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent border {% if errors and errors.identifier %}border-red-500{% else %}border-gray-300{% endif %} rounded-lg text-gray-500 transition-all duration-300 hover:border-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            placeholder=" "
+        >
+        <label for="loginIdentifier" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none transition-all duration-300 bg-transparent px-1 z-[1]">Email or Phone</label>
+        
+        <!-- Inline Error Message -->
+        <!-- Inline Error Message -->
+
+    </div>
+
+    <!-- Password Field -->
+    <div class="floating-label-group relative mb-0">
+        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-primary pointer-events-none z-10 input-icon transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        </svg>
+        <input 
+            type="password" 
+            id="loginPassword" 
+            name="password" 
+            required 
+            autocomplete="current-password"
+            class="w-full py-3.5 pl-10 pr-10 text-sm bg-transparent border {% if errors and errors.password %}border-red-500{% else %}border-gray-300{% endif %} rounded-lg text-gray-500 transition-all duration-300 hover:border-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            placeholder=" "
+        >
+        <label for="loginPassword" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none transition-all duration-300 bg-transparent px-1 z-[1]">Password</label>
+        <!-- Eye Icon Toggle Button -->
+        <button 
+            type="button" 
+            class="absolute right-3 top-1/2 -translate-y-1/2 focus:outline-none transition-colors duration-300 z-10 group"
+            onclick="togglePasswordVisibility('loginPassword', 'loginPasswordEyeIcon')"
+            aria-label="Toggle password visibility"
+            onmouseover="this.querySelectorAll('path, circle, line').forEach(el => el.setAttribute('stroke', '#374151'))"
+            onmouseout="this.querySelectorAll('path, circle, line').forEach(el => el.setAttribute('stroke', '#6B7280'))"
+        >
+            <!-- Eye Open Icon (shown when password is hidden) -->
+            <svg id="loginPasswordEyeIcon" class="w-5 h-5" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke="#6B7280" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3" stroke="#6B7280" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" fill="none"></circle>
+            </svg>
+            <!-- Eye Closed Icon (hidden by default) -->
+            <svg id="loginPasswordEyeIconClosed" class="w-5 h-5 hidden" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke="#6B7280" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                <line x1="1" y1="1" x2="23" y2="23" stroke="#6B7280" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line>
+            </svg>
+        </button>
+        
+        <!-- Inline Error Message -->
+        <!-- Inline Error Message -->
+
+    </div>
+
+    <!-- Forgot Password -->
+    <div class="flex justify-end">
+        <a href="{{ url_for('auth.reset_password') }}" class="text-sm text-primary hover:text-primaryDark font-medium transition-colors">Forgot password?</a>
+    </div>
+
+    <!-- Login Button -->
+    <div class="pt-1 flex justify-center">
+        <button 
+            type="submit" 
+            id="loginBtn"
+            class="w-64 bg-primary hover:bg-primaryDark active:bg-primaryDark text-white font-semibold py-2.5 px-8 rounded-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#18CB96]/30 active:translate-y-0 focus:outline-none focus:ring-4 focus:ring-[#18CB96]/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+            aria-label="Login to account"
+        >
+            Login
+        </button>
+    </div>
+
+    <!-- Feedback Message -->
+    <div id="loginMessage" class="hidden text-center text-sm py-2 rounded-lg"></div>
+</form>
+{% endblock %}
+
+{% block footer_links %}
+<!-- Register Link -->
+<div class="text-center pt-4">
+    <p class="text-sm text-gray">
+        Don&apos;t have an account?
+        <a href="{{ url_for('auth.register') }}" class="text-primary hover:text-primaryDark font-semibold transition-colors">Register Now</a>
+    </p>
+</div>
+{% endblock %}

@@ -1,0 +1,980 @@
+{% extends "base/main_base.html" %}
+
+{% set current_page = 'guidelines' %}
+
+{% block title %}WeReplay Admin Panel - Create Guidelines{% endblock %}
+
+{% block page_title %}Create Guidelines{% endblock %}
+
+{% block page_icon %}
+<svg class="w-6 h-6 text-primaryDark dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+</svg>
+{% endblock %}
+
+{% block main_content %}
+<!-- Dashboard Content -->
+            <!-- Guidelines Content -->
+            <div class="p-4 sm:p-6 lg:p-8">
+                <div class="max-w-6xl mx-auto space-y-6 sm:space-y-8">
+                    <!-- Top CTA Row (Upload & Chat Reports) -->
+                    <section class="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-white/90 dark:bg-[#252525] border border-primary/15 dark:border-primary/20 shadow-lg shadow-primary/5 dark:shadow-black/30 px-4 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-6">
+                        <div class="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-primaryDark/10 opacity-80 pointer-events-none"></div>
+                        <div class="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                            <div class="space-y-1">
+                                <p class="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.22em] text-primaryDark/80 dark:text-white">Quick Actions</p>
+                                <p class="text-sm sm:text-base text-gray-700 dark:text-gray-200 font-medium">Upload documents or jump directly to chat reports from here.</p>
+                            </div>
+                            <div class="flex flex-wrap gap-2 sm:gap-3">
+                                <a href="documents-upload.html" class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#18CB96] hover:bg-primaryDark/90 dark:bg-[#18CB96] dark:hover:bg-primaryDark/90 text-white rounded-xl text-xs sm:text-sm font-semibold shadow-md hover:shadow-lg hover:shadow-[#18CB96]/30 transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                    </svg>
+                                    <span>Upload Document</span>
+                                </a>
+                                <a href="chat-reports.html" class="inline-flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-[#1E1E1E] hover:bg-primary hover:text-white dark:hover:bg-primaryLight/80 text-gray-800 dark:text-gray-100 rounded-xl text-xs sm:text-sm font-semibold border border-gray-200 dark:border-gray-700 transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                    <span>View Chat Reports</span>
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Main Guidelines Content -->
+                    <section class="space-y-8">
+                        <!-- Intro -->
+                        <section id="intro" class="relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-5 sm:p-6 lg:p-8">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+                            <div class="relative z-10">
+                                <div class="flex items-start gap-4 mb-6">
+                                    <div class="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-primary/10 dark:bg-primary/20 border border-primary/20 dark:border-primary/30 flex-shrink-0 shadow-sm">
+                                        <svg class="w-6 h-6 sm:w-7 sm:h-7 text-primaryDark dark:text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.22em] text-primaryDark/80 dark:text-white mb-2">Getting Started</p>
+                                        <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-3 leading-tight">1. Introduction to WeReplayx</h2>
+                                        <p class="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+                                            WeReplayx is an <span class="font-semibold text-primaryDark dark:text-primary">AI-powered WhatsApp support automation platform</span>.
+                                            You upload your documents &amp; APIs, and the AI learns from them automatically. Customers message your WhatsApp
+                                            number, and the AI replies instantly based on your content.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="grid sm:grid-cols-2 gap-4 sm:gap-5 mt-6">
+                                    <div class="bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl p-5 border border-primary/20 dark:border-primary/30 shadow-sm hover:shadow-md transition-all">
+                                        <h3 class="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                                            <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
+                                            Key Features
+                                        </h3>
+                                        <ul class="space-y-2.5 text-sm sm:text-base text-gray-700 dark:text-gray-300">
+                                            <li class="flex items-start gap-2.5">
+                                                <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                                <span>Automated WhatsApp replies</span>
+                                            </li>
+                                            <li class="flex items-start gap-2.5">
+                                                <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                                <span>Document-based training</span>
+                                            </li>
+                                            <li class="flex items-start gap-2.5">
+                                                <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                                <span>Postman/API-based knowledge</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl p-5 border border-primary/20 dark:border-primary/30 shadow-sm hover:shadow-md transition-all">
+                                        <h3 class="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                                            <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
+                                            More Capabilities
+                                        </h3>
+                                        <ul class="space-y-2.5 text-sm sm:text-base text-gray-700 dark:text-gray-300">
+                                            <li class="flex items-start gap-2.5">
+                                                <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                                <span>High accuracy with your data</span>
+                                            </li>
+                                            <li class="flex items-start gap-2.5">
+                                                <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                                <span>User-friendly dashboards</span>
+                                            </li>
+                                            <li class="flex items-start gap-2.5">
+                                                <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                                <span>Real-time chat monitoring &amp; reports</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="mt-6 p-4 sm:p-5 rounded-xl bg-primary/5 dark:bg-primary/10 border border-primary/20 dark:border-primary/30">
+                                    <p class="text-xs sm:text-sm text-gray-700 dark:text-gray-300 font-medium">
+                                        <span class="font-semibold text-primaryDark dark:text-primary">💡 Tip:</span> This page helps you get started faster, reduce onboarding time and avoid support tickets by giving you
+                                        clear, step-by-step guidelines.
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- How it works -->
+                        <section id="how-it-works" class="relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-5 sm:p-6 lg:p-8">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+                            <div class="relative z-10">
+                                <div class="flex items-start gap-4 mb-6">
+                                    <div class="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-primary/10 dark:bg-primary/20 border border-primary/20 dark:border-primary/30 flex-shrink-0 shadow-sm">
+                                        <svg class="w-6 h-6 sm:w-7 sm:h-7 text-primaryDark dark:text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.22em] text-primaryDark/80 dark:text-white mb-2">Process Overview</p>
+                                        <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-3 leading-tight">2. How WeReplayx Works (Simple)</h2>
+                                    </div>
+                                </div>
+                            <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-5 mb-6">
+                                <div class="bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl p-5 border border-primary/20 dark:border-primary/30 text-center hover:shadow-md transition-all">
+                                    <div class="w-12 h-12 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center mx-auto mb-3 shadow-sm">
+                                        <span class="text-lg sm:text-xl font-bold text-primaryDark dark:text-primary">1</span>
+                                    </div>
+                                    <p class="text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300">Upload Documents</p>
+                                </div>
+                                <div class="bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl p-5 border border-primary/20 dark:border-primary/30 text-center hover:shadow-md transition-all">
+                                    <div class="w-12 h-12 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center mx-auto mb-3 shadow-sm">
+                                        <span class="text-lg sm:text-xl font-bold text-primaryDark dark:text-primary">2</span>
+                                    </div>
+                                    <p class="text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300">AI Processes</p>
+                                </div>
+                                <div class="bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl p-5 border border-primary/20 dark:border-primary/30 text-center hover:shadow-md transition-all">
+                                    <div class="w-12 h-12 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center mx-auto mb-3 shadow-sm">
+                                        <span class="text-lg sm:text-xl font-bold text-primaryDark dark:text-primary">3</span>
+                                    </div>
+                                    <p class="text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300">Auto Training</p>
+                                </div>
+                                <div class="bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl p-5 border border-primary/20 dark:border-primary/30 text-center hover:shadow-md transition-all">
+                                    <div class="w-12 h-12 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center mx-auto mb-3 shadow-sm">
+                                        <span class="text-lg sm:text-xl font-bold text-primaryDark dark:text-primary">4</span>
+                                    </div>
+                                    <p class="text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300">Connect WhatsApp</p>
+                                </div>
+                                <div class="bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl p-5 border border-primary/20 dark:border-primary/30 text-center hover:shadow-md transition-all">
+                                    <div class="w-12 h-12 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center mx-auto mb-3 shadow-sm">
+                                        <span class="text-lg sm:text-xl font-bold text-primaryDark dark:text-primary">5</span>
+                                    </div>
+                                    <p class="text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300">AI Replies</p>
+                                </div>
+                            </div>
+
+                            </div>
+                        </section>
+
+                        <!-- Getting Started -->
+                        <section id="getting-started" class="relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-5 sm:p-6 lg:p-8">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+                            <div class="relative z-10">
+                                <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between mb-6">
+                                    <div class="flex items-start gap-4 flex-1">
+                                        <div class="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-primary/10 dark:bg-primary/20 border border-primary/20 dark:border-primary/30 flex-shrink-0 shadow-sm">
+                                            <svg class="w-6 h-6 sm:w-7 sm:h-7 text-primaryDark dark:text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.22em] text-primaryDark/80 dark:text-white mb-2">Onboarding</p>
+                                            <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-2 leading-tight">3. Step-by-Step Getting Started Guide</h2>
+                                            <p class="text-sm sm:text-base text-gray-700 dark:text-gray-300">Follow this onboarding checklist to go live smoothly.</p>
+                                        </div>
+                                    </div>
+                                    <a href="documents-upload.html" class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#18CB96] hover:bg-[#14a87a] dark:bg-[#18CB96] dark:hover:bg-[#14a87a] text-white rounded-xl text-xs sm:text-sm font-semibold shadow-md hover:shadow-lg hover:shadow-[#18CB96]/30 whitespace-nowrap transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                        </svg>
+                                        Get Started (Upload Docs)
+                                    </a>
+                                </div>
+                            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+                                <div class="bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl p-5 border border-primary/20 dark:border-primary/30 hover:shadow-md transition-all">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-10 h-10 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center flex-shrink-0 shadow-sm">
+                                            <span class="text-sm font-bold text-primaryDark dark:text-primary">1</span>
+                                        </div>
+                                        <p class="text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-300 pt-1.5">Register &amp; complete your profile</p>
+                                    </div>
+                                </div>
+                                <div class="bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl p-5 border border-primary/20 dark:border-primary/30 hover:shadow-md transition-all">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-10 h-10 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center flex-shrink-0 shadow-sm">
+                                            <span class="text-sm font-bold text-primaryDark dark:text-primary">2</span>
+                                        </div>
+                                        <p class="text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-300 pt-1.5">Upload documents (PDF, TXT, DOCX, CSV, JSON, Postman Collection JSON)</p>
+                                    </div>
+                                </div>
+                                <div class="bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl p-5 border border-primary/20 dark:border-primary/30 hover:shadow-md transition-all">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-10 h-10 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center flex-shrink-0 shadow-sm">
+                                            <span class="text-sm font-bold text-primaryDark dark:text-primary">3</span>
+                                        </div>
+                                        <p class="text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-300 pt-1.5">Wait for auto-training – WeReplayx processes everything automatically</p>
+                                    </div>
+                                </div>
+                                <div class="bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl p-5 border border-primary/20 dark:border-primary/30 hover:shadow-md transition-all">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-10 h-10 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center flex-shrink-0 shadow-sm">
+                                            <span class="text-sm font-bold text-primaryDark dark:text-primary">4</span>
+                                        </div>
+                                        <p class="text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-300 pt-1.5">Connect your WhatsApp number</p>
+                                    </div>
+                                </div>
+                                <div class="bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl p-5 border border-primary/20 dark:border-primary/30 hover:shadow-md transition-all">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-10 h-10 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center flex-shrink-0 shadow-sm">
+                                            <span class="text-sm font-bold text-primaryDark dark:text-primary">5</span>
+                                        </div>
+                                        <p class="text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-300 pt-1.5">Test the AI in a sandbox / test chat</p>
+                                    </div>
+                                </div>
+                                <div class="bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl p-5 border border-primary/20 dark:border-primary/30 hover:shadow-md transition-all">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-10 h-10 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center flex-shrink-0 shadow-sm">
+                                            <span class="text-sm font-bold text-primaryDark dark:text-primary">6</span>
+                                        </div>
+                                        <p class="text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-300 pt-1.5">Start receiving customer messages on your WhatsApp</p>
+                                    </div>
+                                </div>
+                                <div class="bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl p-5 border border-primary/20 dark:border-primary/30 hover:shadow-md transition-all sm:col-span-2 lg:col-span-1">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-10 h-10 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center flex-shrink-0 shadow-sm">
+                                            <span class="text-sm font-bold text-primaryDark dark:text-primary">7</span>
+                                        </div>
+                                        <p class="text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-300 pt-1.5">Monitor chats and performance in <a href="chat-reports.html" class="text-primaryDark dark:text-primary hover:underline font-bold">Chat Reports</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </section>
+
+                        <!-- Document Upload Guidelines -->
+                        <section id="document-uploads" class="relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-5 sm:p-6 lg:p-8">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+                            <div class="relative z-10">
+                                <div class="flex items-start gap-4 mb-6">
+                                    <div class="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-primary/10 dark:bg-primary/20 border border-primary/20 dark:border-primary/30 flex-shrink-0 shadow-sm">
+                                        <svg class="w-6 h-6 sm:w-7 sm:h-7 text-primaryDark dark:text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.22em] text-primaryDark/80 dark:text-white mb-2">File Management</p>
+                                        <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-2 leading-tight">4. Document Upload Guidelines</h2>
+                                    </div>
+                                </div>
+                            <div class="grid md:grid-cols-2 gap-5 sm:gap-6">
+                                <!-- Card 1 -->
+                                <div class="bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl p-5 sm:p-6 border border-primary/20 dark:border-primary/30 shadow-sm hover:shadow-md transition-all">
+                                    <h3 class="text-base sm:text-lg font-bold text-gray-900 dark:text-white uppercase tracking-wide mb-4 flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
+                                        Accepted File Types
+                                    </h3>
+                                    <div class="flex flex-wrap gap-2 mb-6">
+                                        <span class="px-3 py-1.5 bg-white dark:bg-[#2A2A2A] rounded-lg text-xs font-semibold text-gray-700 dark:text-gray-300 border border-primary/20 shadow-sm">PDF</span>
+                                        <span class="px-3 py-1.5 bg-white dark:bg-[#2A2A2A] rounded-lg text-xs font-semibold text-gray-700 dark:text-gray-300 border border-primary/20 shadow-sm">TXT</span>
+                                        <span class="px-3 py-1.5 bg-white dark:bg-[#2A2A2A] rounded-lg text-xs font-semibold text-gray-700 dark:text-gray-300 border border-primary/20 shadow-sm">DOCX</span>
+                                        <span class="px-3 py-1.5 bg-white dark:bg-[#2A2A2A] rounded-lg text-xs font-semibold text-gray-700 dark:text-gray-300 border border-primary/20 shadow-sm">CSV</span>
+                                        <span class="px-3 py-1.5 bg-white dark:bg-[#2A2A2A] rounded-lg text-xs font-semibold text-gray-700 dark:text-gray-300 border border-primary/20 shadow-sm">JSON</span>
+                                        <span class="px-3 py-1.5 bg-white dark:bg-[#2A2A2A] rounded-lg text-xs font-semibold text-gray-700 dark:text-gray-300 border border-primary/20 shadow-sm">Postman JSON</span>
+                                    </div>
+
+                                    <h3 class="text-base sm:text-lg font-bold text-gray-900 dark:text-white uppercase tracking-wide mb-4 flex items-center gap-2 mt-5">
+                                        <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
+                                        Recommended Content
+                                    </h3>
+                                    <ul class="space-y-2.5 text-sm sm:text-base text-gray-700 dark:text-gray-300">
+                                        <li class="flex items-start gap-2">
+                                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                            <span>FAQs</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                            <span>Policies (Refund, Support, Warranty, Delivery)</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                            <span>Price lists &amp; plans</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                            <span>Product information &amp; features</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                            <span>Processes &amp; SOPs</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                            <span>Internal knowledge base articles</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <!-- Card 2 -->
+                                <div class="bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl p-5 sm:p-6 border border-primary/20 dark:border-primary/30 shadow-sm hover:shadow-md transition-all">
+                                    <h3 class="text-base sm:text-lg font-bold text-gray-900 dark:text-white uppercase tracking-wide mb-4 flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
+                                        Document Quality Tips
+                                    </h3>
+                                    <ul class="space-y-2.5 text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-6">
+                                        <li class="flex items-start gap-2">
+                                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                            <span>Use clear, text-based files (not only images)</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                            <span>Avoid images / scanned PDFs (unless OCR is enabled)</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                            <span>Use proper headings, sections and bullet points</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                            <span>Keep content well-structured and easy to scan</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                            <span>Upload separate documents per topic (e.g. Refunds, Pricing, Shipping)</span>
+                                        </li>
+                                    </ul>
+
+                                    <h3 class="text-base sm:text-lg font-bold text-gray-900 dark:text-white uppercase tracking-wide mb-4 flex items-center gap-2 mt-5">
+                                        <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
+                                        File Naming Examples
+                                    </h3>
+                                    <div class="space-y-2.5">
+                                        <code class="block px-3 py-2 bg-white dark:bg-[#2A2A2A] rounded-lg text-sm font-mono text-gray-700 dark:text-gray-300 border border-primary/20 shadow-sm">refund_policy.pdf</code>
+                                        <code class="block px-3 py-2 bg-white dark:bg-[#2A2A2A] rounded-lg text-sm font-mono text-gray-700 dark:text-gray-300 border border-primary/20 shadow-sm">product_catalog_v2.txt</code>
+                                        <code class="block px-3 py-2 bg-white dark:bg-[#2A2A2A] rounded-lg text-sm font-mono text-gray-700 dark:text-gray-300 border border-primary/20 shadow-sm">postman_collection.json</code>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-6 p-4 sm:p-5 rounded-xl bg-primary/5 dark:bg-primary/10 border border-primary/20 dark:border-primary/30">
+                                <p class="text-xs sm:text-sm text-gray-700 dark:text-gray-300 font-medium">
+                                    <span class="font-semibold text-primaryDark dark:text-primary">💡 Tip:</span> High-quality, well-structured documents directly lead to higher AI accuracy and better customer answers.
+                                </p>
+                            </div>
+                            </div>
+                        </section>
+
+                        <!-- API Collection Guidelines -->
+                        <section id="api-uploads" class="relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-5 sm:p-6 lg:p-8">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+                            <div class="relative z-10">
+                                <div class="mb-6">
+                                    <p class="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.22em] text-primaryDark/80 dark:text-white mb-2">API Integration</p>
+                                    <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-3 leading-tight">5. API Collection (Postman) Upload Guidelines</h2>
+                                    <p class="text-sm sm:text-base text-gray-700 dark:text-gray-300">
+                                        WeReplayx can train your AI to understand and answer using your <span class="font-semibold text-primaryDark dark:text-primary">API definitions</span> –
+                                        for example, available endpoints, fields, and response formats.
+                                    </p>
+                                </div>
+                            
+                            <!-- Modern Card Grid -->
+                            <div class="grid md:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
+                                <!-- Card 1: What to Upload -->
+                                <div class="group relative overflow-hidden bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl sm:rounded-2xl border-2 border-primary/20 dark:border-primary/30 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 p-5 sm:p-6">
+                                    <div class="absolute inset-x-0 -top-10 h-20 bg-gradient-to-b from-primary/15 via-transparent to-transparent dark:from-primary/10 dark:via-transparent dark:to-transparent pointer-events-none"></div>
+                                    <div class="relative z-10">
+                                        <!-- Icon -->
+                                        <div class="mb-4 flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 dark:bg-primary/20 border border-primary/20 dark:border-primary/30">
+                                            <svg class="w-6 h-6 text-primaryDark dark:text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                            </svg>
+                                        </div>
+                                        
+                                        <!-- Title -->
+                                        <h3 class="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-4 uppercase tracking-wide">What to Upload</h3>
+                                        
+                                        <!-- List Items -->
+                                        <ul class="space-y-3 text-sm text-gray-700 dark:text-gray-300">
+                                            <li class="flex items-start gap-3">
+                                                <span class="mt-1.5 w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                                <span class="font-medium">Postman Collection JSON file</span>
+                                            </li>
+                                            <li class="flex items-start gap-3">
+                                                <span class="mt-1.5 w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                                <span class="font-medium">OpenAPI / Swagger JSON file</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Card 2: Required API Content -->
+                                <div class="group relative overflow-hidden bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl sm:rounded-2xl border-2 border-primary/20 dark:border-primary/30 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 p-5 sm:p-6">
+                                    <div class="absolute inset-x-0 -top-10 h-20 bg-gradient-to-b from-primary/15 via-transparent to-transparent dark:from-primary/10 dark:via-transparent dark:to-transparent pointer-events-none"></div>
+                                    <div class="relative z-10">
+                                        <!-- Icon -->
+                                        <div class="mb-4 flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 dark:bg-primary/20 border border-primary/20 dark:border-primary/30">
+                                            <svg class="w-6 h-6 text-primaryDark dark:text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                            </svg>
+                                        </div>
+                                        
+                                        <!-- Title -->
+                                        <h3 class="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-4 uppercase tracking-wide">Required API Content</h3>
+                                        
+                                        <!-- List Items -->
+                                        <ul class="space-y-3 text-base text-gray-700 dark:text-gray-300">
+                                            <li class="flex items-start gap-3">
+                                                <span class="mt-1.5 w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                                <span>Sample responses (200, 4xx, 5xx where relevant)</span>
+                                            </li>
+                                            <li class="flex items-start gap-3">
+                                                <span class="mt-1.5 w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                                <span>Error messages and error codes</span>
+                                            </li>
+                                            <li class="flex items-start gap-3">
+                                                <span class="mt-1.5 w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                                <span>Field descriptions and types</span>
+                                            </li>
+                                            <li class="flex items-start gap-3">
+                                                <span class="mt-1.5 w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                                <span>Endpoint names and short description</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Card 3: Validation Rules -->
+                                <div class="group relative overflow-hidden bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl sm:rounded-2xl border-2 border-primary/20 dark:border-primary/30 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 p-5 sm:p-6">
+                                    <div class="absolute inset-x-0 -top-10 h-20 bg-gradient-to-b from-primary/15 via-transparent to-transparent dark:from-primary/10 dark:via-transparent dark:to-transparent pointer-events-none"></div>
+                                    <div class="relative z-10">
+                                        <!-- Icon -->
+                                        <div class="mb-4 flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 dark:bg-primary/20 border border-primary/20 dark:border-primary/30">
+                                            <svg class="w-6 h-6 text-primaryDark dark:text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                        </div>
+                                        
+                                        <!-- Title -->
+                                        <h3 class="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-4 uppercase tracking-wide">Validation Rules</h3>
+                                        
+                                        <!-- List Items -->
+                                        <ul class="space-y-3 text-base text-gray-700 dark:text-gray-300 mb-4">
+                                            <li class="flex items-start gap-3">
+                                                <span class="mt-1.5 w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                                <span>Must follow proper Postman/OpenAPI schema</span>
+                                            </li>
+                                            <li class="flex items-start gap-3">
+                                                <span class="mt-1.5 w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                                <span>Must include at least one example response per endpoint</span>
+                                            </li>
+                                            <li class="flex items-start gap-3">
+                                                <span class="mt-1.5 w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                                <span>JSON must be valid and not broken</span>
+                                            </li>
+                                        </ul>
+                                        
+                                        <!-- Warning Message -->
+                                        <div class="mt-4 p-3 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800/40">
+                                            <p class="text-xs text-red-700 dark:text-red-400 font-medium flex items-start gap-2">
+                                                <svg class="w-4 h-4 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                                                </svg>
+                                                <span>If validation fails, you will see a warning so you can fix the file and upload again.</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Auto Training -->
+                        <section id="auto-training" class="relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-5 sm:p-6 lg:p-8">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+                            <div class="relative z-10">
+                                <div class="flex items-start gap-4 mb-6">
+                                    <div class="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-primary/10 dark:bg-primary/20 border border-primary/20 dark:border-primary/30 flex-shrink-0 shadow-sm">
+                                        <svg class="w-6 h-6 sm:w-7 sm:h-7 text-primaryDark dark:text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.22em] text-primaryDark/80 dark:text-white mb-2">Automation</p>
+                                        <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-3 leading-tight">6. AI Training Process (Auto-Train)</h2>
+                                        <p class="text-sm sm:text-base text-gray-700 dark:text-gray-300">
+                                            Training in WeReplayx is <span class="font-semibold text-primaryDark dark:text-primary">automatic</span> – no manual
+                                            "Train" button is required. The system detects changes and re-trains for you.
+                                        </p>
+                                    </div>
+                                </div>
+                            <div class="grid md:grid-cols-3 gap-5 sm:gap-6">
+                                <div class="bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl p-5 sm:p-6 border border-primary/20 dark:border-primary/30 shadow-sm hover:shadow-md transition-all">
+                                    <h3 class="text-base sm:text-lg font-bold text-gray-900 dark:text-white uppercase tracking-wide mb-4 flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
+                                        Auto-Training Logic
+                                    </h3>
+                                    <ul class="space-y-2.5 text-sm sm:text-base text-gray-700 dark:text-gray-300">
+                                        <li class="flex items-start gap-2">
+                                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                            <span>When you upload or replace a document, AI training starts automatically</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                            <span>No training button needed – the system watches for updates</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                            <span>AI extracts tokens, chunks text and builds embeddings</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                            <span>A staging model is updated with the new knowledge</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                            <span>Admin can later promote the staging model to production</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl p-5 sm:p-6 border border-primary/20 dark:border-primary/30 shadow-sm hover:shadow-md transition-all">
+                                    <h3 class="text-base sm:text-lg font-bold text-gray-900 dark:text-white uppercase tracking-wide mb-4 flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
+                                        Training Time &amp; Status
+                                    </h3>
+                                    <p class="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-4 font-medium">
+                                        Typical time: <span class="font-semibold text-primaryDark dark:text-primary">10–60 seconds per file</span> depending on size.
+                                    </p>
+                                    <p class="text-xs font-semibold text-gray-600 dark:text-gray-400 mb-3 uppercase tracking-wide">Status indicators:</p>
+                                    <div class="space-y-2">
+                                        <div class="flex items-center gap-2 text-xs sm:text-sm text-gray-700 dark:text-gray-300">
+                                            <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
+                                            Processing…
+                                        </div>
+                                        <div class="flex items-center gap-2 text-xs sm:text-sm text-gray-700 dark:text-gray-300">
+                                            <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
+                                            Chunking…
+                                        </div>
+                                        <div class="flex items-center gap-2 text-xs sm:text-sm text-gray-700 dark:text-gray-300">
+                                            <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
+                                            Embedding…
+                                        </div>
+                                        <div class="flex items-center gap-2 text-xs sm:text-sm text-gray-700 dark:text-gray-300">
+                                            <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
+                                            Completed
+                                        </div>
+                                        <div class="flex items-center gap-2 text-xs sm:text-sm text-gray-700 dark:text-gray-300">
+                                            <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                                            Failed (with reason)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl p-5 sm:p-6 border border-primary/20 dark:border-primary/30 shadow-sm hover:shadow-md transition-all">
+                                    <h3 class="text-base sm:text-lg font-bold text-gray-900 dark:text-white uppercase tracking-wide mb-4 flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
+                                        Tokens &amp; Cost Info
+                                    </h3>
+                                    <ul class="space-y-2.5 text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-4">
+                                        <li class="flex items-start gap-2">
+                                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                            <span>Total extracted tokens per document</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                            <span>Tokens used in training</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                            <span>Approximate cost (if enabled in your workspace)</span>
+                                        </li>
+                                    </ul>
+                                    <div class="p-3 sm:p-4 rounded-lg bg-primary/5 dark:bg-primary/10 border border-primary/20 dark:border-primary/30">
+                                        <p class="text-xs sm:text-sm text-gray-700 dark:text-gray-300 font-medium">
+                                            <span class="font-semibold text-primaryDark dark:text-primary">Goal:</span> Give you a <span class="font-semibold">hands-free</span> experience while still keeping training fully transparent.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </section>
+
+                        <!-- WhatsApp Setup -->
+                        <section id="whatsapp-setup" class="relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-5 sm:p-6 lg:p-8">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+                            <div class="relative z-10">
+                                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
+                                    <div class="flex items-start gap-4 flex-1">
+                                        <div class="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-primary/10 dark:bg-primary/20 border border-primary/20 dark:border-primary/30 flex-shrink-0 shadow-sm">
+                                            <svg class="w-6 h-6 sm:w-7 sm:h-7 text-primaryDark dark:text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.22em] text-primaryDark/80 dark:text-white mb-2">Integration</p>
+                                            <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-2 leading-tight">7. WhatsApp Setup Guidelines</h2>
+                                            <p class="text-sm sm:text-base text-gray-700 dark:text-gray-300">Connect your WhatsApp number so the AI can reply to your customers in real time.</p>
+                                        </div>
+                                    </div>
+                                    <a href="/whatsapp-connect" class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#18CB96] hover:bg-[#14a87a] dark:bg-[#18CB96] dark:hover:bg-[#14a87a] text-white rounded-xl text-xs sm:text-sm font-semibold shadow-md hover:shadow-lg hover:shadow-[#18CB96]/30 whitespace-nowrap transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h18M3 12h18M3 19h18"></path>
+                                        </svg>
+                                        Connect WhatsApp
+                                    </a>
+                                </div>
+                            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mb-6">
+                                <div class="bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl p-5 border border-primary/20 dark:border-primary/30 hover:shadow-md transition-all">
+                                    <div class="w-10 h-10 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center mb-3 shadow-sm">
+                                        <span class="text-sm font-bold text-primaryDark dark:text-primary">1</span>
+                                    </div>
+                                    <p class="text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-300">Go to WhatsApp Connect page: <code class="px-1.5 py-0.5 bg-white dark:bg-[#2A2A2A] rounded text-xs font-mono mt-1 inline-block">/whatsapp-connect</code></p>
+                                </div>
+                                <div class="bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl p-5 border border-primary/20 dark:border-primary/30 hover:shadow-md transition-all">
+                                    <div class="w-10 h-10 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center mb-3 shadow-sm">
+                                        <span class="text-sm font-bold text-primaryDark dark:text-primary">2</span>
+                                    </div>
+                                    <p class="text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-300">Scan the QR code or enter your WhatsApp Business API credentials</p>
+                                </div>
+                                <div class="bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl p-5 border border-primary/20 dark:border-primary/30 hover:shadow-md transition-all">
+                                    <div class="w-10 h-10 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center mb-3 shadow-sm">
+                                        <span class="text-sm font-bold text-primaryDark dark:text-primary">3</span>
+                                    </div>
+                                    <p class="text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-300">Validate the connection from inside the dashboard</p>
+                                </div>
+                                <div class="bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl p-5 border border-primary/20 dark:border-primary/30 hover:shadow-md transition-all">
+                                    <div class="w-10 h-10 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center mb-3 shadow-sm">
+                                        <span class="text-sm font-bold text-primaryDark dark:text-primary">4</span>
+                                    </div>
+                                    <p class="text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-300">Send a test message from your own phone to confirm responses</p>
+                                </div>
+                            </div>
+                            <div class="p-4 sm:p-5 rounded-xl bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800/40">
+                                <p class="text-xs sm:text-sm font-semibold text-yellow-800 dark:text-yellow-300 mb-3 flex items-center gap-2">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                                    </svg>
+                                    Important Notes
+                                </p>
+                                <ul class="space-y-2 text-xs sm:text-sm text-yellow-700 dark:text-yellow-300">
+                                    <li class="flex items-start gap-2.5">
+                                        <span class="mt-1 w-2 h-2 rounded-full bg-yellow-600 dark:bg-yellow-400 flex-shrink-0"></span>
+                                        <span>Use WhatsApp Web or WhatsApp Business API (as supported by your plan)</span>
+                                    </li>
+                                    <li class="flex items-start gap-2.5">
+                                        <span class="mt-1 w-2 h-2 rounded-full bg-yellow-600 dark:bg-yellow-400 flex-shrink-0"></span>
+                                        <span>Do not use the same number actively on multiple phones in parallel</span>
+                                    </li>
+                                    <li class="flex items-start gap-2.5">
+                                        <span class="mt-1 w-2 h-2 rounded-full bg-yellow-600 dark:bg-yellow-400 flex-shrink-0"></span>
+                                        <span>Keep the device / WhatsApp client connected to the internet for stable automation</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            </div>
+                        </section>
+
+                        <!-- Chat Reports -->
+                        <section id="chat-reports" class="relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-5 sm:p-6 lg:p-8">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+                            <div class="relative z-10">
+                                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
+                                    <div class="flex items-start gap-4 flex-1">
+                                        <div class="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-primary/10 dark:bg-primary/20 border border-primary/20 dark:border-primary/30 flex-shrink-0 shadow-sm">
+                                            <svg class="w-6 h-6 sm:w-7 sm:h-7 text-primaryDark dark:text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.22em] text-primaryDark/80 dark:text-white mb-2">Analytics</p>
+                                            <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-2 leading-tight">8. Chat Reports &amp; Monitoring</h2>
+                                            <p class="text-sm sm:text-base text-gray-700 dark:text-gray-300">Use Chat Reports to monitor performance, spot issues and improve your content.</p>
+                                        </div>
+                                    </div>
+                                    <a href="chat-reports.html" class="inline-flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-[#1E1E1E] hover:bg-primary hover:text-white dark:hover:bg-primaryLight/80 text-gray-800 dark:text-gray-100 rounded-xl text-xs sm:text-sm font-semibold border border-gray-200 dark:border-gray-700 whitespace-nowrap transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                        </svg>
+                                        View Chat Reports
+                                    </a>
+                                </div>
+                            <div class="grid md:grid-cols-2 gap-5 sm:gap-6">
+                                <div class="bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl p-5 sm:p-6 border border-primary/20 dark:border-primary/30 shadow-sm hover:shadow-md transition-all">
+                                    <h3 class="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
+                                        What You Can Monitor
+                                    </h3>
+                                    <ul class="space-y-2.5 text-sm sm:text-base text-gray-700 dark:text-gray-300">
+                                        <li class="flex items-start gap-2">
+                                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                            <span>Chat topics &amp; conversation threads</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                            <span>Sentiment analysis (positive / neutral / negative)</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                            <span>Category / intent detection</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                            <span>Total message count and volumes</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                            <span>Wrong answer marking and feedback</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-[#18CB96] flex-shrink-0"></span>
+                                            <span>Auto-generated insights &amp; patterns</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl p-5 sm:p-6 border border-primary/20 dark:border-primary/30 shadow-sm hover:shadow-md transition-all">
+                                    <h3 class="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
+                                        Where to View
+                                    </h3>
+                                    <p class="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-4 font-medium">
+                                        Navigate to <code class="px-2 py-1 bg-white dark:bg-[#2A2A2A] rounded text-xs font-mono border border-primary/20 shadow-sm">/chat-reports</code>
+                                        (menu: <span class="font-semibold text-primaryDark dark:text-primary">Chat Report</span> in the sidebar).
+                                    </p>
+                                    <div class="p-3 sm:p-4 rounded-lg bg-primary/5 dark:bg-primary/10 border border-primary/20 dark:border-primary/30">
+                                        <p class="text-xs sm:text-sm text-gray-700 dark:text-gray-300 font-medium">
+                                            <span class="font-semibold text-primaryDark dark:text-primary">💡 Tip:</span> Mark wrong answers frequently – this is one of the strongest signals for improving the model over time.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </section>
+
+                        <!-- Improve Accuracy -->
+                        <section id="improve-accuracy" class="relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-5 sm:p-6 lg:p-8">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+                            <div class="relative z-10">
+                                <p class="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.22em] text-primaryDark/80 dark:text-white mb-2">Best Practices</p>
+                                <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-3 leading-tight">9. Improving AI Accuracy (Best Practices)</h2>
+                                <p class="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-6 font-medium">
+                                    Accuracy depends more on your <span class="font-semibold text-primaryDark dark:text-primary">documents &amp; APIs</span> than on the AI itself.
+                                    Follow these best practices.
+                                </p>
+                                <div class="grid md:grid-cols-2 gap-5 sm:gap-6 text-sm sm:text-base text-gray-700 dark:text-gray-300">
+                                    <ul class="space-y-2.5 list-disc list-inside">
+                                        <li class="font-medium">Upload clear, well-structured documents.</li>
+                                        <li class="font-medium">Keep documents updated when your policies or pricing change.</li>
+                                        <li class="font-medium">Add missing information – especially FAQs, examples and edge cases.</li>
+                                        <li class="font-medium">Upload Postman / API collections with rich example responses.</li>
+                                    </ul>
+                                    <ul class="space-y-2.5 list-disc list-inside">
+                                        <li class="font-medium">Avoid uploading duplicate or highly overlapping content.</li>
+                                        <li class="font-medium">Use sandbox / internal testing before promoting a new model.</li>
+                                        <li class="font-medium">Mark wrong answers inside Chat Reports so the AI can improve.</li>
+                                        <li class="font-medium">Split large topics into multiple focused documents for clarity.</li>
+                                    </ul>
+                                </div>
+                                <p class="mt-6 p-4 sm:p-5 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800/40 text-xs sm:text-sm text-emerald-700 dark:text-emerald-300 font-medium">
+                                    The more structured and complete your knowledge base is, the more "human-level" your answers will feel.
+                                </p>
+                            </div>
+                        </section>
+
+                        <!-- FAQ -->
+                        <section id="faq" class="relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-5 sm:p-6 lg:p-8">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+                            <div class="relative z-10">
+                                <div class="flex items-start gap-4 mb-6">
+                                    <div class="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-primary/10 dark:bg-primary/20 border border-primary/20 dark:border-primary/30 flex-shrink-0 shadow-sm">
+                                        <svg class="w-6 h-6 sm:w-7 sm:h-7 text-primaryDark dark:text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.22em] text-primaryDark/80 dark:text-white mb-2">Common Questions</p>
+                                        <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-2 leading-tight">10. FAQ – WeReplayx Setup &amp; Training</h2>
+                                    </div>
+                                </div>
+                            <div class="space-y-3 sm:space-y-4">
+                                <details class="group bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] border-2 border-primary/20 dark:border-primary/30 rounded-xl p-4 sm:p-5 hover:shadow-md transition-all">
+                                    <summary class="flex items-center justify-between cursor-pointer list-none">
+                                        <span class="text-sm sm:text-base font-semibold text-gray-900 dark:text-white pr-4">How long does training take?</span>
+                                        <span class="ml-3 text-primaryDark dark:text-primary group-open:rotate-180 transition-transform flex-shrink-0">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                            </svg>
+                                        </span>
+                                    </summary>
+                                    <p class="mt-3 text-sm sm:text-base text-gray-700 dark:text-gray-300 pl-1 font-medium">
+                                        Typically <span class="font-semibold text-primaryDark dark:text-primary">10–60 seconds per file</span>, depending on size and complexity.
+                                        Very large documents or API collections may take slightly longer.
+                                    </p>
+                                </details>
+
+                            <div class="space-y-3 sm:space-y-4">
+                                <details class="group bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] border-2 border-primary/20 dark:border-primary/30 rounded-xl p-4 sm:p-5 hover:shadow-md transition-all">
+                                    <summary class="flex items-center justify-between cursor-pointer list-none">
+                                        <span class="text-sm sm:text-base font-semibold text-gray-900 dark:text-white pr-4">What file types are supported?</span>
+                                        <span class="ml-3 text-primaryDark dark:text-primary group-open:rotate-180 transition-transform flex-shrink-0">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                            </svg>
+                                        </span>
+                                    </summary>
+                                    <p class="mt-3 text-sm sm:text-base text-gray-700 dark:text-gray-300 pl-1 font-medium">
+                                        PDF, TXT, DOCX, CSV, JSON and Postman / OpenAPI JSON are supported. Prefer text-based, structured
+                                        content over scanned images.
+                                    </p>
+                                </details>
+
+                                <details class="group bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] border-2 border-primary/20 dark:border-primary/30 rounded-xl p-4 sm:p-5 hover:shadow-md transition-all">
+                                    <summary class="flex items-center justify-between cursor-pointer list-none">
+                                        <span class="text-sm sm:text-base font-semibold text-gray-900 dark:text-white pr-4">Why is my answer incorrect?</span>
+                                        <span class="ml-3 text-primaryDark dark:text-primary group-open:rotate-180 transition-transform flex-shrink-0">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                            </svg>
+                                        </span>
+                                    </summary>
+                                    <p class="mt-3 text-sm sm:text-base text-gray-700 dark:text-gray-300 pl-1 font-medium">
+                                        Most of the time, the underlying document is missing, outdated or ambiguous.
+                                        Update the relevant document, re-upload it (auto-training will run), and mark the answer as wrong in
+                                        Chat Reports.
+                                    </p>
+                                </details>
+
+                                <details class="group bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] border-2 border-primary/20 dark:border-primary/30 rounded-xl p-4 sm:p-5 hover:shadow-md transition-all">
+                                    <summary class="flex items-center justify-between cursor-pointer list-none">
+                                        <span class="text-sm sm:text-base font-semibold text-gray-900 dark:text-white pr-4">How do I connect multiple WhatsApp numbers?</span>
+                                        <span class="ml-3 text-primaryDark dark:text-primary group-open:rotate-180 transition-transform flex-shrink-0">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                            </svg>
+                                        </span>
+                                    </summary>
+                                    <p class="mt-3 text-sm sm:text-base text-gray-700 dark:text-gray-300 pl-1 font-medium">
+                                        Depending on your plan, you can connect multiple numbers via the <span class="font-semibold text-primaryDark dark:text-primary">WhatsApp Connect</span>
+                                        area. Each number can share the same training or be mapped to different workspaces.
+                                    </p>
+                                </details>
+
+                                <details class="group bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] border-2 border-primary/20 dark:border-primary/30 rounded-xl p-4 sm:p-5 hover:shadow-md transition-all">
+                                    <summary class="flex items-center justify-between cursor-pointer list-none">
+                                        <span class="text-sm sm:text-base font-semibold text-gray-900 dark:text-white pr-4">Why are tokens important?</span>
+                                        <span class="ml-3 text-primaryDark dark:text-primary group-open:rotate-180 transition-transform flex-shrink-0">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                            </svg>
+                                        </span>
+                                    </summary>
+                                    <p class="mt-3 text-sm sm:text-base text-gray-700 dark:text-gray-300 pl-1 font-medium">
+                                        Tokens represent the amount of text processed. They impact training cost, speed and sometimes
+                                        answer length. Clean, concise documents help keep token usage efficient.
+                                    </p>
+                                </details>
+
+                                <details class="group bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] border-2 border-primary/20 dark:border-primary/30 rounded-xl p-4 sm:p-5 hover:shadow-md transition-all">
+                                    <summary class="flex items-center justify-between cursor-pointer list-none">
+                                        <span class="text-sm sm:text-base font-semibold text-gray-900 dark:text-white pr-4">Can I rollback to an older model version?</span>
+                                        <span class="ml-3 text-primaryDark dark:text-primary group-open:rotate-180 transition-transform flex-shrink-0">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                            </svg>
+                                        </span>
+                                    </summary>
+                                    <p class="mt-3 text-sm sm:text-base text-gray-700 dark:text-gray-300 pl-1 font-medium">
+                                        Yes, if versioning is enabled in your account. Admins can promote or rollback models from the
+                                        training / versions area so you can safely test new changes.
+                                    </p>
+                                </details>
+
+                                <details class="group bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] border-2 border-primary/20 dark:border-primary/30 rounded-xl p-4 sm:p-5 hover:shadow-md transition-all">
+                                    <summary class="flex items-center justify-between cursor-pointer list-none">
+                                        <span class="text-sm sm:text-base font-semibold text-gray-900 dark:text-white pr-4">Who can promote a model to production?</span>
+                                        <span class="ml-3 text-primaryDark dark:text-primary group-open:rotate-180 transition-transform flex-shrink-0">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                            </svg>
+                                        </span>
+                                    </summary>
+                                    <p class="mt-3 text-sm sm:text-base text-gray-700 dark:text-gray-300 pl-1 font-medium">
+                                        Only users with the appropriate admin / owner role can promote the staging model to production,
+                                        ensuring that changes are reviewed before customers see them.
+                                    </p>
+                                </details>
+                            </div>
+                            </div>
+                        </section>
+
+                        <!-- Downloads -->
+                        <section id="downloads" class="relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-5 sm:p-6 lg:p-8">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+                            <div class="relative z-10">
+                                <p class="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.22em] text-primaryDark/80 dark:text-white mb-2">Resources</p>
+                                <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-3 leading-tight">11. Downloadable PDF Guides</h2>
+                                <p class="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-6 font-medium">
+                                    For teams that prefer offline documents, you can download PDF versions of the main guides.
+                                </p>
+                            <ul class="grid sm:grid-cols-2 gap-3 sm:gap-4 text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-6 font-medium">
+                                <li class="flex items-center gap-2.5">
+                                    <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+                                    Product overview
+                                </li>
+                                <li class="flex items-center gap-2.5">
+                                    <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+                                    Document upload guide
+                                </li>
+                                <li class="flex items-center gap-2.5">
+                                    <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+                                    API upload manual
+                                </li>
+                                <li class="flex items-center gap-2.5">
+                                    <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+                                    WhatsApp setup guide
+                                </li>
+                                <li class="flex items-center gap-2.5">
+                                    <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+                                    Troubleshooting guide
+                                </li>
+                            </ul>
+                            <a href="guidelines.html#downloads" class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-[#18CB96] hover:bg-[#14a87a] dark:bg-[#18CB96] dark:hover:bg-[#14a87a] text-white rounded-xl text-sm font-semibold shadow-md hover:shadow-lg hover:shadow-[#18CB96]/30 transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"></path>
+                                </svg>
+                                Download Complete Guidelines (PDF)
+                            </a>
+                            </div>
+                        </section>
+
+                        <!-- Support -->
+                        <section id="support" class="relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-5 sm:p-6 lg:p-8">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+                            <div class="relative z-10">
+                                <p class="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.22em] text-primaryDark/80 dark:text-white mb-2">Get Help</p>
+                                <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-3 leading-tight">12. Contact Support / Raise a Ticket</h2>
+                                <p class="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-6 font-medium">
+                                    If you still face issues after following these guidelines, our team is happy to help.
+                                </p>
+                                <div class="grid sm:grid-cols-3 gap-4 sm:gap-5 text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-6">
+                                    <div class="space-y-1 p-4 rounded-xl bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] border border-primary/20 dark:border-primary/30">
+                                        <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">Email</p>
+                                        <p class="font-semibold text-gray-900 dark:text-white">support@wereplayx.com</p>
+                                    </div>
+                                    <div class="space-y-1 p-4 rounded-xl bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] border border-primary/20 dark:border-primary/30">
+                                        <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">WhatsApp Support</p>
+                                        <p class="font-semibold text-gray-900 dark:text-white">+91-00000-00000</p>
+                                    </div>
+                                    <div class="space-y-1 p-4 rounded-xl bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] border border-primary/20 dark:border-primary/30">
+                                        <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">Ticket Portal</p>
+                                        <p class="font-semibold text-gray-900 dark:text-white">/support</p>
+                                    </div>
+                                </div>
+                                <a href="support.html" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white dark:bg-[#1E1E1E] hover:bg-primary hover:text-white dark:hover:bg-primaryLight/80 text-gray-900 dark:text-white rounded-xl text-sm font-semibold border border-gray-200 dark:border-gray-700 transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                                    </svg>
+                                    Submit Ticket / Contact Support
+                                </a>
+                            </div>
+                        </section>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+{% endblock %}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#18CB96">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="{% block meta_description %}WeReplay Admin Panel - Manage your WhatsApp customer support automation{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}WeReplay, Admin Panel, WhatsApp Support{% endblock %}">
+    <meta name="author" content="WeReplay">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{% block og_title %}WeReplay Admin Panel{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Manage your WhatsApp customer support automation{% endblock %}">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="{% block twitter_title %}WeReplay Admin Panel{% endblock %}">
+    <meta property="twitter:description" content="{% block twitter_description %}Manage your WhatsApp customer support automation{% endblock %}">
+    
+    <title>{% block title %}WeReplay Admin Panel{% endblock %}</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='Images/WeReplay-favicon.svg') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='Images/WeReplay-favicon.svg') }}">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_css %}{% endblock %}
+    
+    <!-- JavaScript Files -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/form-validation-helper.js') }}"></script>
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="{% block body_class %}bg-light font-sans antialiased{% endblock %}">
+    {% block content %}{% endblock %}
+    
+    {% block extra_scripts %}{% endblock %}
+
+    <!-- Enhanced Back Button Prevention -->
+    <script>
+        (function () {
+            // Detect if page is loaded from back-forward cache (bfcache)
+            window.addEventListener('pageshow', function(event) {
+                // If page is loaded from cache (persisted), force reload
+                if (event.persisted) {
+                    window.location.reload();
+                }
+            });
+
+            // Prevent back button navigation using history manipulation
+            window.history.pushState(null, "", window.location.href);
+            window.onpopstate = function () {
+                window.history.pushState(null, "", window.location.href);
+            };
+
+            // Additional check: if this is an auth page, disable browser cache
+            var isAuthPage = window.location.pathname.includes('/auth/');
+            if (isAuthPage) {
+                // Force no-cache on auth pages
+                window.onbeforeunload = function() {
+                    window.scrollTo(0, 0);
+                };
+            }
+        })();
+    </script>
+    <!-- Toast Notifications -->
+    <script src="{{ url_for('static', filename='js/toast.js') }}"></script>
+    <script>
+        // Initialize toasts from Flask Flash messages
+        document.addEventListener('DOMContentLoaded', () => {
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        // Map Flask categories to Toast types
+                        // Flask: 'message', 'error', 'success', 'warning'
+                        // Toast: 'info', 'error', 'success', 'warning'
+                        setTimeout(() => {
+                            window.toast.show(
+                                {{ message | tojson }}, 
+                                '{{ "error" if category == "error" else "success" if category == "success" else "warning" if category == "warning" else "info" }}'
+                            );
+                        }, {{ loop.index0 * 300 }}); // Stagger appearance
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            // Handle Form Errors (Inline Errors converted to Toasts)
+            {% if errors %}
+                {% for field, error_msg in errors.items() %}
+                    setTimeout(() => {
+                        window.toast.show(
+                            {{ error_msg | tojson }},
+                            'error'
+                        );
+                    }, {{ loop.index0 * 300 + 500 }}); // Stagger after flash messages
+                {% endfor %}
+            {% endif %}
+
+            // Handle specific success messages (e.g. from login page)
+            {% if success_message %}
+                setTimeout(() => {
+                    window.toast.show(
+                        {{ success_message | tojson }},
+                        'success'
+                    );
+                }, 500);
+            {% endif %}
+        });
+    </script>
+</body>
+</html>

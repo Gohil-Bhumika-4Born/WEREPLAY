@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Login to your WeReplay Admin Panel account.">
+    <meta name="keywords" content="WeReplay, Admin Panel, Login, Sign In">
+    <meta name="author" content="WeReplay">
+    <meta name="theme-color" content="#18CB96">
+
+    <title>WeReplay Admin Panel - Login</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/Images/WeReplay-favicon.svg">
+    <link rel="apple-touch-icon" href="assets/Images/WeReplay-favicon.svg">
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- CSS Files - Minimal CSS for floating labels only (load after Tailwind) -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- JavaScript Files -->
+    <script src="assets/js/script.js"></script>
+</head>
+<body class="bg-light font-sans antialiased h-screen overflow-hidden">
+    <!-- Page Wrapper - Centered Modal-style Card (no page scroll) -->
+    <div class="h-full flex items-center justify-center px-4">
+        <div class="w-full max-w-6xl max-h-[95vh] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col lg:flex-row border border-gray/20">
+            <!-- Left Column - Illustration (same style as register) -->
+            <div class="hidden lg:flex lg:w-3/6 bg-light items-center justify-center p-8 relative overflow-hidden">
+                <div class="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-light via-light to-transparent pointer-events-none"></div>
+                <div class="text-center z-10 max-w-lg">
+                    <!-- Logo Icon (no animation) -->
+                    <div class="mb-6">
+                        <img src="assets/Images/We-Replay-Logo.svg" alt="WeReplay Icon" class="h-10 w-auto mx-auto opacity-90" width="31" height="25">
+                    </div>
+
+                    <!-- Welcome Message -->
+                    <h2 class="text-2xl font-bold text-dark mb-3">Welcome back to WeReplay</h2>
+                    <p class="text-gray text-base mb-8">Login to access your WhatsApp customer support automation dashboard.</p>
+
+                    <!-- Illustration Image (Login) -->
+                    <div class="relative animate-slide-up flex items-center justify-center">
+                        <img 
+                            src="assets/Images/Login-bg.png" 
+                            alt="Secure Login illustration" 
+                            class="max-w-full h-auto object-contain animate-float"
+                            loading="lazy"
+                        >
+                    </div>
+                </div>
+
+                <!-- Decorative Elements -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-primary opacity-5 rounded-full blur-3xl"></div>
+                <div class="absolute bottom-0 left-0 w-64 h-64 bg-primary opacity-5 rounded-full blur-3xl"></div>
+            </div>
+
+            <!-- Right Column - Login Form -->
+            <div class="w-full lg:w-3/5 flex flex-col bg-white">
+                <div class="flex-1 flex flex-col justify-center px-6 sm:px-8 lg:px-10 xl:px-12 py-8">
+                    <!-- Page Title -->
+                    <div class="mb-6 text-center">
+                        <h1 class="text-2xl font-bold text-dark mb-3">Login</h1>
+                        <p class="text-sm text-gray">Enter your credentials to access the WeReplay Admin Panel</p>
+                    </div>
+
+                    <!-- Login Form -->
+                    <form id="loginForm" class="space-y-5 w-full max-w-2xl mx-auto">
+                        <!-- Email / Phone Field -->
+                        <div class="floating-label-group relative mb-0">
+                            <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-primary pointer-events-none z-10 input-icon transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                            <input 
+                                type="text" 
+                                id="loginIdentifier" 
+                                name="loginIdentifier" 
+                                required 
+                                autocomplete="username"
+                                class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent border border-gray-300 rounded-lg text-gray-500 transition-all duration-300 hover:border-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                                placeholder=" "
+                            >
+                            <label for="loginIdentifier" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none transition-all duration-300 bg-transparent px-1 z-[1]">Email or Phone</label>
+                        </div>
+
+                        <!-- Password Field -->
+                        <div class="floating-label-group relative mb-0">
+                            <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-primary pointer-events-none z-10 input-icon transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                            <input 
+                                type="password" 
+                                id="loginPassword" 
+                                name="password" 
+                                required 
+                                autocomplete="current-password"
+                                class="w-full py-3.5 pl-10 pr-10 text-sm bg-transparent border border-gray-300 rounded-lg text-gray-500 transition-all duration-300 hover:border-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                                placeholder=" "
+                            >
+                            <label for="loginPassword" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none transition-all duration-300 bg-transparent px-1 z-[1]">Password</label>
+                            <!-- Eye Icon Toggle Button -->
+                            <button 
+                                type="button" 
+                                class="absolute right-3 top-1/2 -translate-y-1/2 focus:outline-none transition-colors duration-300 z-10 group"
+                                onclick="togglePasswordVisibility('loginPassword', 'loginPasswordEyeIcon')"
+                                aria-label="Toggle password visibility"
+                                onmouseover="this.querySelectorAll('path, circle, line').forEach(el => el.setAttribute('stroke', '#374151'))"
+                                onmouseout="this.querySelectorAll('path, circle, line').forEach(el => el.setAttribute('stroke', '#6B7280'))"
+                            >
+                                <!-- Eye Open Icon (shown when password is hidden) -->
+                                <svg id="loginPasswordEyeIcon" class="w-5 h-5" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke="#6B7280" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3" stroke="#6B7280" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" fill="none"></circle>
+                                </svg>
+                                <!-- Eye Closed Icon (hidden by default) -->
+                                <svg id="loginPasswordEyeIconClosed" class="w-5 h-5 hidden" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke="#6B7280" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                                    <line x1="1" y1="1" x2="23" y2="23" stroke="#6B7280" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- Forgot Password -->
+                        <div class="flex justify-end">
+                            <a href="reset-password.html" class="text-sm text-primary hover:text-primaryDark font-medium transition-colors">Forgot password?</a>
+                        </div>
+
+                        <!-- Login Button -->
+                        <div class="pt-1 flex justify-center">
+                            <button 
+                                type="submit" 
+                                id="loginBtn"
+                                class="w-64 bg-primary hover:bg-primaryDark active:bg-primaryDark text-white font-semibold py-2.5 px-8 rounded-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#18CB96]/30 active:translate-y-0 focus:outline-none focus:ring-4 focus:ring-[#18CB96]/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                                aria-label="Login to account"
+                            >
+                                Login
+                            </button>
+                        </div>
+
+                        <!-- Feedback Message -->
+                        <div id="loginMessage" class="hidden text-center text-sm py-2 rounded-lg"></div>
+                    </form>
+
+                    <!-- Register Link -->
+                    <div class="text-center pt-4">
+                        <p class="text-sm text-gray">
+                            Don&apos;t have an account?
+                            <a href="register.html" class="text-primary hover:text-primaryDark font-semibold transition-colors">Register Now</a>
+                        </p>
+                    </div>
+                </div>
+            </div><!-- end right column -->
+        </div><!-- end card -->
+    </div><!-- end page wrapper -->
+
+    <script>
+        // Toggle Password Visibility Function
+        function togglePasswordVisibility(inputId, iconId) {
+            const passwordInput = document.getElementById(inputId);
+            const eyeIcon = document.getElementById(iconId);
+            const eyeIconClosed = document.getElementById(iconId + 'Closed');
+            
+            if (passwordInput && eyeIcon && eyeIconClosed) {
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    eyeIcon.classList.add('hidden');
+                    eyeIconClosed.classList.remove('hidden');
+                } else {
+                    passwordInput.type = 'password';
+                    eyeIcon.classList.remove('hidden');
+                    eyeIconClosed.classList.add('hidden');
+                }
+            }
+        }
+
+        // Simple client-side login handler with routing based on profile completion
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('loginForm');
+            const loginBtn = document.getElementById('loginBtn');
+            const messageEl = document.getElementById('loginMessage');
+
+            if (!form) return;
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const identifier = document.getElementById('loginIdentifier').value.trim();
+                const password = document.getElementById('loginPassword').value.trim();
+
+                if (!identifier || !password) {
+                    showLoginMessage('Please enter your email/phone and password.', 'error');
+                    return;
+                }
+
+                // Disable button while "validating"
+                loginBtn.disabled = true;
+                loginBtn.textContent = 'Logging in...';
+
+                // TODO: Replace this with real API call to validate login
+                // Simulate async validation
+                setTimeout(function () {
+                    // Direct redirect to dashboard (no welcome modal)
+                    window.location.href = 'dashboard.html';
+                }, 600);
+            });
+
+            function showLoginMessage(text, type) {
+                if (!messageEl) return;
+                messageEl.textContent = text;
+                messageEl.className = 'text-center text-sm py-2 rounded-lg ' + (type === 'error'
+                    ? 'bg-red-50 text-red-600 border border-red-200'
+                    : 'bg-green-50 text-green-600 border border-green-200');
+                messageEl.classList.remove('hidden');
+
+                setTimeout(function () {
+                    messageEl.classList.add('hidden');
+                }, 4000);
+            }
+        });
+    </script>
+</body>
+</html>

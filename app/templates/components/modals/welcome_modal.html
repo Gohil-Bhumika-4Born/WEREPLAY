@@ -1,0 +1,79 @@
+<!-- Welcome Modal -->
+<div id="welcomeModal" class="hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="welcome-modal-title" role="dialog" aria-modal="true">
+    <!-- Backdrop -->
+    <div class="fixed inset-0 bg-gray-900/50 transition-opacity"></div>
+    
+    <!-- Modal Container -->
+    <div class="flex min-h-full items-center justify-center p-3 sm:p-4 md:p-6">
+        <div class="relative bg-gradient-to-b from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl sm:rounded-2xl shadow-2xl w-full max-w-5xl mx-auto p-4 sm:p-6 md:p-8 lg:p-10 transform transition-all ring-[#18CB96]/20 dark:ring-[#18CB96]/30">
+            <!-- Close Button -->
+            <button onclick="closeWelcomeModal()" class="absolute top-3 right-3 sm:top-4 sm:right-4 p-2 rounded-lg text-gray-400 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#333333] transition-colors z-10" aria-label="Close modal">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            
+            <!-- Modal Content -->
+            <div class="text-center">
+                <!-- Favicon -->
+                <div class="mx-auto flex items-center justify-center mb-2 sm:mb-4">
+                    <img src="{{ url_for('static', filename='Images/WeReplay-favicon.svg') }}" alt="WeReplay Favicon" class="h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20">
+                </div>
+                
+                <!-- Title -->
+                <h3 id="welcome-modal-title" class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2 sm:mb-3">
+                    Welcome to WeReplay!
+                </h3>
+                
+                <!-- Description -->
+                <p class="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-300 mb-4 sm:mb-6 max-w-3xl mx-auto">
+                    Your profile is complete! Let's get you started with automating your WhatsApp customer support.
+                </p>
+                
+                <!-- Steps Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-4 sm:mb-6">
+                    <!-- Step 1 -->
+                    <div class="bg-white/50 dark:bg-[#252525] rounded-xl p-4 text-left hover:shadow-lg transition-shadow">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="flex-shrink-0 w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white font-bold text-sm">1</div>
+                            <h4 class="font-semibold text-gray-900 dark:text-white text-sm">Upload Documents</h4>
+                        </div>
+                        <p class="text-xs text-gray-600 dark:text-gray-300">Add your product docs and FAQs</p>
+                    </div>
+                    
+                    <!-- Step 2 -->
+                    <div class="bg-white/50 dark:bg-[#252525] rounded-xl p-4 text-left hover:shadow-lg transition-shadow">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="flex-shrink-0 w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white font-bold text-sm">2</div>
+                            <h4 class="font-semibold text-gray-900 dark:text-white text-sm">Train AI</h4>
+                        </div>
+                        <p class="text-xs text-gray-600 dark:text-gray-300">Customize AI responses</p>
+                    </div>
+                    
+                    <!-- Step 3 -->
+                    <div class="bg-white/50 dark:bg-[#252525] rounded-xl p-4 text-left hover:shadow-lg transition-shadow">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="flex-shrink-0 w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white font-bold text-sm">3</div>
+                            <h4 class="font-semibold text-gray-900 dark:text-white text-sm">Set Guidelines</h4>
+                        </div>
+                        <p class="text-xs text-gray-600 dark:text-gray-300">Define response rules</p>
+                    </div>
+                    
+                    <!-- Step 4 -->
+                    <div class="bg-white/50 dark:bg-[#252525] rounded-xl p-4 text-left hover:shadow-lg transition-shadow">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="flex-shrink-0 w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white font-bold text-sm">4</div>
+                            <h4 class="font-semibold text-gray-900 dark:text-white text-sm">Go Live!</h4>
+                        </div>
+                        <p class="text-xs text-gray-600 dark:text-gray-300">Start automating support</p>
+                    </div>
+                </div>
+                
+                <!-- Action Button -->
+                <button onclick="closeWelcomeModal()" class="px-6 sm:px-8 py-2.5 sm:py-3 bg-primary hover:bg-primaryDark dark:bg-[#18CB96] dark:hover:bg-[#14a87a] text-white rounded-xl font-medium transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-[#18CB96]/30 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-[#18CB96]/50 text-sm sm:text-base">
+                    Get Started
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

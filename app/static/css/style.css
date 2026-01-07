@@ -1,0 +1,140 @@
+/* Input styles - removed gray color forcing */
+
+.floating-label-group input::placeholder {
+    color: transparent !important;
+}
+
+/* Tailwind gray values applied with high specificity */
+.floating-label-group input[type="text"],
+.floating-label-group input[type="email"],
+.floating-label-group input[type="tel"],
+.floating-label-group input[type="password"],
+.floating-label-group input[type="url"] {
+    color: #6b7280 !important; /* Tailwind text-gray-500 */
+}
+
+/* Default border color - removed !important to allow error states */
+.floating-label-group input[type="text"]:not(.border-red-500),
+.floating-label-group input[type="email"]:not(.border-red-500),
+.floating-label-group input[type="tel"]:not(.border-red-500),
+.floating-label-group input[type="password"]:not(.border-red-500),
+.floating-label-group input[type="url"]:not(.border-red-500) {
+    border-color: #d1d5db;
+}
+
+.floating-label-group input:focus,
+.floating-label-group input:not(:placeholder-shown) {
+    color: #6b7280 !important;
+}
+
+/* Floating Label Animation - Only CSS that cannot be done with Tailwind */
+.floating-label-group input:focus + label,
+.floating-label-group input:not(:placeholder-shown) + label,
+.floating-label-group.has-value label {
+    top: 0;
+    transform: translateY(-50%) scale(0.85);
+    left: 2.25rem;
+    color: #18CB96;
+    font-weight: 500;
+    background-color: white;
+}
+
+.floating-label-group input:focus ~ svg {
+    color: #18CB96;
+}
+
+/* Custom scrollbar styling for scrollable form areas */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #18CB96;
+    border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #14a87a;
+}
+
+/* Ensure select dropdowns maintain gray border - but allow error states */
+select:not(.border-red-500) {
+    border-color: #d1d5db;
+}
+select:not(.border-red-500):hover {
+    border-color: #d1d5db;
+}
+select:not(.border-red-500):focus {
+    border-color: #d1d5db;
+}
+
+/* Ensure URL inputs maintain gray border - but allow error states */
+input[type="url"]:not(.border-red-500) {
+    border-color: #d1d5db;
+}
+input[type="url"]:not(.border-red-500):hover {
+    border-color: #d1d5db;
+}
+input[type="url"]:not(.border-red-500):focus {
+    border-color: #d1d5db;
+}
+
+/* Smooth transitions for theme switching - optimized for performance */
+html {
+    scroll-behavior: smooth;
+}
+
+body, .bg-white, .bg-gray-50, .bg-gray-800, .bg-gray-900,
+.text-gray-900, .text-white, .text-gray-600, .text-gray-400,
+.border-gray-200, .border-gray-700 {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Dark mode custom colors matching reference image */
+.dark body {
+    background-color: #1E1E1E;
+}
+
+.dark .dark\:bg-gray-900 {
+    background-color: #1E1E1E !important;
+}
+
+.dark .dark\:bg-gray-800 {
+    background-color: #2A2A2A !important;
+}
+
+.dark .dark\:bg-gray-700 {
+    background-color: #333333 !important;
+}
+
+.dark .dark\:text-gray-100 {
+    color: #F5F5F5 !important;
+}
+
+.dark .dark\:text-gray-400 {
+    color: #A0A0A0 !important;
+}
+
+.dark .dark\:text-gray-300 {
+    color: #D1D1D1 !important;
+}
+
+/* Force light gray borders for filter inputs (all states) */
+.input-border-gray,
+.input-border-gray:focus,
+.input-border-gray:active,
+.input-border-gray:hover {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #d1d5db !important; /* Tailwind gray-300 */
+    outline: none !important;        /* avoid extra black focus outline */
+}
+
+.dark .input-border-gray,
+.dark .input-border-gray:focus,
+.dark .input-border-gray:active,
+.dark .input-border-gray:hover {
+    border-color: #4b5563 !important; /* Tailwind gray-600 in dark mode */
+}
