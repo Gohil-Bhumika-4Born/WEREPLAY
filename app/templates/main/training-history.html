@@ -14,7 +14,6 @@
 
 {% block main_content %}
 <!-- Training History Content -->
-            <div class="p-4 sm:p-6 lg:p-8">
                 <!-- Header Section -->
                 
                 <section class="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-white/90 dark:bg-[#252525] border border-primary/15 dark:border-primary/20 shadow-lg shadow-primary/5 dark:shadow-black/30 px-4 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-6 mb-6">
@@ -26,7 +25,7 @@
                         </div>
                         <div class="flex flex-wrap gap-2 sm:gap-3">
                             
-                            <a href="chat-reports.html" class="inline-flex items-center gap-2 px-4 py-2.5 bg-primaryDark dark:bg-[#1E1E1E] hover:bg-primaryDark hover:text-white dark:hover:bg-primaryLight/80 text-white dark:text-gray-100 rounded-xl text-xs sm:text-sm font-semibold border border-gray-200 dark:border-gray-700 transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5">
+                            <a href="{{ url_for('main.ai_training') }}" class="inline-flex items-center gap-2 px-4 py-2.5 bg-primaryDark dark:bg-[#1E1E1E] hover:bg-primaryDark hover:text-white dark:hover:bg-primaryLight/80 text-white dark:text-gray-100 rounded-xl text-xs sm:text-sm font-semibold border border-gray-200 dark:border-gray-700 transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                                 </svg>
@@ -367,8 +366,179 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </main>
+        </div>
     </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    // Training History Functions
+    const modelVersions = {
+        v4: {
+            name: 'WeReplayx Model v4',
+            status: 'Active',
+            completed: '2 hours ago',
+            cost: '$2.45',
+            trainingTime: '2m 15s',
+            estimatedTime: '2m 30s',
+            documents: 5,
+            accuracy: '96%',
+            tokens: '18,450',
+            docs: [
+                { name: 'invoice.pdf', type: 'PDF', purpose: 'Invoice processing document with payment terms, billing cycles, and refund policies' },
+                { name: 'faq.txt', type: 'TXT', purpose: 'Frequently asked questions about product features, pricing, and support' },
+                { name: 'postman_collection.json', type: 'JSON', purpose: 'Postman API collection with 12 endpoints including authentication, user management, and data APIs', isPostman: true },
+                { name: 'policy.pdf', type: 'PDF', purpose: 'Company policies including privacy policy, terms of service, and user agreements' },
+                { name: 'guidelines.md', type: 'MD', purpose: 'Development guidelines and coding standards for the project' }
+            ]
+        },
+        v3: {
+            name: 'WeReplayx Model v3',
+            status: 'Inactive',
+            completed: '3 days ago',
+            cost: '$1.89',
+            trainingTime: '1m 52s',
+            estimatedTime: '2m 15s',
+            documents: 3,
+            accuracy: '94%',
+            tokens: '12,300',
+            docs: [
+                { name: 'invoice.pdf', type: 'PDF', purpose: 'Invoice processing document with payment terms and billing information' },
+                { name: 'faq.txt', type: 'TXT', purpose: 'Frequently asked questions document' },
+                { name: 'policy.pdf', type: 'PDF', purpose: 'Company policy documents' }
+            ],
+            retrainRecommended: true
+        },
+        v2: {
+            name: 'WeReplayx Model v2',
+            status: 'Inactive',
+            completed: '1 week ago',
+            cost: '$1.45',
+            trainingTime: '1m 28s',
+            estimatedTime: '1m 45s',
+            documents: 2,
+            accuracy: '91%',
+            tokens: '8,900',
+            docs: [
+                { name: 'invoice.pdf', type: 'PDF', purpose: 'Invoice processing document' },
+                { name: 'faq.txt', type: 'TXT', purpose: 'FAQ document' }
+            ]
+        }
+    };
+
+    function selectVersion(version) {
+        const model = modelVersions[version];
+        if (!model) return;
+        
+        // Update preview title
+        const previewTitle = document.getElementById('previewTitle');
+        if (previewTitle) previewTitle.textContent = model.name;
+        
+        // Build preview content
+        let previewHTML = `
+            <div class="space-y-4">
+                <!-- Model Info -->
+                <div class="p-4 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl border border-primary/20 dark:border-primary/30 shadow-sm">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 ${model.status === 'Active' ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400' : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300'} rounded-full text-xs font-medium">${model.status}</span>
+                        <span class="text-xs text-gray-500 dark:text-gray-400">${model.completed}</span>
+                    </div>
+                    <div class="space-y-2 text-xs">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600 dark:text-gray-400">Training Time:</span>
+                            <span class="text-gray-900 dark:text-white font-medium">${model.trainingTime}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600 dark:text-gray-400">Estimated Time:</span>
+                            <span class="text-gray-900 dark:text-white font-medium">${model.estimatedTime}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600 dark:text-gray-400">Accuracy:</span>
+                            <span class="text-gray-900 dark:text-white font-medium">${model.accuracy}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600 dark:text-gray-400">Total Tokens:</span>
+                            <span class="text-gray-900 dark:text-white font-medium">${model.tokens}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600 dark:text-gray-400">Training Cost:</span>
+                            <span class="text-gray-900 dark:text-white font-semibold">${model.cost}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Documents List -->
+                <div>
+                    <h4 class="text-sm font-semibold text-gray-900 dark:text-white mb-3">Documents Used (${model.documents})</h4>
+                    <div class="space-y-2 max-h-64 overflow-y-auto custom-scrollbar">
+        `;
+        
+        model.docs.forEach(doc => {
+            const iconColor = doc.type === 'PDF' ? 'text-red-500' : doc.type === 'JSON' ? 'text-yellow-500' : 'text-blue-500';
+            previewHTML += `
+                <div class="p-3 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-lg border border-primary/20 dark:border-primary/30 hover:border-[#18CB96]/50 transition-colors ${doc.isPostman ? 'cursor-pointer' : ''}" ${doc.isPostman ? `onclick="togglePostmanAnalysis()"` : ''}>
+                    <div class="flex items-center gap-2 mb-1">
+                        <svg class="w-4 h-4 ${iconColor}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            ${doc.type === 'PDF' ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>' : 
+                              doc.type === 'JSON' ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>' :
+                              '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>'}
+                        </svg>
+                        <p class="text-xs font-semibold text-gray-900 dark:text-white">${doc.name}</p>
+                        <span class="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded text-[10px]">${doc.type}</span>
+                    </div>
+                    <p class="text-[10px] text-gray-600 dark:text-gray-400">${doc.purpose}</p>
+                    ${doc.isPostman ? '<p class="text-[10px] text-[#18CB96] mt-1 font-medium">📋 Click to view API analysis</p>' : ''}
+                </div>
+            `;
+        });
+        
+        previewHTML += `
+                    </div>
+                </div>
+                
+                ${model.retrainRecommended ? `
+                <div class="p-3 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-lg">
+                    <p class="text-xs font-semibold text-orange-900 dark:text-orange-300 mb-1">⚠ Recommended to Retrain</p>
+                    <p class="text-[10px] text-orange-700 dark:text-orange-400">New documents uploaded after this training</p>
+                </div>
+                ` : ''}
+            </div>
+        `;
+        
+        const versionPreview = document.getElementById('versionPreview');
+        if (versionPreview) versionPreview.innerHTML = previewHTML;
+        
+        // Hide postman analysis by default
+        const postmanAnalysis = document.getElementById('postmanAnalysis');
+        if (postmanAnalysis) postmanAnalysis.classList.add('hidden');
+    }
+    
+    function togglePostmanAnalysis() {
+        const postmanAnalysis = document.getElementById('postmanAnalysis');
+        if (postmanAnalysis) {
+            postmanAnalysis.classList.toggle('hidden');
+            
+            // Scroll to postman analysis if showing
+            if (!postmanAnalysis.classList.contains('hidden')) {
+                setTimeout(() => {
+                    postmanAnalysis.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            }
+        }
+    }
+    
+    // Initialize - select latest version
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+            selectVersion('v4');
+            // Stop bounce animation after 3 seconds
+            setTimeout(() => {
+                const checkAnimation = document.getElementById('checkAnimation');
+                if (checkAnimation) {
+                    checkAnimation.classList.remove('animate-bounce');
+                }
+            }, 3000);
+        }, 100);
+    });
+</script>
 {% endblock %}

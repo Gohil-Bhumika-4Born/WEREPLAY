@@ -13,3 +13,9 @@ class PlansBillingController:
     def plans_billing_page():
         """Render plans and billing page."""
         return render_template('main/plans-billing.html')
+
+    @staticmethod
+    @login_required
+    def plan_history_page():
+        """Render plan history page."""
+        return render_template('main/plan-history.html')

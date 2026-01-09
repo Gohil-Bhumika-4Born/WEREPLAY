@@ -1,0 +1,288 @@
+{% extends 'base/main_base.html' %}
+
+{% set current_page = 'plans_billing' %}
+
+{% block title %}WeReplay Admin Panel - Plan History{% endblock %}
+
+{% block page_title %}Plan History{% endblock %}
+
+{% block page_icon %}
+<svg class="w-6 h-6 text-primaryDark dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+</svg>
+{% endblock %}
+
+{% block main_content %}
+<!-- Plan History Content -->
+<div class="max-w-6xl mx-auto space-y-6 animate-fade-in">
+
+    <!-- Page Header Banner -->
+    <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-white/90 dark:bg-[#252525] border border-primary/15 dark:border-primary/20 shadow-lg shadow-primary/5 dark:shadow-black/30 p-6">
+        <div class="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-primaryDark/10 opacity-80 pointer-events-none"></div>
+        <div class="relative z-10">
+            <div class="flex items-center gap-4 mb-1">
+                <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 dark:bg-primary/20 border border-primary/20 dark:border-primary/30 flex-shrink-0 shadow-sm">
+                    <svg class="w-6 h-6 text-primaryDark dark:text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Your Plan History</h2>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">View all your past subscriptions, upgrades, and plan changes</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Plan Timeline -->
+    <div class="relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-6">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+        <div class="relative z-10">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+                <svg class="w-5 h-5 text-primaryDark dark:text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v6a2 2 0 002 2h6a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                </svg>
+                Plan Timeline
+            </h3>
+
+            <!-- Timeline Container -->
+            <div class="space-y-6">
+                <!-- Current Plan -->
+                <div class="relative flex items-start gap-4 group">
+                    <div class="flex flex-col items-center">
+                        <div class="w-4 h-4 rounded-full bg-green-500 border-4 border-white dark:border-[#252525] shadow-md z-10 group-hover:scale-125 transition-transform duration-300"></div>
+                        <div class="w-0.5 h-16 bg-green-200 dark:bg-green-800/40"></div>
+                    </div>
+                    <div class="flex-1 pb-6">
+                        <div class="bg-gradient-to-br from-green-50 via-[#F6FFFB] to-[#ECFFF9] dark:from-green-900/20 dark:via-[#1E1E1E] dark:to-[#2A2A2A] rounded-xl p-5 border border-green-200 dark:border-green-800 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="flex items-start justify-between mb-3">
+                                <div>
+                                    <h4 class="text-lg font-bold text-gray-900 dark:text-white">Professional Plan</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">Current Active Plan</p>
+                                </div>
+                                <span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 rounded-full text-[10px] font-bold uppercase tracking-wider border border-green-200/50">ACTIVE</span>
+                            </div>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm mt-4">
+                                <div class="space-y-1">
+                                    <p class="text-[10px] uppercase font-bold tracking-wider text-gray-400 dark:text-gray-500">Started</p>
+                                    <p class="font-semibold text-gray-800 dark:text-gray-200">Nov 18, 2024</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-[10px] uppercase font-bold tracking-wider text-gray-400 dark:text-gray-500">Monthly Cost</p>
+                                    <p class="font-semibold text-gray-800 dark:text-gray-200">₹3,999</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-[10px] uppercase font-bold tracking-wider text-gray-400 dark:text-gray-500">Next Billing</p>
+                                    <p class="font-semibold text-gray-800 dark:text-gray-200">Jan 18, 2025</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-[10px] uppercase font-bold tracking-wider text-gray-400 dark:text-gray-500">Status</p>
+                                    <p class="font-semibold text-green-600 dark:text-green-400">Active</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Previous Plan -->
+                <div class="relative flex items-start gap-4 group">
+                    <div class="flex flex-col items-center">
+                        <div class="w-4 h-4 rounded-full bg-blue-500 border-4 border-white dark:border-[#252525] shadow-md z-10 group-hover:scale-125 transition-transform duration-300"></div>
+                        <div class="w-0.5 h-16 bg-blue-200 dark:bg-blue-800/40"></div>
+                    </div>
+                    <div class="flex-1 pb-6">
+                        <div class="bg-gradient-to-br from-blue-50 via-[#F6FFFB] to-[#ECFFF9] dark:from-blue-900/20 dark:via-[#1E1E1E] dark:to-[#2A2A2A] rounded-xl p-5 border border-blue-200 dark:border-blue-800 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="flex items-start justify-between mb-3">
+                                <div>
+                                    <h4 class="text-lg font-bold text-gray-900 dark:text-white">Starter Plan</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">Previous Plan (Upgraded)</p>
+                                </div>
+                                <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400 rounded-full text-[10px] font-bold uppercase tracking-wider border border-blue-200/50">COMPLETED</span>
+                            </div>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm mt-4">
+                                <div class="space-y-1">
+                                    <p class="text-[10px] uppercase font-bold tracking-wider text-gray-400 dark:text-gray-500">Started</p>
+                                    <p class="font-semibold text-gray-800 dark:text-gray-200">Aug 15, 2024</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-[10px] uppercase font-bold tracking-wider text-gray-400 dark:text-gray-500">Monthly Cost</p>
+                                    <p class="font-semibold text-gray-800 dark:text-gray-200">₹1,499</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-[10px] uppercase font-bold tracking-wider text-gray-400 dark:text-gray-500">Ended</p>
+                                    <p class="font-semibold text-gray-800 dark:text-gray-200">Nov 18, 2024</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-[10px] uppercase font-bold tracking-wider text-gray-400 dark:text-gray-500">Duration</p>
+                                    <p class="font-semibold text-gray-800 dark:text-gray-200">3 months</p>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-blue-200/50 dark:border-blue-800/50">
+                                <p class="text-[11px] text-blue-600 dark:text-blue-400">
+                                    <span class="font-bold uppercase tracking-tight">Upgrade Reason:</span> Needed more documents and unlimited AI replies for growing business.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- First Plan -->
+                <div class="relative flex items-start gap-4 group">
+                    <div class="flex flex-col items-center">
+                        <div class="w-4 h-4 rounded-full bg-purple-500 border-4 border-white dark:border-[#252525] shadow-md z-10 group-hover:scale-125 transition-transform duration-300"></div>
+                        <div class="w-0.5 h-16 bg-purple-200 dark:bg-purple-800/40"></div>
+                    </div>
+                    <div class="flex-1 pb-6">
+                        <div class="bg-gradient-to-br from-purple-50 via-[#F6FFFB] to-[#ECFFF9] dark:from-purple-900/20 dark:via-[#1E1E1E] dark:to-[#2A2A2A] rounded-xl p-5 border border-purple-200 dark:border-purple-800 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="flex items-start justify-between mb-3">
+                                <div>
+                                    <h4 class="text-lg font-bold text-gray-900 dark:text-white">Free Trial</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">Initial Trial Period</p>
+                                </div>
+                                <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-400 rounded-full text-[10px] font-bold uppercase tracking-wider border border-purple-200/50">COMPLETED</span>
+                            </div>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm mt-4">
+                                <div class="space-y-1">
+                                    <p class="text-[10px] uppercase font-bold tracking-wider text-gray-400 dark:text-gray-500">Started</p>
+                                    <p class="font-semibold text-gray-800 dark:text-gray-200">Jul 20, 2024</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-[10px] uppercase font-bold tracking-wider text-gray-400 dark:text-gray-500">Cost</p>
+                                    <p class="font-semibold text-gray-800 dark:text-gray-200">₹0 (Free)</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-[10px] uppercase font-bold tracking-wider text-gray-400 dark:text-gray-500">Ended</p>
+                                    <p class="font-semibold text-gray-800 dark:text-gray-200">Aug 15, 2024</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-[10px] uppercase font-bold tracking-wider text-gray-400 dark:text-gray-500">Duration</p>
+                                    <p class="font-semibold text-gray-800 dark:text-gray-200">26 days</p>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-purple-200/50 dark:border-purple-800/50">
+                                <p class="text-[11px] text-purple-600 dark:text-purple-400">
+                                    <span class="font-bold uppercase tracking-tight">Conversion:</span> Upgraded to Starter Plan after successful trial evaluation.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Creation -->
+                <div class="relative flex items-start gap-4 group">
+                    <div class="flex flex-col items-center">
+                        <div class="w-4 h-4 rounded-full bg-gray-500 border-4 border-white dark:border-[#252525] shadow-md z-10 group-hover:scale-125 transition-transform duration-300"></div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="bg-gradient-to-br from-gray-50 via-[#F6FFFB] to-[#ECFFF9] dark:from-gray-900/20 dark:via-[#1E1E1E] dark:to-[#2A2A2A] rounded-xl p-5 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="flex items-start justify-between mb-3">
+                                <div>
+                                    <h4 class="text-lg font-bold text-gray-900 dark:text-white">Account Created</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">Welcome to WeReplay</p>
+                                </div>
+                                <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-300 rounded-full text-[10px] font-bold uppercase tracking-wider border border-gray-200/50">START</span>
+                            </div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                                <p>Account registered on <span class="font-semibold text-gray-900 dark:text-white">July 15, 2024</span></p>
+                                <p class="mt-1">Started with Free Trial plan to explore WeReplay features</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Plan Statistics Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white/90 dark:bg-[#252525] rounded-2xl shadow-lg border border-primary/15 dark:border-primary/20 p-6 text-center hover:shadow-primary/10 transition-shadow transition-all duration-300 hover:-translate-y-1">
+            <div class="w-12 h-12 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center mx-auto mb-4 border border-primary/20">
+                <svg class="w-6 h-6 text-primaryDark dark:text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                </svg>
+            </div>
+            <h3 class="text-2xl font-black text-gray-900 dark:text-white mb-1">₹24,995</h3>
+            <p class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest">Total Amount Paid</p>
+            <p class="text-[10px] text-gray-400 dark:text-gray-500 mt-2 italic font-medium">Across all plan cycles</p>
+        </div>
+
+        <div class="bg-white/90 dark:bg-[#252525] rounded-2xl shadow-lg border border-primary/15 dark:border-primary/20 p-6 text-center hover:shadow-primary/10 transition-shadow transition-all duration-300 hover:-translate-y-1">
+            <div class="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900/20 flex items-center justify-center mx-auto mb-4 border border-green-200/50">
+                <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+            </div>
+            <h3 class="text-2xl font-black text-gray-900 dark:text-white mb-1">2</h3>
+            <p class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest">Plan Upgrades</p>
+            <p class="text-[10px] text-gray-400 dark:text-gray-500 mt-2 italic font-medium">Lifetime successful changes</p>
+        </div>
+
+        <div class="bg-white/90 dark:bg-[#252525] rounded-2xl shadow-lg border border-primary/15 dark:border-primary/20 p-6 text-center hover:shadow-primary/10 transition-shadow transition-all duration-300 hover:-translate-y-1">
+            <div class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/20 flex items-center justify-center mx-auto mb-4 border border-blue-200/50">
+                <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+            </div>
+            <h3 class="text-2xl font-black text-gray-900 dark:text-white mb-1">184 days</h3>
+            <p class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest">Customer Since</p>
+            <p class="text-[10px] text-gray-400 dark:text-gray-500 mt-2 italic font-medium">Member since July 2024</p>
+        </div>
+    </div>
+
+    <!-- Download History Card -->
+    <div class="bg-white/90 dark:bg-[#252525] rounded-2xl shadow-lg border border-primary/15 dark:border-primary/20 p-6 overflow-hidden relative">
+        <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary/40 via-primaryDark/40 to-primary/40"></div>
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-6 relative z-10">
+            <div class="text-center sm:text-left">
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Download Plan History</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                    Download a comprehensive PDF report of your complete plan history, including all subscriptions, payments, and usage statistics.
+                </p>
+            </div>
+            <button onclick="downloadPlanHistory()" class="shrink-0 w-full sm:w-auto px-6 py-3 bg-primaryDark hover:bg-[#155a52] dark:bg-[#18CB96] dark:hover:bg-[#15b384] text-white rounded-xl font-bold transition-all duration-300 shadow-md shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                Download PDF
+            </button>
+        </div>
+        
+        <div class="mt-6 bg-gray-50 dark:bg-[#1E1E1E] rounded-xl p-4 border border-gray-200/50 dark:border-gray-800/50">
+            <div class="flex items-center justify-between text-sm">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-white dark:bg-[#252525] rounded-lg shadow-sm">
+                        <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M4 4a2 2 0 012-2h4.586A1 1 0 0111.293 2.707l5 5a1 1 0 01.293.707V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="font-bold text-gray-900 dark:text-white tracking-tight">Plan-History-Report.pdf</p>
+                        <p class="text-[11px] text-gray-500 dark:text-gray-400">Complete subscription and billing history</p>
+                    </div>
+                </div>
+                <div class="text-right hidden sm:block">
+                    <p class="text-[10px] uppercase font-bold tracking-wider text-gray-400 dark:text-gray-500">Last updated</p>
+                    <p class="font-semibold text-gray-900 dark:text-white">Jan 18, 2025</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function downloadPlanHistory() {
+        // Mock function
+        const btn = event.currentTarget;
+        const originalText = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = '<svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Generating...';
+        
+        setTimeout(() => {
+            alert('Your Plan History PDF has been generated and is ready for download.');
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+        }, 1500);
+    }
+</script>
+{% endblock %}

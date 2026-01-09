@@ -7,12 +7,17 @@
 
 {% block page_title %}Dashboard{% endblock %}
 
+{% block page_icon %}
+<svg class="w-6 h-6 text-primaryDark dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+</svg>
+{% endblock %}
+
 {% block main_content %}
 <!-- Stats Grid -->
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6">
     <!-- Total Conversations -->
-    <div class="relative overflow-hidden bg-gradient-to-b from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-2xl shadow-2xl ring-[#18CB96]/20 dark:ring-[#18CB96]/30 p-6 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom,_rgba(24,203,150,0.08),_transparent_55%)] pointer-events-none opacity-90"></div>
+    <div class="relative overflow-hidden bg-white dark:bg-gradient-to-br dark:from-[#1E1E1E] dark:via-[#252525] dark:to-[#2A2A2A] rounded-2xl shadow-lg dark:shadow-2xl dark:ring-[#18CB96]/30 p-6 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
         <div class="relative z-10">
             <div class="flex items-start justify-between">
                 <div class="flex-1">
@@ -30,8 +35,7 @@
     </div>
     
     <!-- Total Sent Messages -->
-    <div class="relative overflow-hidden bg-gradient-to-b from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-2xl shadow-2xl ring-[#18CB96]/20 dark:ring-[#18CB96]/30 p-6 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom,_rgba(24,203,150,0.08),_transparent_55%)] pointer-events-none opacity-90"></div>
+    <div class="relative overflow-hidden bg-white dark:bg-gradient-to-br dark:from-[#1E1E1E] dark:via-[#252525] dark:to-[#2A2A2A] rounded-2xl shadow-lg dark:shadow-2xl dark:ring-[#18CB96]/30 p-6 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
         <div class="relative z-10">
             <div class="flex items-start justify-between">
                 <div class="flex-1">
@@ -49,8 +53,7 @@
     </div>
     
     <!-- Pending Messages -->
-    <div class="relative overflow-hidden bg-gradient-to-b from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-2xl shadow-2xl ring-[#18CB96]/20 dark:ring-[#18CB96]/30 p-6 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom,_rgba(24,203,150,0.08),_transparent_55%)] pointer-events-none opacity-90"></div>
+    <div class="relative overflow-hidden bg-white dark:bg-gradient-to-br dark:from-[#1E1E1E] dark:via-[#252525] dark:to-[#2A2A2A] rounded-2xl shadow-lg dark:shadow-2xl dark:ring-[#18CB96]/30 p-6 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
         <div class="relative z-10">
             <div class="flex items-start justify-between">
                 <div class="flex-1">
@@ -68,8 +71,7 @@
     </div>
     
     <!-- Avg Response Time -->
-    <div class="relative overflow-hidden bg-gradient-to-b from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-2xl shadow-2xl ring-[#18CB96]/20 dark:ring-[#18CB96]/30 p-6 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom,_rgba(24,203,150,0.08),_transparent_55%)] pointer-events-none opacity-90"></div>
+    <div class="relative overflow-hidden bg-white dark:bg-gradient-to-br dark:from-[#1E1E1E] dark:via-[#252525] dark:to-[#2A2A2A] rounded-2xl shadow-lg dark:shadow-2xl dark:ring-[#18CB96]/30 p-6 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
         <div class="relative z-10">
             <div class="flex items-start justify-between">
                 <div class="flex-1">
@@ -87,8 +89,7 @@
     </div>
     
     <!-- Collected Issues -->
-    <div class="relative overflow-hidden bg-gradient-to-b from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-2xl shadow-2xl ring-[#18CB96]/20 dark:ring-[#18CB96]/30 p-6 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom,_rgba(24,203,150,0.08),_transparent_55%)] pointer-events-none opacity-90"></div>
+    <div class="relative overflow-hidden bg-white dark:bg-gradient-to-br dark:from-[#1E1E1E] dark:via-[#252525] dark:to-[#2A2A2A] rounded-2xl shadow-lg dark:shadow-2xl dark:ring-[#18CB96]/30 p-6 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
         <div class="relative z-10">
             <div class="flex items-start justify-between">
                 <div class="flex-1">
@@ -106,8 +107,7 @@
     </div>
     
     <!-- Sentiment Summary -->
-    <div class="relative overflow-hidden bg-gradient-to-b from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-2xl shadow-2xl ring-[#18CB96]/20 dark:ring-[#18CB96]/30 p-6 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom,_rgba(24,203,150,0.08),_transparent_55%)] pointer-events-none opacity-90"></div>
+    <div class="relative overflow-hidden bg-white dark:bg-gradient-to-br dark:from-[#1E1E1E] dark:via-[#252525] dark:to-[#2A2A2A] rounded-2xl shadow-lg dark:shadow-2xl dark:ring-[#18CB96]/30 p-6 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
         <div class="relative z-10">
             <div class="flex items-start justify-between">
                 <div class="flex-1">
@@ -137,148 +137,157 @@
     </div>
 </div>
 
-<!-- Second Row - Charts and Activity -->
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6">
-    <!-- Trend Line -->
-    <div class="relative overflow-hidden bg-gradient-to-b from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-2xl shadow-2xl ring-[#18CB96]/20 dark:ring-[#18CB96]/30 p-6 hover:shadow-xl transition-all duration-300">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+<!-- Download App Section -->
+<div class="mt-6 mb-6">
+    <div class="relative overflow-hidden bg-white dark:bg-gradient-to-br dark:from-[#1E1E1E] dark:via-[#252525] dark:to-[#2A2A2A] rounded-2xl shadow-lg dark:shadow-2xl dark:ring-[#18CB96]/30 p-6 hover:shadow-xl transition-all duration-300">
         <div class="relative z-10">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Trend Line (24 Hours)</h3>
-            <div class="w-full h-4 bg-gray-100 dark:bg-[#1E1E1E] rounded-full overflow-hidden shadow-inner">
-                <div class="h-full flex">
-                    <div class="bg-green-500 shadow-sm w-[37.5%]"></div>
-                    <div class="bg-red-500 shadow-sm w-1/2"></div>
-                    <div class="bg-orange-500 shadow-sm w-[12.5%]"></div>
-                </div>
-            </div>
-            <p class="text-sm text-gray-500 dark:text-gray-300 mt-3">56% complete · 10 days remaining</p>
-        </div>
-    </div>
-    
-    <!-- Recent Activity -->
-    <div class="relative overflow-hidden bg-gradient-to-b from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-2xl shadow-2xl ring-[#18CB96]/20 dark:ring-[#18CB96]/30 p-6 hover:shadow-xl transition-all duration-300">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
-        <div class="relative z-10">
-            <div class="flex items-center gap-2 mb-4">
-                <svg class="w-5 h-5 text-primaryDark dark:text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Recent Activity</h3>
-            </div>
-            <div class="space-y-4">
-                <div class="flex items-start justify-between p-3 rounded-lg bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] border border-primary/20 dark:border-primary/30 hover:shadow-md transition-all">
-                    <div class="flex items-start gap-3 flex-1">
-                        <div class="h-2 w-2 rounded-full bg-[#18CB96] mt-2"></div>
-                        <div>
-                            <p class="text-sm text-gray-900 dark:text-white font-medium">You earned 5 coins from purchase</p>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">2 hours ago</p>
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-4">
+                <!-- Left Content -->
+                <div class="flex items-center gap-4">
+                    <div class="p-3 bg-gradient-to-br from-primary/20 to-primary/30 dark:from-primary/30 dark:to-primary/40 rounded-xl shadow-sm">
+                        <svg class="w-6 h-6 text-primary dark:text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Desktop App Available</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">Download for enhanced features and real-time monitoring</p>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span class="px-2 py-1 bg-gradient-to-r from-green-100 to-green-200 dark:from-green-900/40 dark:to-green-800/40 text-green-800 dark:text-green-400 rounded text-xs font-medium shadow-sm">Auto-updates</span>
+                            <span class="px-2 py-1 bg-gradient-to-r from-blue-100 to-blue-200 dark:from-blue-900/40 dark:to-blue-800/40 text-blue-800 dark:text-blue-400 rounded text-xs font-medium shadow-sm">Fast Performance</span>
+                            <span class="px-2 py-1 bg-gradient-to-r from-purple-100 to-purple-200 dark:from-purple-900/40 dark:to-purple-800/40 text-purple-800 dark:text-purple-400 rounded text-xs font-medium shadow-sm">Secure</span>
                         </div>
                     </div>
-                    <span class="text-sm font-semibold text-[#18CB96]">+₹150</span>
                 </div>
-                <div class="flex items-start justify-between p-3 rounded-lg bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] border border-primary/20 dark:border-primary/30 hover:shadow-md transition-all">
-                    <div class="flex items-start gap-3 flex-1">
-                        <div class="h-2 w-2 rounded-full bg-[#18CB96] mt-2"></div>
-                        <div>
-                            <p class="text-sm text-gray-900 dark:text-white font-medium">New user joined via your referral</p>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">4 hours ago</p>
-                        </div>
-                    </div>
-                    <span class="text-sm font-semibold text-green-500">+₹75</span>
-                </div>
-                <div class="flex items-start justify-between p-3 rounded-lg bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] border border-primary/20 dark:border-primary/30 hover:shadow-md transition-all">
-                    <div class="flex items-start gap-3 flex-1">
-                        <div class="h-2 w-2 rounded-full bg-[#18CB96] mt-2"></div>
-                        <div>
-                            <p class="text-sm text-gray-900 dark:text-white font-medium">Level 2 network activity</p>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">6 hours ago</p>
-                        </div>
-                    </div>
-                    <span class="text-sm font-semibold text-[#18CB96]">+₹25</span>
-                </div>
-                <div class="flex items-start justify-between p-3 rounded-lg bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] border border-primary/20 dark:border-primary/30 hover:shadow-md transition-all">
-                    <div class="flex items-start gap-3 flex-1">
-                        <div class="h-2 w-2 rounded-full bg-[#18CB96] mt-2"></div>
-                        <div>
-                            <p class="text-sm text-gray-900 dark:text-white font-medium">Monthly cashback processed</p>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">1 day ago</p>
-                        </div>
-                    </div>
-                    <span class="text-sm font-semibold text-green-500">+₹1,200</span>
+
+                <!-- Right Content - Download Button -->
+                <div class="flex-shrink-0">
+                    <a href="{{ url_for('main.download_software') }}" class="inline-flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primaryDark text-white rounded-lg font-medium transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" />
+                        </svg>
+                        <span>Download Now</span>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Third Row - Quick Stats and Top Issues -->
+<!-- Trend Line Section -->
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6">
-    <!-- Quick Stats -->
-    <div class="relative overflow-hidden bg-gradient-to-b from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-2xl shadow-2xl ring-[#18CB96]/20 dark:ring-[#18CB96]/30 p-6 hover:shadow-xl transition-all duration-300">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
-        <div class="relative z-10">
-            <div class="flex items-center gap-2 mb-4">
-                <svg class="w-5 h-5 text-primaryDark dark:text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                </svg>
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Quick Stats</h3>
+    <!-- Trend Line -->
+    <div class="bg-white dark:bg-[#2A2A2A] rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Trend Line (24 Hours)</h3>
+        <div class="relative">
+            <div class="w-full h-4 bg-gray-100 dark:bg-[#1E1E1E] rounded-full overflow-hidden shadow-inner">
+                <div class="h-full flex">
+                    <div class="bg-green-500 shadow-sm w-1/2 relative cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg group" title="09:00 AM">
+                        <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 text-xs font-medium text-green-600 dark:text-green-400 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200">09:00 AM</div>
+                    </div>
+                    <div class="bg-red-500 shadow-sm w-1/2 relative cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg group" title="12:00 PM">
+                        <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 text-xs font-medium text-red-600 dark:text-red-400 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200">12:00 PM</div>
+                    </div>
+                    <div class="bg-orange-500 shadow-sm w-1/4 relative cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg group" title="03:00 PM">
+                        <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 text-xs font-medium text-orange-600 dark:text-orange-400 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200">03:00 PM</div>
+                    </div>
+                </div>
             </div>
-            <div class="space-y-2">
-                <div class="flex items-center justify-between p-3 rounded-lg bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] border border-primary/20 dark:border-primary/30 hover:shadow-md transition-all">
-                    <span class="text-sm text-gray-600 dark:text-gray-300">Active Referrals</span>
-                    <span class="text-sm font-semibold text-blue-600 dark:text-blue-400">8</span>
+            <!-- Time labels below -->
+            <div class="flex justify-between mt-6 px-2">
+                <span class="text-sm font-semibold text-green-500 dark:text-green-400">09:00 AM</span>
+                <span class="text-sm font-semibold text-red-500 dark:text-red-400">12:00 PM</span>
+                <span class="text-sm font-semibold text-orange-500 dark:text-orange-400">03:00 PM</span>
+            </div>
+        </div>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-3">Activity levels throughout the day</p>
+    </div>
+
+    <!-- Trend Analytics -->
+    <div class="bg-white dark:bg-[#2A2A2A] rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Trend Analytics</h3>
+        <div class="space-y-4">
+            <!-- Growth Rate -->
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    <span class="text-sm text-gray-600 dark:text-gray-300">Growth Rate</span>
                 </div>
-                <div class="flex items-center justify-between p-3 rounded-lg bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] border border-primary/20 dark:border-primary/30 hover:shadow-md transition-all">
-                    <span class="text-sm text-gray-600 dark:text-gray-300">Pending Activation</span>
-                    <span class="text-sm font-semibold text-orange-600 dark:text-orange-400">3</span>
+                <span class="text-sm font-semibold text-green-500">+12.5%</span>
+            </div>
+
+            <!-- Peak Hours -->
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <span class="text-sm text-gray-600 dark:text-gray-300">Peak Hours</span>
                 </div>
-                <div class="flex items-center justify-between p-3 rounded-lg bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] border border-primary/20 dark:border-primary/30 hover:shadow-md transition-all">
-                    <span class="text-sm text-gray-600 dark:text-gray-300">Matrix Completion</span>
-                    <span class="text-sm font-semibold text-blue-600 dark:text-blue-400">32%</span>
+                <span class="text-sm font-semibold text-red-500">12 - 3 PM</span>
+            </div>
+
+            <!-- Direction -->
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <div class="w-3 h-3 rounded-full bg-orange-500"></div>
+                    <span class="text-sm text-gray-600 dark:text-gray-300">Direction</span>
                 </div>
-                <div class="flex items-center justify-between p-3 rounded-lg bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] border border-primary/20 dark:border-primary/30 hover:shadow-md transition-all">
-                    <span class="text-sm text-gray-600 dark:text-gray-300">Next Payout</span>
-                    <span class="text-sm font-semibold text-green-600 dark:text-[#30B566]">15 days</span>
+                <div class="flex items-center gap-1">
+                    <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                    </svg>
+                    <span class="text-sm font-semibold text-orange-500">Upward</span>
                 </div>
             </div>
         </div>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-4">Data updated 5 min ago</p>
     </div>
-    
+</div>
+
+<!-- Analytics & Top Issues Section -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6">
     <!-- Top 5 Issues -->
-    <div class="relative overflow-hidden bg-gradient-to-b from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-2xl shadow-2xl ring-[#18CB96]/20 dark:ring-[#18CB96]/30 p-6 hover:shadow-xl transition-all duration-300">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+    <div class="relative overflow-hidden bg-white dark:bg-gradient-to-br dark:from-[#1E1E1E] dark:via-[#252525] dark:to-[#2A2A2A] rounded-2xl shadow-lg dark:shadow-2xl dark:ring-[#18CB96]/30 p-6 hover:shadow-xl transition-all duration-300">
         <div class="relative z-10">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Top 5 issues</h3>
+            <div class="flex items-center justify-between mb-2">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Top 5 Issues</h3>
+                <a href="{{ url_for('main.all_issues') }}" class="text-sm text-[#18CB96] hover:text-primaryDark font-medium transition-colors flex items-center gap-1">
+                    View All
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">Last 24 hours</p>
             <div class="space-y-3">
-                <div class="flex items-center justify-between p-3 rounded-lg bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] border border-primary/20 dark:border-primary/30 hover:shadow-md transition-all">
+                <div class="flex items-center justify-between p-3 rounded-lg bg-white dark:bg-[#1E1E1E] border border-primary/20 dark:border-primary/30 hover:shadow-md transition-all">
                     <div class="flex items-center gap-3">
                         <div class="h-2 w-2 rounded-full bg-red-500"></div>
                         <span class="text-sm text-gray-900 dark:text-white">Payment issue</span>
                     </div>
                     <span class="px-2 py-1 bg-red-200 dark:bg-red-800 text-red-700 dark:text-red-300 text-xs font-semibold rounded-full shadow-sm">150+</span>
                 </div>
-                <div class="flex items-center justify-between p-3 rounded-lg bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] border border-primary/20 dark:border-primary/30 hover:shadow-md transition-all">
+                <div class="flex items-center justify-between p-3 rounded-lg bg-white dark:bg-[#1E1E1E] border border-primary/20 dark:border-primary/30 hover:shadow-md transition-all">
                     <div class="flex items-center gap-3">
                         <div class="h-2 w-2 rounded-full bg-orange-500"></div>
                         <span class="text-sm text-gray-900 dark:text-white">Account access</span>
                     </div>
                     <span class="px-2 py-1 bg-orange-200 dark:bg-orange-800 text-orange-700 dark:text-orange-300 text-xs font-semibold rounded-full shadow-sm">85+</span>
                 </div>
-                <div class="flex items-center justify-between p-3 rounded-lg bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] border border-primary/20 dark:border-primary/30 hover:shadow-md transition-all">
+                <div class="flex items-center justify-between p-3 rounded-lg bg-white dark:bg-[#1E1E1E] border border-primary/20 dark:border-primary/30 hover:shadow-md transition-all">
                     <div class="flex items-center gap-3">
                         <div class="h-2 w-2 rounded-full bg-yellow-500"></div>
                         <span class="text-sm text-gray-900 dark:text-white">Product inquiry</span>
                     </div>
                     <span class="px-2 py-1 bg-yellow-200 dark:bg-yellow-800 text-yellow-700 dark:text-yellow-300 text-xs font-semibold rounded-full shadow-sm">62+</span>
                 </div>
-                <div class="flex items-center justify-between p-3 rounded-lg bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] border border-primary/20 dark:border-primary/30 hover:shadow-md transition-all">
+                <div class="flex items-center justify-between p-3 rounded-lg bg-white dark:bg-[#1E1E1E] border border-primary/20 dark:border-primary/30 hover:shadow-md transition-all">
                     <div class="flex items-center gap-3">
                         <div class="h-2 w-2 rounded-full bg-blue-500"></div>
                         <span class="text-sm text-gray-900 dark:text-white">Technical support</span>
                     </div>
                     <span class="px-2 py-1 bg-blue-200 dark:bg-blue-800 text-blue-700 dark:text-blue-300 text-xs font-semibold rounded-full shadow-sm">45+</span>
                 </div>
-                <div class="flex items-center justify-between p-3 rounded-lg bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] border border-primary/20 dark:border-primary/30 hover:shadow-md transition-all">
+                <div class="flex items-center justify-between p-3 rounded-lg bg-white dark:bg-[#1E1E1E] border border-primary/20 dark:border-primary/30 hover:shadow-md transition-all">
                     <div class="flex items-center gap-3">
                         <div class="h-2 w-2 rounded-full bg-purple-500"></div>
                         <span class="text-sm text-gray-900 dark:text-white">Refund request</span>
@@ -288,53 +297,151 @@
             </div>
         </div>
     </div>
-</div>
 
-<!-- Bottom CTA Cards -->
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-    <!-- Grow Your Network -->
-    <div class="relative overflow-hidden bg-gradient-to-b from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-2xl shadow-2xl ring-[#18CB96]/20 dark:ring-[#18CB96]/30 p-6 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+    <!-- Analytics Chart -->
+    <div class="relative overflow-hidden bg-white dark:bg-gradient-to-br dark:from-[#1E1E1E] dark:via-[#252525] dark:to-[#2A2A2A] rounded-2xl shadow-lg dark:shadow-2xl dark:ring-[#18CB96]/30 p-6 hover:shadow-xl transition-all duration-300">
         <div class="relative z-10">
-            <div class="flex items-start justify-between">
-                <div class="flex-1">
-                    <div class="flex items-center gap-2 mb-2">
-                        <svg class="w-6 h-6 text-[#18CB96]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                        </svg>
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Grow Your Network</h3>
+            <div class="flex items-center justify-between mb-2">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Conversation Analytics</h3>
+                <span class="text-xs text-gray-500 dark:text-gray-400">Last 7 days</span>
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">Message volume trends</p>
+
+            <!-- Chart Container -->
+            <div class="space-y-4">
+                <!-- SVG Chart -->
+                <div class="relative h-48">
+                    <svg width="100%" height="180" viewBox="0 0 400 180" class="overflow-visible">
+                        <!-- Grid lines -->
+                        <defs>
+                            <pattern id="grid" width="40" height="20" patternUnits="userSpaceOnUse">
+                                <path d="M 40 0 L 0 0 0 20" fill="none" stroke="#E5E7EB" stroke-width="0.5" class="dark:stroke-gray-700"/>
+                            </pattern>
+                        </defs>
+                        <rect width="100%" height="100%" fill="url(#grid)" />
+
+                        <!-- Y-axis labels -->
+                        <text x="10" y="20" class="chart-y-axis-label text-xs font-medium fill-gray-500 dark:fill-gray-400">200</text>
+                        <text x="10" y="60" class="chart-y-axis-label text-xs font-medium fill-gray-500 dark:fill-gray-400">150</text>
+                        <text x="10" y="100" class="chart-y-axis-label text-xs font-medium fill-gray-500 dark:fill-gray-400">100</text>
+                        <text x="10" y="140" class="chart-y-axis-label text-xs font-medium fill-gray-500 dark:fill-gray-400">50</text>
+                        <text x="10" y="170" class="chart-y-axis-label text-xs font-medium fill-gray-500 dark:fill-gray-400">0</text>
+
+                        <!-- Gradient definition -->
+                        <defs>
+                            <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#18CB96;stop-opacity:0.6" />
+                                <stop offset="100%" style="stop-color:#18CB96;stop-opacity:0.1" />
+                            </linearGradient>
+                        </defs>
+
+                        <!-- Area under the line -->
+                        <polyline points="50,150 90,120 130,100 170,80 210,60 250,90 290,70 330,50 330,170 50,170"
+                                  fill="url(#areaGradient)"
+                                  opacity="0.3"/>
+
+                        <!-- Data line -->
+                        <polyline points="50,150 90,120 130,100 170,80 210,60 250,90 290,70 330,50"
+                                  fill="none"
+                                  stroke="#18CB96"
+                                  stroke-width="3"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  class="drop-shadow-sm"/>
+
+                        <!-- Data points -->
+                        <circle cx="50" cy="150" r="4" fill="#18CB96" stroke="white" stroke-width="2" class="cursor-pointer"><title>Mon: 20 messages</title></circle>
+                        <circle cx="90" cy="120" r="4" fill="#18CB96" stroke="white" stroke-width="2" class="cursor-pointer"><title>Tue: 50 messages</title></circle>
+                        <circle cx="130" cy="100" r="4" fill="#18CB96" stroke="white" stroke-width="2" class="cursor-pointer"><title>Wed: 80 messages</title></circle>
+                        <circle cx="170" cy="80" r="4" fill="#18CB96" stroke="white" stroke-width="2" class="cursor-pointer"><title>Thu: 100 messages</title></circle>
+                        <circle cx="210" cy="60" r="4" fill="#18CB96" stroke="white" stroke-width="2" class="cursor-pointer"><title>Fri: 120 messages</title></circle>
+                        <circle cx="250" cy="90" r="4" fill="#18CB96" stroke="white" stroke-width="2" class="cursor-pointer"><title>Sat: 90 messages</title></circle>
+                        <circle cx="290" cy="70" r="4" fill="#18CB96" stroke="white" stroke-width="2" class="cursor-pointer"><title>Sun: 110 messages</title></circle>
+                        <circle cx="330" cy="50" r="4" fill="#18CB96" stroke="white" stroke-width="2" class="cursor-pointer"><title>Today: 130 messages</title></circle>
+
+                        <!-- Day labels -->
+                        <text x="45" y="185" class="chart-day-label text-xs font-medium fill-gray-600 dark:fill-gray-400">Mon</text>
+                        <text x="85" y="185" class="chart-day-label text-xs font-medium fill-gray-600 dark:fill-gray-400">Tue</text>
+                        <text x="125" y="185" class="chart-day-label text-xs font-medium fill-gray-600 dark:fill-gray-400">Wed</text>
+                        <text x="165" y="185" class="chart-day-label text-xs font-medium fill-gray-600 dark:fill-gray-400">Thu</text>
+                        <text x="205" y="185" class="chart-day-label text-xs font-medium fill-gray-600 dark:fill-gray-400">Fri</text>
+                        <text x="245" y="185" class="chart-day-label text-xs font-medium fill-gray-600 dark:fill-gray-400">Sat</text>
+                        <text x="285" y="185" class="chart-day-label text-xs font-medium fill-gray-600 dark:fill-gray-400">Sun</text>
+                        <text x="320" y="185" class="chart-day-label text-xs font-medium fill-gray-600 dark:fill-gray-400">Today</text>
+                    </svg>
+                </div>
+
+                <!-- Statistics Summary -->
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                        <div class="text-lg font-bold text-[#18CB96]">760</div>
+                        <div class="text-xs text-gray-600 dark:text-gray-400">Total Messages</div>
                     </div>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">Invite friends and family to join your matrix network and earn more cashback.</p>
-                    <button class="px-4 py-2 bg-primary hover:bg-primaryDark text-white rounded-lg font-medium transition-colors flex items-center gap-2">
-                        <span>Share Referral Link</span>
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </button>
+                    <div class="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                        <div class="text-lg font-bold text-[#18CB96]">130</div>
+                        <div class="text-xs text-gray-600 dark:text-gray-400">Peak Today</div>
+                    </div>
+                    <div class="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                        <div class="text-lg font-bold text-[#18CB96]">85</div>
+                        <div class="text-xs text-gray-600 dark:text-gray-400">Avg Daily</div>
+                    </div>
+                </div>
+
+                <!-- Trend Indicator -->
+                <div class="flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                    </svg>
+                    <span class="text-xs text-green-600 dark:text-green-400 font-medium">+15% from last week</span>
                 </div>
             </div>
         </div>
     </div>
-    
-    <!-- Make a Purchase -->
-    <div class="relative overflow-hidden bg-gradient-to-b from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-2xl shadow-2xl ring-[#18CB96]/20 dark:ring-[#18CB96]/30 p-6 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
+</div>
+
+<!-- Bottom CTA Cards -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+    <!-- AI Training -->
+    <div class="relative overflow-hidden bg-white dark:bg-gradient-to-br dark:from-[#1E1E1E] dark:via-[#252525] dark:to-[#2A2A2A] rounded-2xl shadow-lg dark:shadow-2xl dark:ring-[#18CB96]/30 p-6 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
         <div class="relative z-10">
             <div class="flex items-start justify-between">
                 <div class="flex-1">
                     <div class="flex items-center gap-2 mb-2">
                         <svg class="w-6 h-6 text-[#18CB96]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
                         </svg>
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Make a Purchase</h3>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">AI Training</h3>
                     </div>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">Shop now to earn coins and boost your cashback potential.</p>
-                    <button class="px-4 py-2 bg-white dark:bg-[#333333] text-gray-700 dark:text-white hover:bg-gray-50 dark:hover:bg-[#3A3A3A] rounded-lg font-medium shadow-md hover:shadow-lg transition-all flex items-center gap-2">
-                        <span>Browse Products</span>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">Train your AI assistant with custom documents and improve response accuracy for better customer support.</p>
+                    <a href="{{ url_for('main.ai_training') }}" class="inline-flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primaryDark text-white rounded-lg font-medium transition-colors">
+                        <span>Start Training</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                         </svg>
-                    </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Buy Subscription -->
+    <div class="relative overflow-hidden bg-white dark:bg-gradient-to-br dark:from-[#1E1E1E] dark:via-[#252525] dark:to-[#2A2A2A] rounded-2xl shadow-lg dark:shadow-2xl dark:ring-[#18CB96]/30 p-6 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
+        <div class="relative z-10">
+            <div class="flex items-start justify-between">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 mb-2">
+                        <svg class="w-6 h-6 text-[#18CB96]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                        </svg>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Buy Subscription</h3>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">Upgrade your plan to unlock advanced features, higher message limits, and priority support.</p>
+                    <a href="{{ url_for('main.plans_billing') }}" class="inline-flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primaryDark text-white rounded-lg font-medium transition-colors">
+                        <span>View Plans</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
                 </div>
             </div>
         </div>

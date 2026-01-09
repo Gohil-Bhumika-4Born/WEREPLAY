@@ -131,13 +131,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 002 2h2.945M15 21v-2a2 2 0 00-2-2H5a2 2 0 00-2 2v2M21 3v2a2 2 0 01-2 2h-2.945M9 3H7a2 2 0 00-2 2v2m5-4h4a2 2 0 012 2v2M9 3v2m6-2v2m-6 4h6m-6 4h6m-6 4h6"></path>
                 </svg>
                 <select id="country" name="country" required class="w-full py-3.5 pl-10 pr-10 text-sm bg-transparent border {% if errors and errors.country %}border-red-500{% else %}border-gray-300{% endif %} rounded-lg text-gray-500 transition-all duration-300 hover:border-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 appearance-none cursor-pointer">
-                    <option value="" disabled {% if not form_data.get('country') %}selected{% endif %}>Select Country</option>
-                    <option value="india" {% if form_data.get('country') == 'india' %}selected{% endif %}>India</option>
-                    <option value="usa" {% if form_data.get('country') == 'usa' %}selected{% endif %}>United States</option>
-                    <option value="uk" {% if form_data.get('country') == 'uk' %}selected{% endif %}>United Kingdom</option>
-                    <option value="canada" {% if form_data.get('country') == 'canada' %}selected{% endif %}>Canada</option>
-                    <option value="australia" {% if form_data.get('country') == 'australia' %}selected{% endif %}>Australia</option>
-                    <option value="other" {% if form_data.get('country') == 'other' %}selected{% endif %}>Other</option>
+                    <option value="" disabled selected>Loading countries...</option>
                 </select>
                 <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -147,13 +141,17 @@
             
             <!-- State and City -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="floating-label-group relative">
+                <div class="relative">
                     <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-primary pointer-events-none z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
-                    <input type="text" id="state" name="state" required value="{{ form_data.get('state', '') }}" class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent border {% if errors and errors.state %}border-red-500{% else %}border-gray-300{% endif %} rounded-lg text-gray-500 transition-all duration-300 hover:border-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder=" ">
-                    <label for="state" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none bg-transparent px-1 z-[1]">State</label>
+                    <select id="state" name="state" required disabled class="w-full py-3.5 pl-10 pr-10 text-sm bg-transparent border {% if errors and errors.state %}border-red-500{% else %}border-gray-300{% endif %} rounded-lg text-gray-500 transition-all duration-300 hover:border-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+                        <option value="" disabled selected>Select country first</option>
+                    </select>
+                    <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
                     <!-- Error Removed -->
                 </div>
                 
@@ -256,6 +254,101 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        const countrySelect = document.getElementById('country');
+        const stateSelect = document.getElementById('state');
+        const savedCountry = "{{ form_data.get('country', '') }}";
+        const savedState = "{{ form_data.get('state', '') }}";
+        
+        // Fetch countries on page load
+        fetch('/api/countries')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    countrySelect.innerHTML = '<option value="" disabled>Select Country</option>';
+                    
+                    data.countries.forEach(country => {
+                        const option = document.createElement('option');
+                        option.value = country.name;
+                        option.textContent = country.name;
+                        option.dataset.countryId = country.id;
+                        
+                        // Re-select if form had validation errors
+                        if (savedCountry && country.name === savedCountry) {
+                            option.selected = true;
+                        }
+                        
+                        countrySelect.appendChild(option);
+                    });
+                    
+                    // If there's a saved country, load its states
+                    if (savedCountry && countrySelect.value) {
+                        const selectedOption = countrySelect.options[countrySelect.selectedIndex];
+                        if (selectedOption && selectedOption.dataset.countryId) {
+                            loadStates(selectedOption.dataset.countryId, savedState);
+                        }
+                    }
+                } else {
+                    console.error('Failed to load countries:', data.error);
+                    countrySelect.innerHTML = '<option value="" disabled selected>Error loading countries</option>';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching countries:', error);
+                countrySelect.innerHTML = '<option value="" disabled selected>Error loading countries</option>';
+            });
+        
+        // Handle country selection change
+        countrySelect.addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            const countryId = selectedOption.dataset.countryId;
+            
+            if (countryId) {
+                loadStates(countryId);
+            } else {
+                stateSelect.innerHTML = '<option value="" disabled selected>Select country first</option>';
+                stateSelect.disabled = true;
+            }
+        });
+        
+        // Function to load states for a country
+        function loadStates(countryId, preselectedState = '') {
+            stateSelect.disabled = true;
+            stateSelect.innerHTML = '<option value="" disabled selected>Loading states...</option>';
+            
+            fetch(`/api/states/${countryId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        stateSelect.innerHTML = '<option value="" disabled>Select State</option>';
+                        
+                        if (data.states.length > 0) {
+                            data.states.forEach(state => {
+                                const option = document.createElement('option');
+                                option.value = state.name;
+                                option.textContent = state.name;
+                                
+                                // Re-select if form had validation errors or preselected
+                                if (preselectedState && state.name === preselectedState) {
+                                    option.selected = true;
+                                }
+                                
+                                stateSelect.appendChild(option);
+                            });
+                            stateSelect.disabled = false;
+                        } else {
+                            stateSelect.innerHTML = '<option value="" disabled selected>No states available</option>';
+                        }
+                    } else {
+                        console.error('Failed to load states:', data.error);
+                        stateSelect.innerHTML = '<option value="" disabled selected>Error loading states</option>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching states:', error);
+                    stateSelect.innerHTML = '<option value="" disabled selected>Error loading states</option>';
+                });
+        }
+        
         // Auto-focus the first field with an error
         const firstErrorField = document.querySelector('.border-red-500');
         if (firstErrorField) {

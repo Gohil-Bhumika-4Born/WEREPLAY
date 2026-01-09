@@ -14,7 +14,7 @@
 
 {% block main_content %}
 <!-- Documents List View Content -->
-            <div class="p-4 sm:p-6 lg:p-8">
+
                 <!-- Quick Actions Section -->
                 <section class="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-white/90 dark:bg-[#252525] border border-primary/15 dark:border-primary/20 shadow-lg shadow-primary/5 dark:shadow-black/30 px-4 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-6 mb-6">
                     <div class="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-primaryDark/10 opacity-80 pointer-events-none"></div>
@@ -24,13 +24,13 @@
                             <p class="text-sm sm:text-base text-gray-700 dark:text-gray-200 font-medium">Upload documents or jump directly to chat reports from here.</p>
                         </div>
                         <div class="flex flex-wrap gap-2 sm:gap-3">
-                            <a href="documents-upload.html" class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#18CB96] hover:bg-primaryDark/90 dark:bg-[#18CB96] dark:hover:bg-primaryDark/90 text-white rounded-xl text-xs sm:text-sm font-semibold shadow-md hover:shadow-lg hover:shadow-[#18CB96]/30 transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5">
+                            <a href="{{ url_for('main.documents_upload') }}" class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#18CB96] hover:bg-primaryDark/90 dark:bg-[#18CB96] dark:hover:bg-primaryDark/90 text-white rounded-xl text-xs sm:text-sm font-semibold shadow-md hover:shadow-lg hover:shadow-[#18CB96]/30 transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                                 </svg>
                                 <span>Upload Document</span>
                             </a>
-                            <a href="chat-reports.html" class="inline-flex items-center gap-2 px-4 py-2.5 bg-primaryDark dark:bg-[#1E1E1E] hover:bg-primaryDark hover:text-white dark:hover:bg-primaryLight/80 text-white dark:text-gray-100 rounded-xl text-xs sm:text-sm font-semibold border border-gray-200 dark:border-gray-700 transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5">
+                            <a href="{{ url_for('main.chat_reports') }}" class="inline-flex items-center gap-2 px-4 py-2.5 bg-primaryDark dark:bg-[#1E1E1E] hover:bg-primaryDark hover:text-white dark:hover:bg-primaryLight/80 text-white dark:text-gray-100 rounded-xl text-xs sm:text-sm font-semibold border border-gray-200 dark:border-gray-700 transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                 </svg>
@@ -357,9 +357,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </main>
-    </div>
+
     
     <!-- Delete Confirmation Modal -->
     <div id="deleteModal" class="hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="delete-modal-title" role="dialog" aria-modal="true">
@@ -389,4 +387,91 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    let currentDeleteFile = '';
+
+    function selectDocument(filename, description, type, size, uploaded, status, tokens, lastUsed, fields, event) {
+        // Update Preview Panel
+        document.getElementById('previewFileName').textContent = filename;
+        document.getElementById('previewDescription').textContent = description;
+        document.getElementById('previewType').textContent = type;
+        document.getElementById('previewSize').textContent = size;
+        document.getElementById('previewUploaded').textContent = uploaded;
+        document.getElementById('previewTokens').textContent = tokens;
+        document.getElementById('previewLastUsed').textContent = lastUsed;
+        
+        const statusBadge = document.getElementById('previewStatusBadge');
+        statusBadge.textContent = status;
+        if (status === 'Processed') {
+            statusBadge.className = 'px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 rounded-full text-xs font-medium';
+        } else {
+            statusBadge.className = 'px-2 py-0.5 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-400 rounded-full text-xs font-medium';
+        }
+
+        // Update fields (example logic)
+        const fieldsContainer = document.getElementById('previewFields');
+        fieldsContainer.innerHTML = '';
+        if (fields) {
+            const fieldList = fields.split(', ');
+            fieldList.forEach(field => {
+                const span = document.createElement('span');
+                span.className = 'px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400 rounded text-xs';
+                span.textContent = field;
+                fieldsContainer.appendChild(span);
+            });
+        }
+    }
+
+    function previewDocument(filename) {
+        // Implement preview logic or open a new tab
+        console.log('Previewing:', filename);
+        alert('Preview feature coming soon for ' + filename);
+    }
+
+    function reprocessDocument(filename) {
+        // Implement reprocess logic
+        console.log('Reprocessing:', filename);
+        alert('Reprocessing ' + filename + '...');
+    }
+
+    function replaceFile(filename) {
+        // Implement replace logic
+        console.log('Replacing:', filename);
+        // Redirect to upload page or open upload modal
+        window.location.href = "{{ url_for('main.documents_upload') }}";
+    }
+
+    function openDeleteModal(filename) {
+        currentDeleteFile = filename;
+        document.getElementById('deleteFileName').textContent = filename;
+        document.getElementById('deleteModal').classList.remove('hidden');
+    }
+
+    function closeDeleteModal() {
+        document.getElementById('deleteModal').classList.add('hidden');
+        currentDeleteFile = '';
+    }
+
+    function confirmDelete() {
+        if (currentDeleteFile) {
+            console.log('Deleting:', currentDeleteFile);
+            // Add AJAX call to delete endpoint here
+            alert('Deleted ' + currentDeleteFile);
+            closeDeleteModal();
+            // Optionally reload page or remove element from DOM
+        }
+    }
+    
+    // Close modal on escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            if (!document.getElementById('deleteModal').classList.contains('hidden')) {
+                closeDeleteModal();
+            }
+        }
+    });
+</script>
 {% endblock %}

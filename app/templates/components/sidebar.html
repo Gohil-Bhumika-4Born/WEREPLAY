@@ -40,27 +40,6 @@
                 </svg>
                 <span class="font-medium text-sm hidden xl:inline">Training History</span>
             </a>
-            
-            <a href="{{ url_for('main.guidelines') }}" class="flex items-center justify-center xl:justify-start gap-3 px-3 py-2.5 rounded-lg {% if current_page == 'guidelines' %}bg-[#18CB96] dark:bg-[#18CB96] text-white shadow-md{% else %}text-gray-900 dark:text-white hover:text-[#30B566] dark:hover:text-[#30B566] hover:bg-primary/5 dark:hover:bg-[#333333]{% endif %} transition-colors group" aria-label="Guidelines">
-                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                </svg>
-                <span class="font-medium text-sm hidden xl:inline">Guidelines</span>
-            </a>
-            
-            <a href="{{ url_for('main.plans_billing') }}" class="flex items-center justify-center xl:justify-start gap-3 px-3 py-2.5 rounded-lg {% if current_page == 'plans_billing' %}bg-[#18CB96] dark:bg-[#18CB96] text-white shadow-md{% else %}text-gray-900 dark:text-white hover:text-[#30B566] dark:hover:text-[#30B566] hover:bg-primary/5 dark:hover:bg-[#333333]{% endif %} transition-colors group" aria-label="Plans & Billing">
-                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
-                </svg>
-                <span class="font-medium text-sm hidden xl:inline">Plans & Billing</span>
-            </a>
-            
-            <a href="{{ url_for('main.support') }}" class="flex items-center justify-center xl:justify-start gap-3 px-3 py-2.5 rounded-lg {% if current_page == 'support' %}bg-[#18CB96] dark:bg-[#18CB96] text-white shadow-md{% else %}text-gray-900 dark:text-white hover:text-[#30B566] dark:hover:text-[#30B566] hover:bg-primary/5 dark:hover:bg-[#333333]{% endif %} transition-colors group" aria-label="Support">
-                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                </svg>
-                <span class="font-medium text-sm hidden xl:inline">Support</span>
-            </a>
         </nav>
     </div>
 </aside>
@@ -115,27 +94,6 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                     <span class="font-medium text-sm">Training History</span>
-                </a>
-                
-                <a href="{{ url_for('main.guidelines') }}" onclick="toggleMobileSidebar()" class="flex items-center gap-3 px-3 py-2.5 rounded-lg {% if current_page == 'guidelines' %}bg-[#18CB96] dark:bg-[#18CB96] text-white shadow-sm{% else %}text-gray-900 dark:text-white hover:text-[#30B566] dark:hover:text-[#30B566]{% endif %} transition-colors group" aria-label="Guidelines">
-                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                    </svg>
-                    <span class="font-medium text-sm">Guidelines</span>
-                </a>
-                
-                <a href="{{ url_for('main.plans_billing') }}" onclick="toggleMobileSidebar()" class="flex items-center gap-3 px-3 py-2.5 rounded-lg {% if current_page == 'plans_billing' %}bg-[#18CB96] dark:bg-[#18CB96] text-white shadow-sm{% else %}text-gray-900 dark:text-white hover:text-[#30B566] dark:hover:text-[#30B566]{% endif %} transition-colors group" aria-label="Plans & Billing">
-                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
-                    </svg>
-                    <span class="font-medium text-sm">Plans & Billing</span>
-                </a>
-                
-                <a href="{{ url_for('main.support') }}" onclick="toggleMobileSidebar()" class="flex items-center gap-3 px-3 py-2.5 rounded-lg {% if current_page == 'support' %}bg-[#18CB96] dark:bg-[#18CB96] text-white shadow-sm{% else %}text-gray-900 dark:text-white hover:text-[#30B566] dark:hover:text-[#30B566]{% endif %} transition-colors group" aria-label="Support">
-                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                    </svg>
-                    <span class="font-medium text-sm">Support</span>
                 </a>
             </nav>
         </div>

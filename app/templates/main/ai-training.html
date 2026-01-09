@@ -14,7 +14,6 @@
 
 {% block main_content %}
 <!-- AI Training Content -->
-            <div class="p-4 sm:p-6 lg:p-8">
                 <section class="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-white/90 dark:bg-[#252525] border border-primary/15 dark:border-primary/20 shadow-lg shadow-primary/5 dark:shadow-black/30 px-4 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-6 mb-6">
                     <div class="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-primaryDark/10 opacity-80 pointer-events-none"></div>
                     <div class="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -23,13 +22,13 @@
                             <p class="text-sm sm:text-base text-gray-700 dark:text-gray-200 font-medium">Upload documents or jump directly to chat reports from here.</p>
                         </div>
                         <div class="flex flex-wrap gap-2 sm:gap-3">
-                            <a href="documents-upload.html" class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#18CB96] hover:bg-primaryDark/90 dark:bg-[#18CB96] dark:hover:bg-primaryDark/90 text-white rounded-xl text-xs sm:text-sm font-semibold shadow-md hover:shadow-lg hover:shadow-[#18CB96]/30 transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5">
+                            <a href="{{ url_for('main.documents_upload') }}" class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#18CB96] hover:bg-primaryDark/90 dark:bg-[#18CB96] dark:hover:bg-primaryDark/90 text-white rounded-xl text-xs sm:text-sm font-semibold shadow-md hover:shadow-lg hover:shadow-[#18CB96]/30 transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                                 </svg>
                                 <span>Upload Document</span>
                             </a>
-                            <a href="documents.html" class="inline-flex items-center gap-2 px-4 py-2.5 bg-primaryDark dark:bg-[#1E1E1E] hover:bg-primaryDark hover:text-white dark:hover:bg-primaryLight/80 text-white dark:text-gray-100 rounded-xl text-xs sm:text-sm font-semibold border border-gray-200 dark:border-gray-700 transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5">
+                            <a href="{{ url_for('main.documents') }}" class="inline-flex items-center gap-2 px-4 py-2.5 bg-primaryDark dark:bg-[#1E1E1E] hover:bg-primaryDark hover:text-white dark:hover:bg-primaryLight/80 text-white dark:text-gray-100 rounded-xl text-xs sm:text-sm font-semibold border border-gray-200 dark:border-gray-700 transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                 </svg>
@@ -65,6 +64,21 @@
                                     <button onclick="resetModel()" class="px-4 py-2.5 bg-primaryDark dark:bg-[#1E1E1E] hover:bg-gray-100 dark:hover:bg-[#333333] text-white dark:text-gray-300 rounded-xl font-semibold border border-primaryDark dark:border-gray-700 transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5 text-sm shadow-sm hover:shadow-md">
                                         Reset Model
                                     </button>
+                                </div>
+                            </div>
+
+                            <!-- AI Automation Toggle -->
+                            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-4 border-t border-primary/20 dark:border-primary/30">
+                                <div>
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-1">AI Automation</h3>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">Enable automated AI responses for customer queries</p>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span id="automationStatus" class="text-sm font-medium text-gray-500 dark:text-gray-400">OFF</span>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="automationToggle" class="sr-only peer" onchange="toggleAutomation()">
+                                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#18CB96]/25 dark:peer-focus:ring-[#18CB96]/25 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#18CB96]"></div>
+                                    </label>
                                 </div>
                             </div>
                             
@@ -285,7 +299,213 @@
                         </div>
                     </div>
                 </div>
+
+    
+    <!-- Automation Modal -->
+    <div id="automationModal" class="hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="automation-modal-title" role="dialog" aria-modal="true">
+        <!-- Backdrop with Blur -->
+        <div class="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onclick="closeAutomationModal()"></div>
+        <div class="flex min-h-full items-center justify-center p-4">
+            <div class="relative bg-gradient-to-b from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-2xl shadow-2xl max-w-lg w-full p-6 transform transition-all ring-[#18CB96]/20 dark:ring-[#18CB96]/30">
+                <button onclick="closeAutomationModal()" class="absolute top-4 right-4 rounded-lg text-gray-400 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#333333] transition-colors" aria-label="Close modal">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+                <div class="text-center" id="automationModalContent">
+                    <!-- Content will be dynamically updated based on training status -->
+                </div>
             </div>
-        </main>
+        </div>
     </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    // Automation Functions
+    let automationEnabled = false;
+
+    function toggleAutomation() {
+        const toggle = document.getElementById('automationToggle');
+        const status = document.getElementById('automationStatus');
+
+        if (toggle.checked) {
+            // User is trying to enable automation - check training requirement
+            checkAutomationEligibility();
+        } else {
+            // User is disabling automation
+            automationEnabled = false;
+            status.textContent = 'OFF';
+            status.className = 'text-sm font-medium text-gray-500 dark:text-gray-400';
+        }
+    }
+
+    function checkAutomationEligibility() {
+        // Get current training progress (this should come from your backend in real app)
+        const hasRecentTraining = checkRecentTraining();
+        const trainingProgress = getCurrentTrainingProgress();
+
+        if (trainingProgress >= 60 && hasRecentTraining) {
+            // Training meets requirements - enable automation
+            enableAutomation();
+        } else {
+            // Training doesn't meet requirements - show modal
+            showAutomationModal(trainingProgress, hasRecentTraining);
+        }
+    }
+
+    function checkRecentTraining() {
+        // In a real app, this would check the database for recent training sessions
+        const modelStatus = document.querySelector('.bg-green-100, .dark\\:bg-green-900\\/30');
+        return modelStatus && modelStatus.textContent.includes('Ready');
+    }
+
+    function getCurrentTrainingProgress() {
+        // In a real app, this would get the actual training progress from backend
+        const modelStatus = document.querySelector('.bg-green-100, .dark\\:bg-green-900\\/30');
+        return modelStatus && modelStatus.textContent.includes('Ready') ? 94 : 0;
+    }
+
+    function enableAutomation() {
+        automationEnabled = true;
+        const status = document.getElementById('automationStatus');
+        status.textContent = 'ON';
+        status.className = 'text-sm font-medium text-[#18CB96]';
+
+        // Show success message
+        showAutomationSuccessModal();
+    }
+
+    function showAutomationModal(trainingProgress, hasRecentTraining) {
+        const modal = document.getElementById('automationModal');
+        const content = document.getElementById('automationModalContent');
+
+        let modalHTML = '';
+
+        if (trainingProgress < 60) {
+            // Training progress too low
+            modalHTML = `
+                <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-red-100 dark:bg-red-900/30 mb-4">
+                    <svg class="h-8 w-8 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Automation Not Available</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">Your AI training level is below the minimum required threshold.</p>
+                <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-4 mb-6">
+                    <div class="flex items-center justify-center gap-2 mb-2">
+                        <svg class="w-5 h-5 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                        </svg>
+                        <span class="font-semibold text-red-800 dark:text-red-300">Current Training: ${trainingProgress}%</span>
+                    </div>
+                    <p class="text-xs text-red-700 dark:text-red-400">
+                        Minimum required: 60%. Please train your AI model before enabling automation.
+                    </p>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-3 sm:justify-center">
+                    <button onclick="closeAutomationModal()" class="px-6 py-2.5 bg-gray-100 dark:bg-[#333333] text-gray-700 dark:text-gray-300 rounded-xl font-medium hover:bg-gray-200 dark:hover:bg-[#3A3A3A] transition-all duration-200 shadow-sm hover:shadow-md">Cancel</button>
+                    <button onclick="startTrainingFromModal()" class="px-6 py-2.5 bg-[#18CB96] hover:bg-primaryDark dark:bg-[#18CB96] dark:hover:bg-[#14a87a] text-white rounded-xl font-medium transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-[#18CB96]/30 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none">Train AI Now</button>
+                </div>
+            `;
+        } else if (!hasRecentTraining) {
+            // No recent training
+            modalHTML = `
+                <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-4">
+                    <svg class="h-8 w-8 text-yellow-600 dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Recent Training Required</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">Your AI model needs recent training to enable automation.</p>
+                <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl p-4 mb-6">
+                    <div class="flex items-center justify-center gap-2 mb-2">
+                        <svg class="w-5 h-5 text-yellow-600 dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                        </svg>
+                        <span class="font-semibold text-yellow-800 dark:text-yellow-300">Training Progress: ${trainingProgress}%</span>
+                    </div>
+                    <p class="text-xs text-yellow-700 dark:text-yellow-400">
+                        Your model needs to be recently trained. Please perform a training session before enabling automation.
+                    </p>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-3 sm:justify-center">
+                    <button onclick="closeAutomationModal()" class="px-6 py-2.5 bg-gray-100 dark:bg-[#333333] text-gray-700 dark:text-gray-300 rounded-xl font-medium hover:bg-gray-200 dark:hover:bg-[#3A3A3A] transition-all duration-200 shadow-sm hover:shadow-md">Cancel</button>
+                    <button onclick="startTrainingFromModal()" class="px-6 py-2.5 bg-[#18CB96] hover:bg-primaryDark dark:bg-[#18CB96] dark:hover:bg-[#14a87a] text-white rounded-xl font-medium transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-[#18CB96]/30 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none">Train AI Now</button>
+                </div>
+            `;
+        }
+
+        content.innerHTML = modalHTML;
+
+        // Uncheck the toggle since automation is not enabled
+        document.getElementById('automationToggle').checked = false;
+
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function showAutomationSuccessModal() {
+        const modal = document.getElementById('automationModal');
+        const content = document.getElementById('automationModalContent');
+
+        const modalHTML = `
+            <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 dark:bg-green-900/30 mb-4">
+                <svg class="h-8 w-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Automation Enabled!</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">Your AI automation is now active and ready to handle customer queries.</p>
+            <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-4 mb-6">
+                <div class="flex items-center justify-center gap-2 mb-2">
+                    <svg class="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span class="font-semibold text-green-800 dark:text-green-300">Automation Status: Active</span>
+                </div>
+                <p class="text-xs text-green-700 dark:text-green-400">
+                    Your AI will now automatically respond to customer queries based on your trained model.
+                </p>
+            </div>
+            <div class="flex justify-center">
+                <button onclick="closeAutomationModal()" class="px-6 py-2.5 bg-[#18CB96] hover:bg-primaryDark dark:bg-[#18CB96] dark:hover:bg-[#14a87a] text-white rounded-xl font-medium transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-[#18CB96]/30 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none">Got It</button>
+            </div>
+        `;
+
+        content.innerHTML = modalHTML;
+
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeAutomationModal() {
+        const modal = document.getElementById('automationModal');
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+    }
+
+    function startTrainingFromModal() {
+        closeAutomationModal();
+        startTraining();
+    }
+
+    // Placeholder functions for document preview and reprocess
+    function previewDocument() {
+        alert('Document preview functionality - to be implemented');
+    }
+
+    function reprocessDocument() {
+        alert('Document reprocess functionality - to be implemented');
+    }
+
+    function selectAll() {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(cb => {
+            if (cb.id !== 'automationToggle') {
+                cb.checked = true;
+            }
+        });
+    }
+</script>
 {% endblock %}

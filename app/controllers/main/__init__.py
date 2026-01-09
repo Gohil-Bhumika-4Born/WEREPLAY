@@ -12,6 +12,7 @@ from .plans_billing_controller import PlansBillingController
 from .download_software_controller import DownloadSoftwareController
 from .support_controller import SupportController
 from .terms_conditions_controller import TermsConditionsController
+from .api_controller import ApiController
 
 __all__ = [
     'DashboardController',
@@ -25,4 +26,5 @@ __all__ = [
     'DownloadSoftwareController',
     'SupportController',
     'TermsConditionsController',
+    'ApiController',
 ]

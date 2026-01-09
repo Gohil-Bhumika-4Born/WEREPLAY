@@ -266,41 +266,58 @@
         form.addEventListener('submit', function (e) {
             e.preventDefault();
             
-            // 1. Check Empty Fields
+            // Collect all validation errors
+            const errors = [];
             let firstInvalidInput = null;
             
-            // Helper to check valid
-            const checkRequired = (input, msg) => {
+            // Helper to check and collect errors
+            const checkRequired = (input, fieldName) => {
                 if (!input.value.trim()) {
                     if (!firstInvalidInput) firstInvalidInput = input;
-                    showError(input, msg);
+                    errors.push(fieldName);
+                    input.classList.add('!border-red-500', 'focus:!border-red-500');
+                    input.classList.remove('border-gray-300');
                     return false;
                 }
+                hideError(input);
                 return true;
             };
 
-            let isValid = true;
-            isValid = checkRequired(fullNameInput, 'Please enter your full name.') && isValid;
-            isValid = checkRequired(emailInput, 'Please enter your email address.') && isValid;
-            isValid = checkRequired(phoneInput, 'Please enter your phone number.') && isValid;
-            isValid = checkRequired(passwordInput, 'Please enter a password.') && isValid;
-            isValid = checkRequired(confirmPasswordInput, 'Please confirm your password.') && isValid;
+            // Check all required fields
+            checkRequired(fullNameInput, 'Full name');
+            checkRequired(emailInput, 'Email address');
+            checkRequired(phoneInput, 'Phone number');
+            checkRequired(passwordInput, 'Password');
+            checkRequired(confirmPasswordInput, 'Confirm password');
 
-            if (!isValid) return;
+            // If there are missing fields, show a single toast with all errors
+            if (errors.length > 0) {
+                const errorMessage = errors.length === 1 
+                    ? `Please enter your ${errors[0].toLowerCase()}.`
+                    : `Please fill in the following: ${errors.join(', ')}.`;
+                window.toast.show(errorMessage, 'error');
+                if (firstInvalidInput) firstInvalidInput.focus();
+                return;
+            }
 
-            // 2. Validate Password Length & Complexity (Basic check)
+            // Validate Password Length & Complexity
             if (passwordInput.value.length < 8) {
                 showError(passwordInput, 'Password must be at least 8 characters long.');
+                passwordInput.focus();
                 return;
             }
 
-            // 3. Check Match
+            // Check Password Match
             if (passwordInput.value !== confirmPasswordInput.value) {
-                showError(confirmPasswordInput, 'Passwords do not match.');
+                confirmPasswordInput.classList.add('!border-red-500');
+                confirmPasswordInput.classList.remove('border-gray-300');
+                if (passwordMismatchError) passwordMismatchError.classList.remove('hidden');
+                window.toast.show('Passwords do not match.', 'error');
+                confirmPasswordInput.focus();
                 return;
             }
 
-            // 4. Check Terms
+            // Check Terms
             if (!acceptTermsInput.checked) {
                 window.toast.show('You must agree to the Terms of use to register.', 'error');
                 return;

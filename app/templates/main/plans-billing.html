@@ -14,11 +14,34 @@
 
 {% block main_content %}
 <!-- Plans & Billing Content -->
-            <div class="p-4 sm:p-6 lg:p-8">
+            <!-- <div class="p-4 sm:p-6 lg:p-8"> -->
+
+                <!-- Expired Plan Banner -->
+                <div id="expired-plan-banner" class="hidden relative overflow-hidden rounded-2xl sm:rounded-3xl bg-yellow-50 dark:bg-yellow-900/10 border border-yellow-200 dark:border-yellow-800 shadow-lg px-4 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-6 mb-6">
+                    <div class="absolute inset-0 bg-gradient-to-r from-yellow-100/50 via-transparent to-yellow-100/50 opacity-80 pointer-events-none"></div>
+                    <div class="relative z-10 flex items-start gap-4">
+                        <div class="flex-shrink-0">
+                            <div class="w-10 h-10 rounded-full bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center">
+                                <svg class="w-5 h-5 text-yellow-600 dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-yellow-900 dark:text-yellow-300 mb-1">Plan Expired</h3>
+                            <p class="text-sm text-yellow-700 dark:text-yellow-400 mb-3">
+                                Your previous plan has expired. Choose a new plan to continue using our services.
+                            </p>
+                            <button onclick="viewPlanHistory()" class="px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded-lg font-medium transition-all duration-300 ease-out hover:scale-105 shadow-md">
+                                View Plan History
+                            </button>
+                        </div>
+                    </div>
+                </div>
                 
 
                 <!-- Current Plan Overview -->
-                <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-white/90 dark:bg-[#252525] border border-primary/15 dark:border-primary/20 shadow-lg shadow-primary/5 dark:shadow-black/30 p-4 sm:p-6 lg:p-8 mb-6">
+                <div id="current-plan-section" class="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-white/90 dark:bg-[#252525] border border-primary/15 dark:border-primary/20 shadow-lg shadow-primary/5 dark:shadow-black/30 p-4 sm:p-6 lg:p-8 mb-6">
                     <div class="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-primaryDark/10 opacity-80 pointer-events-none"></div>
                     <div class="relative z-10">
                         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
@@ -35,7 +58,10 @@
                             </div>
                             <div class="flex flex-col sm:items-end gap-2">
                                 <span class="px-4 py-2 bg-[#18CB96]/10 dark:bg-[#18CB96]/20 border border-[#18CB96]/30 dark:border-[#18CB96]/40 rounded-full text-sm font-semibold text-[#18CB96] dark:text-[#18CB96]">ACTIVE</span>
-                                <p class="text-sm text-gray-600 dark:text-gray-300">Renews On: <span class="font-semibold text-gray-900 dark:text-white">Jan 18, 2025</span></p>
+                                <div class="text-right">
+                                    <p class="text-sm text-gray-600 dark:text-gray-300">Renews On: <span class="font-semibold text-gray-900 dark:text-white">Jan 18, 2025</span></p>
+                                    <p class="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">Plan Expires: <span class="font-medium text-gray-700 dark:text-gray-300">Dec 31, 2025</span></p>
+                                </div>
                             </div>
                         </div>
                         
@@ -76,9 +102,14 @@
                             </div>
                         </div>
                         
-                        <button onclick="openUpgradeModal()" class="w-full sm:w-auto px-6 py-3 bg-[#18CB96] hover:bg-primaryDark/90 dark:bg-[#18CB96] dark:hover:bg-primaryDark/90 text-white rounded-xl font-semibold transition-all shadow-md shadow-primary/30 hover:shadow-primary/50 hover:-translate-y-0.5">
-                            Upgrade Plan
-                        </button>
+                        <div class="flex flex-col sm:flex-row gap-4 mt-6">
+                            <a href="{{ url_for('main.plan_history') }}" class="w-full sm:w-auto px-6 py-3 bg-primaryDark hover:bg-primaryDark/90 dark:bg-primaryDark dark:hover:bg-primaryDark/90 text-white rounded-xl font-semibold transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 text-center">
+                                Plan History
+                            </a>
+                            <button onclick="openUpgradeModal()" class="w-full sm:w-auto px-6 py-3 bg-[#18CB96] hover:bg-[#15b384] dark:bg-[#18CB96] dark:hover:bg-[#15b384] text-white rounded-xl font-semibold transition-all shadow-md shadow-primary/30 hover:shadow-primary/50 hover:-translate-y-0.5">
+                                Upgrade Plan
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -113,7 +144,7 @@
                 </section> -->
                 
                 <!-- Plan Comparison Cards - Marketing-style pricing design -->
-                <section id="pricing-plans" class="mb-8  rounded-2xl sm:rounded-3xl px-0 py-6 sm:px-0 sm:py-6 lg:px-0 lg:py-8">
+                <section id="available-plans-section" class="mb-8  rounded-2xl sm:rounded-3xl px-0 py-6 sm:px-0 sm:py-6 lg:px-0 lg:py-8">
                     <div class="container mx-auto px-0 sm:px-2">
                        
 
@@ -333,7 +364,6 @@
                                     <div class="text-xl sm:text-2xl font-bold">Contact Us</div>
                                     <p class="text-xs text-white/80 mt-1">Custom pricing based on needs</p>
                                 </div>
-                                <a href="support.html"
                                     class="w-full rounded-full bg-white dark:bg-white/90 text-primaryDark dark:text-primaryDark text-sm font-semibold py-2.5 mb-6 text-center hover:bg-gray-100 dark:hover:bg-white transition-smooth hover:scale-[1.02] button-press shadow-lg">
                                     Contact Us
                                 </a>
@@ -466,7 +496,7 @@
                 </div>
                 
                 <!-- Billing History -->
-                <div class="bg-white dark:bg-[#2A2A2A] rounded-2xl shadow-lg p-6 mb-8">
+                <div id="billing-history-section" class="bg-white dark:bg-[#2A2A2A] rounded-2xl shadow-lg p-6 mb-8">
                     <div class="flex items-center justify-between mb-6">
                         <h2 class="text-2xl font-bold text-primaryDark dark:text-white">Billing History</h2>
                         <div class="flex items-center gap-3">
@@ -543,7 +573,8 @@
                         </table>
                     </div>
                 </div>
-            </div>
+                </div>
+            <!-- </div> -->
         </main>
     </div>
     
@@ -603,4 +634,128 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    // Plan Status Management
+    // Change these values to test different UI states:
+    // hasActivePlan: true + isExpired: false = Active plan user
+    // hasActivePlan: false + isExpired: true = Expired plan user
+    // hasActivePlan: false + isExpired: false = New user (no plan ever)
+    const userPlanStatus = {
+        // In a real app, this would come from API/backend
+        hasActivePlan: true, // true for active plan, false for no plan or expired
+        isExpired: false, // true if plan was active but now expired
+        currentPlan: 'professional', // current active plan
+        planExpiry: '2025-01-18' // expiry date
+    };
+
+    // Plan Selection
+    const planDetails = {
+        'free-trial': { name: 'Free Trial', price: 0, monthly: true },
+        'starter': { name: 'Starter', price: 1499, monthly: true },
+        'professional': { name: 'Professional', price: 3999, monthly: true },
+        'business': { name: 'Business', price: 7999, monthly: true },
+        'enterprise': { name: 'Enterprise', price: 14999, monthly: true }
+    };
+
+    // Conditional UI Management
+    function updateUIForPlanStatus() {
+        const currentPlanSection = document.getElementById('current-plan-section');
+        const availablePlansSection = document.getElementById('available-plans-section');
+        const billingHistorySection = document.getElementById('billing-history-section');
+        const expiredPlanBanner = document.getElementById('expired-plan-banner');
+
+        if (!userPlanStatus.hasActivePlan) {
+            // User has no active plan
+            if (currentPlanSection) currentPlanSection.classList.add('hidden');
+            if (billingHistorySection) billingHistorySection.classList.add('hidden');
+            if (expiredPlanBanner && userPlanStatus.isExpired) {
+                expiredPlanBanner.classList.remove('hidden');
+            }
+        } else {
+            // User has active plan
+            if (availablePlansSection) availablePlansSection.classList.add('hidden');
+            // Show upgrade section and billing history for active users
+        }
+    }
+
+    function viewPlanHistory() {
+        // Redirect to plan history page
+        // window.location.href = 'plan-history.html';
+        window.location.href = '#'; // Placeholder until route exists
+    }
+    
+    function selectPlan(planId) {
+        if (planId === 'professional') {
+            alert('You are already on the Professional plan.');
+            return;
+        }
+        
+        if (planId === 'free-trial' || planId === 'starter') {
+            alert('This plan is a downgrade. Please contact support for assistance.');
+            return;
+        }
+        
+        const plan = planDetails[planId];
+        if (plan) {
+            openUpgradeModal(plan);
+        }
+    }
+    
+    // Upgrade Modal Functions
+    function openUpgradeModal(selectedPlan = null) {
+        const modal = document.getElementById('upgradeModal');
+        if (modal) {
+            if (selectedPlan) {
+                document.getElementById('selectedPlanName').textContent = `${selectedPlan.name} - ₹${selectedPlan.price.toLocaleString()}/month`;
+                const priceDiff = selectedPlan.price - 3999;
+                document.getElementById('priceDifference').textContent = priceDiff > 0 ? `+₹${priceDiff.toLocaleString()}/month` : `₹${Math.abs(priceDiff).toLocaleString()}/month`;
+            }
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+    
+    function closeUpgradeModal() {
+        const modal = document.getElementById('upgradeModal');
+        if (modal) {
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+    }
+    
+    function confirmUpgrade() {
+        closeUpgradeModal();
+        alert('Plan upgrade initiated! You will receive a confirmation email shortly.');
+    }
+    
+    // Billing Functions
+    function downloadInvoice(invoiceId) {
+        alert(`Downloading invoice ${invoiceId}...`);
+    }
+    
+    function viewPaymentMethod() {
+        alert('Current payment method: •••• •••• •••• 4242');
+    }
+    
+    function updatePaymentMethod() {
+        alert('Redirecting to payment method update page...');
+    }
+    
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            const upgradeModal = document.getElementById('upgradeModal');
+            if (upgradeModal && !upgradeModal.classList.contains('hidden')) {
+                closeUpgradeModal();
+            }
+        }
+    });
+
+    // Initialize plan status UI on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        updateUIForPlanStatus();
+    });
+</script>
 {% endblock %}

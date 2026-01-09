@@ -79,14 +79,18 @@ class LoginController:
                     ).first()
                     
                     if unverified_user:
-                        # Set up session for OTP verification
-                        session['user_id'] = unverified_user.id
-                        session['user_email'] = unverified_user.email
-                        session['registration_complete'] = True
-                        session['otp_verified'] = False
-                        
-                        flash('Your account is not verified. Please enter the OTP sent to your email.', 'info')
-                        return redirect(url_for('auth.verify_otp'))
+                        # Generate and send a NEW OTP before redirecting
+                        if AuthService.resend_otp(unverified_user.id):
+                            # Set up session for OTP verification
+                            session['user_id'] = unverified_user.id
+                            session['user_email'] = unverified_user.email
+                            session['registration_complete'] = True
+                            session['otp_verified'] = False
+                            
+                            flash('Your account is not verified. A new OTP has been sent to your email.', 'info')
+                            return redirect(url_for('auth.verify_otp'))
+                        else:
+                            errors['general'] = 'Failed to send verification code. Please try again.'
                     else:
                         errors['general'] = 'Account verification required.'
                 else:

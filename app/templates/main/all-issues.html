@@ -1,0 +1,282 @@
+{% extends "base/main_base.html" %}
+
+{% set current_page = 'issues' %}
+
+{% block title %}WeReplay Admin Panel - All Customer Support Issues{% endblock %}
+{% block meta_description %}View and manage all customer support issues reported through your WhatsApp automation system.{% endblock %}
+
+{% block page_title %}All Issues{% endblock %}
+
+{% block page_icon %}
+<svg class="w-6 h-6 text-primaryDark dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+</svg>
+{% endblock %}
+
+{% block main_content %}
+<!-- Header Section -->
+<section class="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#252525] dark:via-[#252525] dark:to-[#2A2A2A] border border-primary/15 dark:border-primary/20 shadow-lg shadow-primary/5 dark:shadow-black/30 px-4 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-6 mb-6">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(24,203,150,0.1),_transparent_60%)] pointer-events-none"></div>
+    <div class="relative z-10">
+        <p class="text-[11px] sm:text-xs font-semibold tracking-[0.22em] uppercase text-primaryDark/80 dark:text-primary mb-1">SUPPORT · ISSUE MANAGEMENT</p>
+        <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white leading-tight mb-2">All Customer Support Issues</h2>
+        <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 max-w-2xl">
+            View and manage all customer support issues reported through your WhatsApp automation system.
+        </p>
+    </div>
+</section>
+
+<!-- Filter and Search -->
+<div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 relative z-30">
+    <h3 class="text-lg font-bold text-gray-900 dark:text-white">All Issues</h3>
+    
+    <div class="flex items-center gap-3 w-full sm:w-auto">
+        <div class="relative flex-1 sm:w-64 lg:w-80">
+            <input type="text" 
+                   id="searchInput"
+                   placeholder="Search issues..." 
+                   class="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-[#1E1E1E] border border-gray-200 dark:border-gray-700 rounded-xl text-sm focus:ring-2 focus:ring-[#18CB96]/20 focus:border-[#18CB96] dark:text-white transition-all shadow-sm">
+            <svg class="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+        </div>
+        
+        <button class="inline-flex items-center justify-center p-2.5 bg-[#18CB96] hover:bg-primaryDark dark:bg-[#18CB96] dark:hover:bg-primaryDark text-white rounded-xl shadow-md hover:shadow-lg hover:shadow-[#18CB96]/30 transition-all duration-300">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+            </svg>
+        </button>
+    </div>
+</div>
+
+<!-- Issues List -->
+<div class="space-y-4">
+    {% for issue in pagination.items %}
+    <div class="bg-white dark:bg-[#1E1E1E] rounded-xl shadow-sm hover:shadow-md transition-shadow p-5 border border-primary/20 dark:border-primary/30">
+        <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+            <div class="flex-1">
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="h-2.5 w-2.5 rounded-full bg-{{ issue.icon_bg }} shadow-sm shadow-{{ issue.icon_bg }}/50"></div>
+                    <h4 class="text-base font-bold text-gray-900 dark:text-white">{{ issue.title }}</h4>
+                    <span class="px-2 py-0.5 bg-{{ issue.priority_color }}-100 dark:bg-{{ issue.priority_color }}-900/30 text-{{ issue.priority_color }}-700 dark:text-{{ issue.priority_color }}-300 text-xs font-semibold rounded-full border border-{{ issue.priority_color }}-200 dark:border-{{ issue.priority_color }}-800">{{ issue.affected }}</span>
+                </div>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">{{ issue.description }}</p>
+                <div class="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+                    <span class="flex items-center gap-1.5">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Last updated: {{ issue.updated }}
+                    </span>
+                    <span class="flex items-center gap-1.5 font-medium text-{{ issue.priority_color }}-600 dark:text-{{ issue.priority_color }}-400">
+                        {{ issue.priority }}
+                    </span>
+                </div>
+            </div>
+            <div class="flex-shrink-0 pt-1">
+                <button onclick="openIssueModal()" class="text-sm font-semibold text-[#18CB96] hover:text-primaryDark transition-colors">View Details</button>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Pagination controls -->
+{% if pagination.total > 0 %}
+<div class="mt-6">
+    <section class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white/95 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/5 dark:shadow-black/30 p-4 sm:p-6">
+        <div class="text-sm text-gray-600 dark:text-gray-400">
+            Showing <span id="showingFrom" class="font-medium text-gray-900 dark:text-white">{{ (pagination.page - 1) * pagination.per_page + 1 }}</span> to <span id="showingTo" class="font-medium text-gray-900 dark:text-white">{{ [(pagination.page * pagination.per_page), pagination.total]|min }}</span> of <span id="totalItems" class="font-medium text-gray-900 dark:text-white">{{ pagination.total }}</span> results
+        </div>
+        <div class="flex items-center gap-2">
+            <button onclick="goToPage({{ pagination.prev_num }})" id="prevBtn" {% if not pagination.has_prev %}disabled{% endif %} class="px-4 py-2 bg-gray-100 dark:bg-[#333333] hover:bg-gray-200 dark:hover:bg-[#3A3A3A] text-gray-700 dark:text-gray-300 rounded-full font-medium transition-all duration-300 ease-out hover:scale-[1.02] text-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100">
+                Previous
+            </button>
+            
+            <div class="flex items-center gap-1" id="pageNumbers">
+                {% for page_num in pagination.iter_pages(left_edge=1, right_edge=1, left_current=2, right_current=2) %}
+                    {% if page_num %}
+                        {% if page_num == pagination.page %}
+                            <button class="px-3 py-2 rounded-lg font-medium text-sm bg-[#18CB96] text-white shadow-md cursor-default">
+                                {{ page_num }}
+                            </button>
+                        {% else %}
+                            <button onclick="goToPage({{ page_num }})" class="px-3 py-2 rounded-lg font-medium text-sm bg-gray-100 dark:bg-[#333333] text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-[#3A3A3A] transition-all duration-300 ease-out hover:scale-[1.05]">
+                                {{ page_num }}
+                            </button>
+                        {% endif %}
+                    {% else %}
+                        <span class="px-2 text-gray-500 dark:text-gray-400">...</span>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <button onclick="goToPage({{ pagination.next_num }})" id="nextBtn" {% if not pagination.has_next %}disabled{% endif %} class="px-4 py-2 bg-gray-100 dark:bg-[#333333] hover:bg-gray-200 dark:hover:bg-[#3A3A3A] text-gray-700 dark:text-gray-300 rounded-full font-medium transition-all duration-300 ease-out hover:scale-[1.02] text-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100">
+                Next
+            </button>
+            
+            <select id="rowsPerPage" onchange="changeRowsPerPage(this.value)" class="ml-4 px-3 py-2 bg-white dark:bg-[#1E1E1E] border input-border-gray dark:border-gray-600 rounded-lg text-gray-900 dark:text-white hover:border-gray-400 dark:hover:border-gray-500 focus:border-[#18CB96] dark:focus:border-[#18CB96] focus:outline-none text-sm cursor-pointer">
+                <option value="5" {% if pagination.per_page == 5 %}selected{% endif %}>5 per page</option>
+                <option value="10" {% if pagination.per_page == 10 %}selected{% endif %}>10 per page</option>
+                <option value="20" {% if pagination.per_page == 20 %}selected{% endif %}>20 per page</option>
+            </select>
+        </div>
+    </section>
+</div>
+{% endif %}
+
+<!-- Issue Details Modal -->
+<div id="issueModal" class="hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onclick="closeIssueModal()"></div>
+    <div class="flex min-h-full items-center justify-center p-4">
+        <div id="issueModalContent" class="relative bg-gradient-to-b from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-2xl shadow-2xl max-w-2xl w-full p-6 transform transition-all scale-95 opacity-0 duration-300 ease-out ring-[#18CB96]/20 dark:ring-[#18CB96]/30">
+            <!-- Close Button -->
+            <button onclick="closeIssueModal()" class="absolute top-4 right-4 rounded-lg text-gray-400 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#333333] transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <!-- Header -->
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-[#18CB96]/10 flex items-center justify-center">
+                    <svg class="w-5 h-5 text-[#18CB96]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">Issue Details</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Complete information about this customer support issue</p>
+                </div>
+            </div>
+
+            <!-- Tags -->
+            <div class="bg-white dark:bg-[#252525] rounded-xl p-4 border border-primary/20 dark:border-primary/30 mb-6 shadow-sm">
+                <div class="flex items-center gap-4 flex-wrap mb-3">
+                    <div class="h-10 w-10 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
+                         <svg class="w-5 h-5 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <span class="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 text-xs font-bold rounded-lg uppercase tracking-wide">ERROR</span>
+                    <span class="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 text-xs font-bold rounded-lg">150+</span>
+                    <span class="px-3 py-1 bg-red-50 dark:bg-red-900/10 text-red-600 dark:text-red-400 text-xs font-medium rounded-lg border border-red-200 dark:border-red-800">High Priority</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Last updated: 2 hours ago
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-6">
+                <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Payment Processing Issues</h4>
+                <div class="bg-white dark:bg-[#252525] p-4 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm">
+                    <p class="text-gray-700 dark:text-gray-300 leading-relaxed text-sm">
+                        Customers are experiencing multiple payment processing failures across different payment methods including credit cards, PayPal, and bank transfers. The main issues reported include transaction timeouts, declined payments for valid cards, and duplicate charge notifications.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+                <div class="bg-white dark:bg-[#252525] p-3 rounded-xl border border-gray-100 dark:border-gray-700 text-center shadow-sm">
+                    <div class="text-2xl font-bold text-[#18CB96]">150</div>
+                    <div class="text-xs text-gray-600 dark:text-gray-400 font-medium">Affected Users</div>
+                </div>
+                <div class="bg-white dark:bg-[#252525] p-3 rounded-xl border border-gray-100 dark:border-gray-700 text-center shadow-sm">
+                    <div class="text-2xl font-bold text-orange-500">2.5h</div>
+                    <div class="text-xs text-gray-600 dark:text-gray-400 font-medium">Avg Response</div>
+                </div>
+                 <div class="bg-white dark:bg-[#252525] p-3 rounded-xl border border-gray-100 dark:border-gray-700 text-center shadow-sm">
+                    <div class="text-2xl font-bold text-blue-500">45%</div>
+                    <div class="text-xs text-gray-600 dark:text-gray-400 font-medium">Resolution Rate</div>
+                </div>
+                 <div class="bg-white dark:bg-[#252525] p-3 rounded-xl border border-gray-100 dark:border-gray-700 text-center shadow-sm">
+                    <div class="text-2xl font-bold text-purple-500">8</div>
+                    <div class="text-xs text-gray-600 dark:text-gray-400 font-medium">Escalations</div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-3">
+                <button onclick="closeIssueModal()" class="flex-1 py-2.5 bg-[#18CB96] hover:bg-primaryDark text-white rounded-lg font-semibold shadow-md hover:shadow-lg hover:shadow-[#18CB96]/30 transition-all active:scale-[0.98]">
+                    Mark as Resolved
+                </button>
+                <button class="flex-1 py-2.5 bg-[#175E5E] hover:bg-[#124b4b] text-white rounded-lg font-semibold shadow-md hover:shadow-lg transition-all active:scale-[0.98]">
+                    Escalate Issue
+                </button>
+                <button class="p-2.5 bg-white dark:bg-[#252525] border border-gray-200 dark:border-gray-600 text-gray-700 dark:text-white rounded-lg hover:bg-gray-50 dark:hover:bg-[#333333] transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    function openIssueModal() {
+        const modal = document.getElementById('issueModal');
+        const content = document.getElementById('issueModalContent');
+        
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        
+        // Trigger animation
+        setTimeout(() => {
+            content.classList.remove('scale-95', 'opacity-0');
+            content.classList.add('scale-100', 'opacity-100');
+        }, 10);
+    }
+
+    function closeIssueModal() {
+        const modal = document.getElementById('issueModal');
+        const content = document.getElementById('issueModalContent');
+        
+        content.classList.remove('scale-100', 'opacity-100');
+        content.classList.add('scale-95', 'opacity-0');
+        
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }, 300);
+    }
+
+    function goToPage(pageNum) {
+        if (!pageNum) return;
+        const params = new URLSearchParams(window.location.search);
+        params.set('page', pageNum);
+        window.location.search = params.toString();
+    }
+
+    function changeRowsPerPage(rows) {
+        const params = new URLSearchParams(window.location.search);
+        params.set('per_page', rows);
+        params.set('page', 1);
+        window.location.search = params.toString();
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            if (!document.getElementById('issueModal').classList.contains('hidden')) closeIssueModal();
+        }
+    });
+
+    // Add click listeners to all "View Details" buttons
+    document.addEventListener('DOMContentLoaded', () => {
+        // Updated to use inline onclick, but kept for compatibility if needed
+        const viewButtons = document.querySelectorAll('button');
+        viewButtons.forEach(btn => {
+            if (btn.innerText === 'View Details' && !btn.onclick) {
+                btn.onclick = openIssueModal;
+            }
+        });
+    });
+</script>
+{% endblock %}

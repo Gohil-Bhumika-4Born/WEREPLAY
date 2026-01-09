@@ -98,11 +98,21 @@
                     <div>
                         <dt class="text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wide">Address</dt>
                         <dd class="text-gray-900 dark:text-white">
-                            {% if current_user.city or current_user.state or current_user.country %}
-                                {{ [current_user.city, current_user.state, current_user.country, current_user.pincode]|select|join(', ') }}
-                            {% else %}
-                                Not provided
+                            {% set parts = [] %}
+                            {% if current_user.address %}{% set parts = parts + [current_user.address] %}{% endif %}
+                            {% if current_user.city %}{% set parts = parts + [current_user.city] %}{% endif %}
+                            
+                            {% set state_zip = [] %}
+                            {% if current_user.state %}{% set state_zip = state_zip + [current_user.state] %}{% endif %}
+                            {% if current_user.pincode %}{% set state_zip = state_zip + [current_user.pincode] %}{% endif %}
+                            
+                            {% if state_zip %}
+                                {% set parts = parts + [state_zip|join(' ')] %}
                             {% endif %}
+                            
+                            {% if current_user.country %}{% set parts = parts + [current_user.country] %}{% endif %}
+                            
+                            {{ parts|join(', ') if parts else 'Not provided' }}
                         </dd>
                     </div>
                 </dl>

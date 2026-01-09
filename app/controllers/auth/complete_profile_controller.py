@@ -41,44 +41,53 @@ class CompleteProfileController:
                 'notificationPreference': request.form.get('notificationPreference')
             }
             
-            # Validation
+            # Validation - collect all missing/invalid fields
+            missing_fields = []
+            
             if not form_data['fullName'] or len(form_data['fullName'].strip()) < 3:
-                errors['fullName'] = 'Full name must be at least 3 characters long.'
+                missing_fields.append('Full name')
                 
             if not form_data['phone']:
-                errors['phone'] = 'Phone number is required.'
+                missing_fields.append('Phone number')
             elif not form_data['phone'].isdigit() or len(form_data['phone']) < 10 or len(form_data['phone']) > 15:
-                errors['phone'] = 'Please enter a valid phone number (10-15 digits).'
+                flash('Please enter a valid phone number (10-15 digits).', 'error')
+                return render_template('auth/complete-profile.html', user=current_user, form_data=form_data)
                 
             if not form_data['businessName'] or len(form_data['businessName'].strip()) < 2:
-                errors['businessName'] = 'Please enter business name'
+                missing_fields.append('Business name')
                 
             if not form_data['businessCategory']:
-                errors['businessCategory'] = 'Please select a business category.'
+                missing_fields.append('Business category')
                 
             if not form_data['country']:
-                errors['country'] = 'Please select a country.'
+                missing_fields.append('Country')
                 
             if not form_data['state']:
-                errors['state'] = 'State is required.'
+                missing_fields.append('State')
                 
             if not form_data['city']:
-                errors['city'] = 'City is required.'
+                missing_fields.append('City')
                 
             if not form_data['pincode']:
-                errors['pincode'] = 'Pincode is required.'
+                missing_fields.append('Pincode')
                 
             if not form_data['timezone']:
-                errors['timezone'] = 'Please select a timezone.'
+                missing_fields.append('Timezone')
                 
             if not form_data['preferredLanguage']:
-                errors['preferredLanguage'] = 'Please select a preferred language.'
+                missing_fields.append('Preferred language')
                 
             if not form_data['notificationPreference']:
-                errors['notificationPreference'] = 'Please select a notification preference.'
+                missing_fields.append('Notification preference')
 
-            if errors:
-                return render_template('auth/complete-profile.html', user=current_user, errors=errors, form_data=form_data)
+            # If there are missing fields, flash a single combined error message
+            if missing_fields:
+                if len(missing_fields) == 1:
+                    error_message = f'Please fill in {missing_fields[0]}.'
+                else:
+                    error_message = f'Please fill in the following fields: {", ".join(missing_fields)}.'
+                flash(error_message, 'error')
+                return render_template('auth/complete-profile.html', user=current_user, form_data=form_data)
             
             # Update basic information
             current_user.username = form_data['fullName']

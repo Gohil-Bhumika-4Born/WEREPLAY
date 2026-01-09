@@ -20,7 +20,9 @@ from . import (
     plans_billing_route,
     download_software_route,
     support_route,
-    terms_conditions_route
+    terms_conditions_route,
+    api_routes,
+    all_issues_route
 )
 
 __all__ = ['main_bp']

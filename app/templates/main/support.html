@@ -14,7 +14,7 @@
 
 {% block main_content %}
 <!-- Support Content -->
-            <div class="p-4 sm:p-6 lg:p-8">
+            <!-- <div class="p-4 sm:p-6 lg:p-8"> -->
                 <!-- Support Overview Header -->
                 <section class="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-white/90 dark:bg-[#252525] border border-primary/15 dark:border-primary/20 shadow-lg shadow-primary/5 dark:shadow-black/30 px-4 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-6 mb-6">
                     <div class="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-primaryDark/10 opacity-80 pointer-events-none"></div>
@@ -27,24 +27,37 @@
                                 Support Center
                             </h2>
                             <p class="text-sm sm:text-base text-gray-700 dark:text-gray-300 max-w-2xl font-medium">
-                                We are here to help you solve issues related to WhatsApp connection, document uploads,
+                            We are here to help you solve issues related to WhatsApp connection, document uploads,
                                 training, answers quality, and account management.
                             </p>
                         </div>
-                        <a href="guidelines-new.html"
-                            class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#18CB96] hover:bg-primaryDark/90 dark:bg-[#18CB96] dark:hover:bg-primaryDark/90 text-white rounded-xl text-xs sm:text-sm font-semibold shadow-md hover:shadow-lg hover:shadow-[#18CB96]/30 transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5 whitespace-nowrap">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                                </path>
-                            </svg>
-                            View Guidelines
-                        </a>
+                        <div class="flex flex-row gap-2 sm:gap-3">
+                            <a href="{{ url_for('main.guidelines') }}"
+                                class="inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 bg-[#18CB96] hover:bg-primaryDark/90 dark:bg-[#18CB96] dark:hover:bg-primaryDark/90 text-white rounded-xl text-sm font-semibold shadow-md hover:shadow-lg hover:shadow-[#18CB96]/30 transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5 whitespace-nowrap flex-1 sm:flex-none">
+                                <svg class="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                    </path>
+                                </svg>
+                                <span class="hidden xs:inline">Guidelines</span>
+                                <span class="xs:hidden"> Guidelines</span>
+                            </a>
+                            <a href="#"
+                                class="inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 bg-primaryDark hover:bg-primaryDark/90 dark:bg-primaryDark dark:hover:bg-primaryDark/90 text-white rounded-xl text-sm font-semibold shadow-md hover:shadow-lg hover:shadow-primaryDark/30 transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5 whitespace-nowrap flex-1 sm:flex-none">
+                                <svg class="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                    </path>
+                                </svg>
+                                <span class="hidden xs:inline">My Tickets</span>
+                                <span class="xs:hidden"> My Tickets</span>
+                            </a>
+                        </div>
                     </div>
                 </section>
 
                 <!-- Support Categories -->
-                <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mb-8">
+                <!-- <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mb-8">
                     <button onclick="selectCategory('whatsapp')"
                         class="group relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-xl sm:rounded-2xl p-5 sm:p-6 shadow-lg hover:shadow-xl hover:shadow-primary/10 dark:shadow-black/40 transition-all duration-300 ease-out hover:-translate-y-1 text-left border border-primary/15 dark:border-primary/25 hover:border-primary/30 dark:hover:border-primary/40">
                         <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.08),_transparent_55%)] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -156,7 +169,7 @@
                         </div>
                         <p class="text-sm sm:text-base text-gray-700 dark:text-gray-300 font-medium relative z-10">General questions or inquiries</p>
                     </button>
-                </section>
+                </section> -->
 
                 <!-- Main Content Grid -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 mb-8">
@@ -307,7 +320,7 @@
                                                 <span>Check webhook status</span>
                                             </li>
                                         </ul>
-                                        <a href="guidelines-new.html#whatsapp-setup"
+                                        <a href="{{ url_for('main.guidelines') }}#whatsapp-setup"
                                             class="text-sm text-[#18CB96] hover:text-primaryDark dark:hover:text-primary font-semibold hover:underline transition-colors">
                                             Open WhatsApp Troubleshooting →
                                         </a>
@@ -333,7 +346,7 @@
                                                 <span>Request audit of content</span>
                                             </li>
                                         </ul>
-                                        <a href="guidelines-new.html#improve-accuracy"
+                                        <a href="{{ url_for('main.guidelines') }}#improve-accuracy"
                                             class="text-sm text-[#18CB96] hover:text-primaryDark dark:hover:text-primary font-semibold hover:underline transition-colors">
                                             Learn How to Improve Accuracy →
                                         </a>
@@ -423,7 +436,7 @@
                 </div>
 
                 <!-- My Tickets Section -->
-                <section class="relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-5 sm:p-6 lg:p-8 mb-8">
+                <!-- <section class="relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-5 sm:p-6 lg:p-8 mb-8">
                     <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
                     <div class="relative z-10">
                         <div class="flex items-center justify-between mb-6">
@@ -531,7 +544,7 @@
                             </table>
                         </div>
                     </div>
-                </section>
+                </section> -->
 
                 <!-- Emergency Contact Section -->
                 <section id="emergencyContact"
@@ -576,7 +589,83 @@
                         </div>
                     </div>
                 </section>
-            </div>
+                </section>
+            <!-- </div> -->
         </main>
     </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    // Support Category Selection
+    function selectCategory(category) {
+        const categoryMap = {
+            'whatsapp': 'WhatsApp Connection Issue',
+            'ai-training': 'AI Training or Answer Problem',
+            'document': 'Document or API Upload Issue',
+            'account': 'Account / Billing Issue',
+            'technical': 'Technical Error / Bug',
+            'general': 'General Inquiry'
+        };
+
+        const select = document.getElementById('issueCategory');
+        if (select) {
+            select.value = category;
+            // Scroll to form
+            document.getElementById('ticketForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
+    // File Upload Handler
+    const fileInput = document.getElementById('fileInput');
+    const fileList = document.getElementById('fileList');
+
+    if (fileInput) {
+        fileInput.addEventListener('change', (e) => {
+            fileList.innerHTML = '';
+            Array.from(e.target.files).forEach((file, index) => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'flex items-center justify-between p-2 bg-gray-50 dark:bg-[#1E1E1E] rounded-lg';
+                fileItem.innerHTML = `
+                    <span class="text-sm text-gray-700 dark:text-gray-300">${file.name}</span>
+                    <button type="button" onclick="removeFile(${index})" class="text-red-500 hover:text-red-700">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                `;
+                fileList.appendChild(fileItem);
+            });
+        });
+    }
+
+    function removeFile(index) {
+        const dt = new DataTransfer();
+        const files = Array.from(fileInput.files);
+        files.splice(index, 1);
+        files.forEach(file => dt.items.add(file));
+        fileInput.files = dt.files;
+        fileInput.dispatchEvent(new Event('change'));
+    }
+
+    // Ticket Form Submission
+    const ticketForm = document.getElementById('ticketForm');
+    if (ticketForm) {
+        ticketForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Show success message
+            alert('Ticket submitted successfully! You will receive a confirmation email shortly.');
+            // Reset form
+            ticketForm.reset();
+            if (fileList) fileList.innerHTML = '';
+            // Scroll to top or specific section if needed
+            // document.querySelector('.bg-white.dark\\:bg-\\[\\#2A2A2A\\].rounded-2xl.shadow-lg.p-6.mb-8').scrollIntoView({ behavior: 'smooth' }); // Adjusted selector or removed if not matching
+        });
+    }
+
+    // View Ticket
+    function viewTicket(ticketId) {
+        alert(`Viewing ticket #${ticketId}. This would open a detailed ticket view.`);
+    }
+</script>
 {% endblock %}
