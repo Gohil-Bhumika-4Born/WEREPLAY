@@ -3,124 +3,259 @@
 {% set current_page = 'documents' %}
 
 {% block title %}WeReplay Admin Panel - Upload Documents{% endblock %}
-
 {% block page_title %}Upload Documents{% endblock %}
 
 {% block page_icon %}
 <svg class="w-6 h-6 text-primaryDark dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
 </svg>
 {% endblock %}
 
 {% block main_content %}
-<!-- Document Upload Content - ChatGPT Style Two Panel Layout -->
-            <div class="flex h-[calc(100vh-64px)]">
-                <!-- Left Panel - Upload & Configuration -->
-                <div class="flex-1 overflow-y-auto">
-                    <div class="p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto">
-                        <!-- Accepted Formats Info -->
-                        <div class="mb-6 p-4 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl border border-primary/20 dark:border-primary/30 shadow-sm">
-                            <p class="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide mb-2">Accepted Formats</p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="px-3 py-1 bg-white dark:bg-[#2A2A2A] rounded-lg text-xs font-semibold text-gray-700 dark:text-gray-300 border border-primary/20">PDF</span>
-                                <span class="px-3 py-1 bg-white dark:bg-[#2A2A2A] rounded-lg text-xs font-semibold text-gray-700 dark:text-gray-300 border border-primary/20">DOCX</span>
-                                <span class="px-3 py-1 bg-white dark:bg-[#2A2A2A] rounded-lg text-xs font-semibold text-gray-700 dark:text-gray-300 border border-primary/20">TXT</span>
-                                <span class="px-3 py-1 bg-white dark:bg-[#2A2A2A] rounded-lg text-xs font-semibold text-gray-700 dark:text-gray-300 border border-primary/20">CSV</span>
-                                <span class="px-3 py-1 bg-white dark:bg-[#2A2A2A] rounded-lg text-xs font-semibold text-gray-700 dark:text-gray-300 border border-primary/20">JSON</span>
-                                <span class="px-3 py-1 bg-white dark:bg-[#2A2A2A] rounded-lg text-xs font-semibold text-gray-700 dark:text-gray-300 border border-primary/20">Postman JSON</span>
-                            </div>
-                        </div>
 
-                        <!-- Drag & Drop Upload Area -->
-                        <div id="dropZone" class="relative mb-6 p-8 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-2xl bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] hover:border-[#18CB96] dark:hover:border-[#18CB96] transition-all cursor-pointer group">
-                            <input type="file" id="fileInput" multiple accept=".pdf,.docx,.txt,.csv,.json" class="hidden">
-                            <div class="text-center">
-                                <div class="mx-auto w-16 h-16 mb-4 rounded-full bg-[#18CB96]/10 dark:bg-[#18CB96]/20 flex items-center justify-center group-hover:bg-[#18CB96]/20 dark:group-hover:bg-[#18CB96]/30 transition-all">
-                                    <svg class="w-8 h-8 text-[#18CB96]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
-                                    </svg>
-                                </div>
-                                <p class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Drag & drop files here</p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">or <span class="text-[#18CB96] font-medium">browse</span> to upload</p>
-                                <p class="text-xs text-gray-500 dark:text-gray-500">Multiple files supported</p>
-                            </div>
-                        </div>
+<form method="POST" enctype="multipart/form-data" class="flex h-[calc(100vh-64px)]">
 
-                        <!-- Uploaded Files List -->
-                        <div id="uploadedFiles" class="space-y-3 mb-6"></div>
+    <!-- ================= LEFT PANEL ================= -->
+    <div class="flex-1 overflow-y-auto">
+        <div class="p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto">
 
-                        <!-- Document Fields Section -->
-                        <div id="documentFields" class="hidden relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-6 mb-6">
-                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
-                            <div class="relative z-10">
-                                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Document Information</h3>
-                                
-                                <div class="space-y-4">
-                                    <!-- Document Title -->
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Document Title</label>
-                                        <input type="text" id="docTitle" class="w-full px-4 py-2.5 bg-white dark:bg-[#1E1E1E] border-[1.5px] border-gray-300 dark:border-gray-500 rounded-xl text-gray-900 dark:text-white focus:border-gray-400 dark:focus:border-gray-400 focus:ring-0 focus:outline-none transition-all" placeholder="Enter document title">
-                                    </div>
-                                    
-                                    <!-- Category -->
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Category</label>
-                                        <select id="docCategory" class="w-full px-4 py-2.5 bg-white dark:bg-[#1E1E1E] border-[1.5px] border-gray-300 dark:border-gray-500 rounded-xl text-gray-900 dark:text-white focus:border-gray-400 dark:focus:border-gray-400 focus:ring-0 focus:outline-none transition-all appearance-none cursor-pointer">
-                                            <option value="">Select category</option>
-                                            <option value="faq">FAQ</option>
-                                            <option value="product">Product</option>
-                                            <option value="api">API</option>
-                                            <option value="policy">Policy</option>
-                                            <option value="manual">Manual</option>
-                                        </select>
-                                    </div>
-                                    
-                                    <!-- Description -->
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Description</label>
-                                        <textarea id="docDescription" rows="3" class="w-full px-4 py-2.5 bg-white dark:bg-[#1E1E1E] border-[1.5px] border-gray-300 dark:border-gray-500 rounded-xl text-gray-900 dark:text-white focus:border-gray-400 dark:focus:border-gray-400 focus:ring-0 focus:outline-none transition-all resize-none" placeholder="Short explanation of the document"></textarea>
-                                    </div>
-                                    
-                                    <!-- Tags -->
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Tags</label>
-                                        <input type="text" id="docTags" class="w-full px-4 py-2.5 bg-white dark:bg-[#1E1E1E] border-[1.5px] border-gray-300 dark:border-gray-500 rounded-xl text-gray-900 dark:text-white focus:border-gray-400 dark:focus:border-gray-400 focus:ring-0 focus:outline-none transition-all" placeholder="e.g., refund, pricing, support (comma separated)">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Process Button -->
-                        <button id="processBtn" onclick="processDocuments()" class="hidden w-full px-6 py-3.5 bg-[#18CB96] hover:bg-primaryDark/90 dark:bg-[#18CB96] dark:hover:bg-primaryDark/90 text-white rounded-xl font-semibold shadow-md hover:shadow-lg hover:shadow-[#18CB96]/30 transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5">
-                            Process Document
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Right Panel - Preview (ChatGPT Style) -->
-                <div class="hidden lg:block w-96">
-                    <div class="relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-6 sticky top-24">
-                        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
-                        <div class="relative z-10">
-                            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Document Preview</h3>
-                            
-                            <div id="previewContent" class="space-y-4">
-                                <!-- Empty State - Modern Design -->
-                                <div class="flex flex-col items-center justify-center min-h-[50vh] text-center">
-                                    <div class="mb-6">
-                                        <div class="mx-auto w-24 h-24 mb-4 rounded-2xl bg-gradient-to-br from-gray-50 to-gray-100 dark:from-[#2A2A2A] dark:to-[#333333] flex items-center justify-center shadow-inner">
-                                            <svg class="w-12 h-12 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <p class="text-base font-medium text-gray-600 dark:text-gray-400">Upload a document to see preview</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <!-- Accepted Formats -->
+            <div class="mb-6 p-4 rounded-xl bg-[#ECFFF9] border border-primary/20">
+                <p class="text-xs font-semibold mb-2">ACCEPTED FORMATS</p>
+                <div class="flex flex-wrap gap-2 text-xs">
+                    <span class="px-3 py-1 rounded-full bg-white border">PDF</span>
+                    <span class="px-3 py-1 rounded-full bg-white border">DOCX</span>
+                    <span class="px-3 py-1 rounded-full bg-white border">TXT</span>
+                    <span class="px-3 py-1 rounded-full bg-white border">CSV</span>
+                    <span class="px-3 py-1 rounded-full bg-white border">JSON</span>
                 </div>
             </div>
-        </main>
+
+            <!-- Upload Zone -->
+            <div id="dropZone"
+                 class="relative mb-6 p-8 border-2 border-dashed border-gray-300
+                        rounded-2xl bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9]
+                        hover:border-[#18CB96] transition cursor-pointer">
+
+                <input type="file"
+                       id="fileInput"
+                       name="documents"
+                       multiple
+                       accept=".pdf,.docx,.txt,.csv,.json"
+                       class="hidden">
+
+                <div class="text-center">
+                    <div class="mx-auto w-16 h-16 mb-4 rounded-full bg-[#18CB96]/10
+                                flex items-center justify-center">
+                        <svg class="w-8 h-8 text-[#18CB96]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                        </svg>
+                    </div>
+
+                    <p class="text-lg font-semibold mb-2">Drag & drop files here</p>
+                    <p class="text-sm text-gray-600 mb-4">
+                        or
+                        <label for="fileInput"
+                               class="text-[#18CB96] font-medium cursor-pointer">
+                            browse
+                        </label>
+                        to upload
+                    </p>
+                    <p class="text-xs text-gray-500">Multiple files supported</p>
+                </div>
+            </div>
+
+            <!-- Document Fields -->
+            <div id="documentFields"
+                 class="hidden bg-white rounded-2xl shadow border p-6 mb-6">
+
+                <h3 class="text-lg font-bold mb-6">Document Information</h3>
+
+                <div class="space-y-5">
+
+                    <!-- Title -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                            Document Title
+                        </label>
+                        <input type="text"
+                               id="docTitle"
+                               name="title"
+                               class="w-full px-4 py-2.5 border rounded-xl"
+                               placeholder="Enter document title">
+                    </div>
+
+                    <!-- Category -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                            Category
+                        </label>
+                        <select name="category"
+                                class="w-full px-4 py-2.5 border rounded-xl">
+                            <option value="">Select category</option>
+                            <option value="faq">FAQ</option>
+                            <option value="product">Product</option>
+                            <option value="api">API</option>
+                            <option value="policy">Policy</option>
+                            <option value="manual">Manual</option>
+                        </select>
+                    </div>
+
+                    <!-- Description -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                            Description
+                        </label>
+                        <textarea name="description"
+                                  rows="3"
+                                  class="w-full px-4 py-2.5 border rounded-xl resize-none"
+                                  placeholder="Short description of the document"></textarea>
+                    </div>
+
+                    <!-- Tags -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                            Tags
+                        </label>
+                        <input type="text"
+                               name="tags"
+                               class="w-full px-4 py-2.5 border rounded-xl"
+                               placeholder="e.g. api, guide, onboarding">
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Submit -->
+            <button id="processBtn"
+                    type="submit"
+                    class="hidden w-full px-6 py-3.5 bg-[#18CB96] text-white rounded-xl font-semibold">
+                Process Document
+            </button>
+
+        </div>
     </div>
+
+    <!-- ================= RIGHT PANEL ================= -->
+    <div class="hidden lg:block w-96">
+        <div class="sticky top-24 p-6 rounded-2xl bg-white border shadow">
+
+            <h3 class="text-lg font-bold mb-4">Document Preview</h3>
+
+            <!-- Empty -->
+            <div id="previewEmpty"
+                 class="flex flex-col items-center justify-center min-h-[50vh] text-center text-gray-400">
+                <svg class="w-16 h-16 mb-4 text-[#18CB96]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586
+                             a1 1 0 01.707.293l5.414 5.414
+                             a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                </svg>
+                <p class="text-sm font-medium">No document selected</p>
+            </div>
+
+            <!-- Summary -->
+            <div id="previewSummary" class="hidden space-y-4 text-sm">
+
+                <div class="p-4 rounded-xl bg-[#ECFFF9] border">
+                    <div class="flex justify-between">
+                        <span>Total Files</span>
+                        <span id="pvCount">—</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Types</span>
+                        <span id="pvTypes">—</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Total Size</span>
+                        <span id="pvSize">—</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Status</span>
+                        <span class="text-green-600 font-medium">Ready to process</span>
+                    </div>
+                </div>
+
+                <ul id="pvFiles" class="text-xs text-gray-600 space-y-1"></ul>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<!-- ================= JS ================= -->
+<script>
+const fileInput = document.getElementById("fileInput");
+const dropZone = document.getElementById("dropZone");
+
+const previewEmpty = document.getElementById("previewEmpty");
+const previewSummary = document.getElementById("previewSummary");
+const pvCount = document.getElementById("pvCount");
+const pvTypes = document.getElementById("pvTypes");
+const pvSize = document.getElementById("pvSize");
+const pvFiles = document.getElementById("pvFiles");
+const processBtn = document.getElementById("processBtn");
+const documentFields = document.getElementById("documentFields");
+const titleInput = document.getElementById("docTitle");
+
+function formatSize(bytes) {
+    if (bytes < 1024) return bytes + " B";
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + " KB";
+    return (bytes / 1024 / 1024).toFixed(2) + " MB";
+}
+
+function autoFillTitle(files) {
+    if (titleInput.value.trim() !== "") return;
+    if (files.length === 1) {
+        titleInput.value = files[0].name.replace(/\.[^/.]+$/, "");
+    }
+}
+
+function updatePreview() {
+    const files = Array.from(fileInput.files);
+
+    if (!files.length) {
+        previewEmpty.classList.remove("hidden");
+        previewSummary.classList.add("hidden");
+        processBtn.classList.add("hidden");
+        documentFields.classList.add("hidden");
+        return;
+    }
+
+    previewEmpty.classList.add("hidden");
+    previewSummary.classList.remove("hidden");
+    processBtn.classList.remove("hidden");
+    documentFields.classList.remove("hidden");
+
+    autoFillTitle(files);
+
+    pvCount.textContent = files.length;
+    pvTypes.textContent = [...new Set(files.map(f => f.name.split(".").pop().toUpperCase()))].join(", ");
+    pvSize.textContent = formatSize(files.reduce((s, f) => s + f.size, 0));
+
+    pvFiles.innerHTML = "";
+    files.forEach(f => {
+        const li = document.createElement("li");
+        li.textContent = `${f.name} (${formatSize(f.size)})`;
+        pvFiles.appendChild(li);
+    });
+}
+
+fileInput.addEventListener("change", updatePreview);
+
+dropZone.addEventListener("click", (e) => {
+    if (e.target.tagName !== "LABEL") fileInput.click();
+});
+
+dropZone.addEventListener("dragover", e => e.preventDefault());
+
+dropZone.addEventListener("drop", e => {
+    e.preventDefault();
+    fileInput.files = e.dataTransfer.files;
+    updatePreview();
+});
+</script>
+
 {% endblock %}

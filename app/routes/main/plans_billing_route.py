@@ -1,5 +1,5 @@
 """
-Plans & Billing route.
+Plans & Billing routes.
 """
 from app.utils import profile_required
 from . import main_bp
@@ -13,6 +13,7 @@ def plans_billing():
     return PlansBillingController.plans_billing_page()
 
 
+#  ADDED: plan history route
 @main_bp.route('/plan-history')
 @profile_required
 def plan_history():

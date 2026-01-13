@@ -11,7 +11,6 @@
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
 </svg>
 {% endblock %}
-
 {% block main_content %}
 <!-- Plans & Billing Content -->
             <!-- <div class="p-4 sm:p-6 lg:p-8"> -->
@@ -144,254 +143,66 @@
                 </section> -->
                 
                 <!-- Plan Comparison Cards - Marketing-style pricing design -->
-                <section id="available-plans-section" class="mb-8  rounded-2xl sm:rounded-3xl px-0 py-6 sm:px-0 sm:py-6 lg:px-0 lg:py-8">
-                    <div class="container mx-auto px-0 sm:px-2">
-                       
+<section id="available-plans-section"
+         class="mb-8 rounded-2xl sm:rounded-3xl px-0 py-6">
 
-                        <!-- Pricing Cards Grid -->
-                        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                            <!-- Free Trial Card -->
-                            <article
-                                class="group relative overflow-hidden flex-1 bg-white/90 dark:bg-[#2A2A2A] rounded-2xl sm:rounded-3xl shadow-md hover:shadow-2xl hover:-translate-y-2 hover:border-primary transition-smooth hover-scale-soft shadow-transition px-5 sm:px-6 lg:px-7 py-6 sm:py-6 lg:py-6 border-2 border-primary/30 dark:border-primary/20 flex flex-col">
-                                <div class="absolute inset-x-0 -top-24 h-40 bg-gradient-to-b from-primary/20 via-primary/5 to-transparent dark:from-primary/10 dark:via-primary/5 dark:to-transparent pointer-events-none"></div>
-                                <div class="mb-4 sm:mb-6 relative z-10">
-                                    <h3 class="text-base sm:text-lg font-semibold text-dark dark:text-white mb-1">Free Trial</h3>
-                                    <p class="text-xs text-gray dark:text-gray-300">7-Day Free Trial - New users testing the AI system</p>
-                                </div>
-                                <div class="mb-4 sm:mb-6 relative z-10">
-                                    <div class="text-2xl sm:text-3xl font-bold text-dark dark:text-white">₹0</div>
-                                    <p class="text-xs text-gray dark:text-gray-300 mt-1">7-Day Free Trial</p>
-                                </div>
-                                <button
-                                    onclick="selectPlan('free-trial')"
-                                    class="w-full rounded-full bg-primaryDark/10 dark:bg-primaryDark/20 text-primaryDark dark:text-white text-sm font-semibold py-2.5 mb-6 text-center group-hover:bg-primary group-hover:text-white dark:group-hover:bg-primary dark:group-hover:text-white transition-smooth hover:scale-[1.02] button-press relative z-10">
-                                    Start Trial
-                                </button>
-                                <p class="text-xs font-semibold text-gray dark:text-gray-300 mb-3 uppercase tracking-wide relative z-10">Core features</p>
-                                <ul class="space-y-2 text-xs text-gray dark:text-gray-300 flex-1 relative z-10">
-                                    <li class="flex items-center gap-2">
-                                        <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
-                                        Up to 2 documents
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
-                                        2,000 AI replies/month
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
-                                        Basic analytics
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
-                                        Desktop app access
-                                    </li>
-                                </ul>
-                            </article>
+        {% if plans and plans|length > 0 %}
+            {% for plan in plans %}
 
-                            <!-- Starter Card -->
-                            <article
-                                class="group relative overflow-hidden flex-1 bg-white/90 dark:bg-[#2A2A2A] rounded-2xl sm:rounded-3xl shadow-md hover:shadow-2xl hover:-translate-y-2 hover:border-primary transition-smooth hover-scale-soft shadow-transition px-5 sm:px-6 lg:px-7 py-6 sm:py-8 lg:py-6 border-2 border-primary/30 dark:border-primary/20 flex flex-col">
-                                <div class="absolute inset-x-0 -top-24 h-40 bg-gradient-to-b from-primary/20 via-primary/5 to-transparent dark:from-primary/10 dark:via-primary/5 dark:to-transparent pointer-events-none"></div>
-                                <div class="mb-4 sm:mb-6 relative z-10">
-                                    <h3 class="text-base sm:text-lg font-semibold text-dark dark:text-white mb-1">Starter Plan</h3>
-                                    <p class="text-xs text-gray dark:text-gray-300">For freelancers or startups testing AI WhatsApp automation.</p>
-                                </div>
-                                <div class="mb-4 sm:mb-6 relative z-10">
-                                    <div class="text-2xl sm:text-3xl font-bold text-dark dark:text-white">₹1,499</div>
-                                    <p class="text-xs text-gray dark:text-gray-300 mt-1">per month</p>
-                                </div>
-                                <button
-                                    onclick="selectPlan('starter')"
-                                    class="w-full rounded-full bg-primaryDark/10 dark:bg-primaryDark/20 text-primaryDark dark:text-white text-sm font-semibold py-2.5 mb-6 text-center group-hover:bg-primary group-hover:text-white dark:group-hover:bg-primary dark:group-hover:text-white transition-smooth hover:scale-[1.02] button-press relative z-10">
-                                    Start Starter Plan
-                                </button>
-                                <p class="text-xs font-semibold text-gray dark:text-gray-300 mb-3 uppercase tracking-wide relative z-10">Core features</p>
-                                <ul class="space-y-2 text-xs text-gray dark:text-gray-300 flex-1 relative z-10">
-                                    <li class="flex items-center gap-2">
-                                        <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
-                                        Up to 5 documents
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
-                                        7,000 AI replies / month
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
-                                        Enhanced analytics
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
-                                        Desktop app access
-                                    </li>
-                                </ul>
-                            </article>
+                <div class="bg-white dark:bg-[#2A2A2A] rounded-2xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
 
-                            <!-- Professional Card (Popular / Current) -->
-                            <div class="flex-1 relative -mt-1 lg:-mt-6 flex flex-col">
-                                <div
-                                    class="absolute -top-2.5 sm:-top-3 right-3 sm:right-4 lg:right-6 bg-primaryDark dark:bg-primary text-white text-[10px] sm:text-[11px] font-bold px-3 sm:px-4 py-1.5 sm:py-2 rounded-full uppercase tracking-wider shadow-lg z-30 whitespace-nowrap">
-                                    Current Plan
-                                </div>
-                                <article
-                                    class="relative overflow-hidden bg-primaryDark/5 dark:bg-[#2A2A2A] rounded-2xl sm:rounded-3xl shadow-xl hover:shadow-2xl hover:-translate-y-3 hover:border-primaryDark dark:hover:border-primary transition-smooth hover-scale-soft shadow-transition px-5 sm:px-6 lg:px-7 py-8 sm:py-6 lg:py-8 border-2 border-primaryDark/20 dark:border-primary/30 flex flex-col flex-1 w-full">
-                                    <div class="absolute inset-x-0 -top-24 h-40 bg-gradient-to-b from-primaryDark/20 via-primaryDark/5 to-transparent dark:from-primary/10 dark:via-primary/5 dark:to-transparent pointer-events-none"></div>
-                                    <div class="mb-4 sm:mb-6 relative z-10">
-                                        <h3 class="text-base sm:text-lg font-semibold text-dark dark:text-white leading-tight">Professional</h3>
-                                        <p class="text-xs text-gray dark:text-gray-300">Small businesses using document-based automation + live data.
-                                        </p>
-                                    </div>
-                                    <div class="mb-4 sm:mb-6 relative z-10">
-                                        <div class="text-2xl sm:text-3xl lg:text-4xl font-bold text-dark dark:text-white">₹3,999</div>
-                                        <p class="text-xs text-gray dark:text-gray-300 mt-1">per month</p>
-                                    </div>
-                                    <button
-                                        onclick="selectPlan('professional')"
-                                        class="w-full rounded-full bg-primaryDark dark:bg-primary text-white text-sm font-semibold py-3 mb-6 text-center hover:bg-primaryDark/90 dark:hover:bg-primaryDark transition-smooth hover:scale-[1.02] button-press ripple-effect shadow-lg relative z-10">
-                                        You are on this plan
-                                    </button>
-                                    <p class="text-xs font-semibold text-gray dark:text-gray-300 mb-3 uppercase tracking-wide relative z-10">Everything in Starter,
-                                        plus</p>
-                                    <ul class="space-y-2 text-xs text-gray dark:text-gray-300 flex-1 relative z-10">
-                                        <li class="flex items-center gap-2">
-                                            <span class="w-2 h-2 rounded-full bg-primaryDark dark:bg-[#18CB96]"></span>
-                                            Up to 15 documents
-                                        </li>
-                                        <li class="flex items-center gap-2">
-                                            <span class="w-2 h-2 rounded-full bg-primaryDark dark:bg-[#18CB96]"></span>
-                                            Unlimited AI replies
-                                        </li>
-                                        <li class="flex items-center gap-2">
-                                            <span class="w-2 h-2 rounded-full bg-primaryDark dark:bg-[#18CB96]"></span>
-                                            3 live API integrations
-                                        </li>
-                                        <li class="flex items-center gap-2">
-                                            <span class="w-2 h-2 rounded-full bg-primaryDark dark:bg-[#18CB96]"></span>
-                                            Advanced analytics &amp; reports
-                                        </li>
-                                        <li class="flex items-center gap-2">
-                                            <span class="w-2 h-2 rounded-full bg-primaryDark dark:bg-[#18CB96]"></span>
-                                            Priority chat + email support
-                                        </li>
-                                    </ul>
-                                </article>
-                            </div>
+                    <!-- Plan Name -->
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                        {{ plan.plan_name }}
+                    </h3>
 
-                            <!-- Business Card -->
-                            <article
-                                class="group relative overflow-hidden flex-1 bg-white/90 dark:bg-[#2A2A2A] rounded-2xl sm:rounded-3xl shadow-md hover:shadow-2xl hover:-translate-y-2 hover:border-primary transition-smooth hover-scale-soft shadow-transition px-5 sm:px-6 lg:px-7 py-6 sm:py-6 lg:py-6 border-2 border-primary/30 dark:border-primary/20 flex flex-col">
-                                <div class="absolute inset-x-0 -top-24 h-40 bg-gradient-to-b from-primary/20 via-primary/5 to-transparent dark:from-primary/10 dark:via-primary/5 dark:to-transparent pointer-events-none"></div>
-                                <div class="mb-4 sm:mb-6 relative z-10">
-                                    <h3 class="text-base sm:text-lg font-semibold text-dark dark:text-white mb-1">Business Plan</h3>
-                                    <p class="text-xs text-gray dark:text-gray-300">Medium-sized companies needing real-time data.</p>
-                                </div>
-                                <div class="mb-4 sm:mb-6 relative z-10">
-                                    <div class="text-2xl sm:text-3xl font-bold text-dark dark:text-white">₹7,999</div>
-                                    <p class="text-xs text-gray dark:text-gray-300 mt-1">per month</p>
-                                </div>
-                                <button
-                                    onclick="selectPlan('business')"
-                                    class="w-full rounded-full bg-primaryDark/10 dark:bg-primaryDark/20 text-primaryDark dark:text-white text-sm font-semibold py-2.5 mb-6 text-center group-hover:bg-primary group-hover:text-white dark:group-hover:bg-primary dark:group-hover:text-white transition-smooth hover:scale-[1.02] button-press relative z-10">
-                                    Start Business Plan
-                                </button>
-                                <p class="text-xs font-semibold text-gray dark:text-gray-300 mb-3 uppercase tracking-wide relative z-10">Scale features</p>
-                                <ul class="space-y-2 text-xs text-gray dark:text-gray-300 flex-1 relative z-10">
-                                    <li class="flex items-center gap-2">
-                                        <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
-                                        Up to 35 documents
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
-                                        Unlimited AI replies
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
-                                        Full API access
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
-                                        Advanced dashboard
-                                    </li>
-                                </ul>
-                            </article>
+                    <!-- Price -->
+                    <p class="text-3xl font-extrabold text-[#18CB96] mb-1">
+                        ₹{{ plan.price_per_month }}
+                        <span class="text-sm font-medium text-gray-500"> / month</span>
+                    </p>
 
-                            <!-- Enterprise Card -->
-                            <article
-                                class="group relative overflow-hidden flex-1 bg-white/90 dark:bg-[#2A2A2A] rounded-2xl sm:rounded-3xl shadow-md hover:shadow-2xl hover:-translate-y-2 hover:border-primary transition-smooth hover-scale-soft shadow-transition px-5 sm:px-6 lg:px-7 py-6 sm:py-6 lg:py-6 border-2 border-primary/30 dark:border-primary/20 flex flex-col">
-                                <div class="absolute inset-x-0 -top-24 h-40 bg-gradient-to-b from-primary/20 via-primary/5 to-transparent dark:from-primary/10 dark:via-primary/5 dark:to-transparent pointer-events-none"></div>
-                                <div class="mb-4 sm:mb-6 relative z-10">
-                                    <h3 class="text-base sm:text-lg font-semibold text-dark dark:text-white mb-1">Enterprise Plan</h3>
-                                    <p class="text-xs text-gray dark:text-gray-300">For large enterprises or agencies</p>
-                                </div>
-                                <div class="mb-4 sm:mb-6 relative z-10">
-                                    <div class="text-2xl sm:text-3xl font-bold text-dark dark:text-white">₹14,999</div>
-                                    <p class="text-xs text-gray dark:text-gray-300 mt-1">per month</p>
-                                </div>
-                                <button
-                                    onclick="selectPlan('enterprise')"
-                                    class="w-full rounded-full bg-primaryDark/10 dark:bg-primaryDark/20 text-primaryDark dark:text-white text-sm font-semibold py-2.5 mb-6 text-center group-hover:bg-primary group-hover:text-white dark:group-hover:bg-primary dark:group-hover:text-white transition-smooth hover:scale-[1.02] button-press relative z-10">
-                                    Contact Sales
-                                </button>
-                                <p class="text-xs font-semibold text-gray dark:text-gray-300 mb-3 uppercase tracking-wide relative z-10">Enterprise features</p>
-                                <ul class="space-y-2 text-xs text-gray dark:text-gray-300 flex-1 relative z-10">
-                                    <li class="flex items-center gap-2">
-                                        <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
-                                        50 documents
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
-                                        Unlimited AI replies
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
-                                        Advanced API + DB Sync
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <span class="w-2 h-2 rounded-full bg-primary dark:bg-[#18CB96]"></span>
-                                        Full analytics &amp; reporting
-                                    </li>
-                                </ul>
-                            </article>
+                    <!-- Free Trial -->
+                    {% if plan.free_trial %}
+                        <p class="text-sm text-gray-500 mb-4">
+                            {{ plan.free_trial }}
+                        </p>
+                    {% endif %}
 
-                            <!-- Custom Card -->
-                            <article
-                                class="group flex-1 bg-gradient-to-br from-primaryDark to-primaryDark/80 dark:from-primaryDark dark:to-primaryDark/90 rounded-2xl sm:rounded-3xl shadow-md hover:shadow-2xl hover:-translate-y-2 transition-smooth hover-scale-soft shadow-transition px-5 sm:px-6 lg:px-7 py-6 sm:py-6 lg:py-6 border-2 border-primaryDark dark:border-primary flex flex-col text-white">
-                                <div class="mb-4 sm:mb-6">
-                                    <h3 class="text-base sm:text-lg font-semibold mb-1">Custom / Personalized</h3>
-                                    <p class="text-xs text-white/80">For businesses with unique requirements</p>
-                                </div>
-                                <div class="mb-4 sm:mb-6">
-                                    <div class="text-xl sm:text-2xl font-bold">Contact Us</div>
-                                    <p class="text-xs text-white/80 mt-1">Custom pricing based on needs</p>
-                                </div>
-                                    class="w-full rounded-full bg-white dark:bg-white/90 text-primaryDark dark:text-primaryDark text-sm font-semibold py-2.5 mb-6 text-center hover:bg-gray-100 dark:hover:bg-white transition-smooth hover:scale-[1.02] button-press shadow-lg">
-                                    Contact Us
-                                </a>
-                                <p class="text-xs font-semibold text-white/90 mb-3 uppercase tracking-wide">Custom features</p>
-                                <ul class="space-y-2 text-xs text-white/90 flex-1">
-                                    <li class="flex items-center gap-2">
-                                        <span class="w-2 h-2 rounded-full bg-white"></span>
-                                        Flexible document limits
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <span class="w-2 h-2 rounded-full bg-white"></span>
-                                        Fully customized AI responses
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <span class="w-2 h-2 rounded-full bg-white"></span>
-                                        Custom features per request
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <span class="w-2 h-2 rounded-full bg-white"></span>
-                                        Analytics &amp; reporting
-                                    </li>
-                                </ul>
-                            </article>
+                    <!-- Ideal For -->
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                        {{ plan.ideal_for }}
+                    </p>
 
-                        </div>
-                    </div>
-                </section>
-                
+                    <!-- Features -->
+                    <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300 mb-6">
+                        <li>✔ Tokens: {{ plan.tokens }}</li>
+                        <li>✔ AI Replies: {{ plan.ai_replies_per_month }}</li>
+                        <li>✔ API Integration: {{ plan.api_integration }}</li>
+                        <li>✔ {{ plan.key_features }}</li>
+                    </ul>
+
+                    <!-- Action -->
+                    <button
+                        class="w-full py-2.5 bg-[#18CB96] hover:bg-[#14a87a] text-white rounded-xl font-medium transition">
+                        Choose Plan
+                    </button>
+
+                </div>
+
+            {% endfor %}
+        {% else %}
+            <p class="col-span-full text-center text-gray-500">
+                No active plans available.
+            </p>
+        {% endif %}
+
+    </div>
+</section>
+
+           
                 <!-- Feature Comparison Table -->
                 <div class="bg-white dark:bg-[#2A2A2A] rounded-2xl shadow-lg p-6 mb-8 overflow-x-auto">
                     <h2 class="text-2xl font-bold text-primaryDark dark:text-white mb-6">Feature Comparison</h2>
@@ -428,7 +239,7 @@
                                     <td class="py-4 px-6 text-sm text-center text-gray-500 dark:text-gray-400">—</td>
                                 </tr>
                                 <tr class="bg-primaryDark/5 dark:bg-[#2A2A2A] hover:bg-gray-50 dark:hover:bg-[#333333] transition-colors">
-                                    <td class="py-4 px-6 text-sm font-semibold text-gray-900 dark:text-white">Documents Upload</td>
+                                    <td class="py-4 px-6 text-sm font-semibold text-gray-900 dark:text-white">Tokens</td>
                                     <td class="py-4 px-6 text-sm text-center text-gray-700 dark:text-gray-300">2</td>
                                     <td class="py-4 px-6 text-sm text-center text-gray-700 dark:text-gray-300">5</td>
                                     <td class="py-4 px-6 text-sm text-center font-semibold text-[#18CB96]">15</td>

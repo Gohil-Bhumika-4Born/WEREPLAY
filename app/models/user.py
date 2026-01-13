@@ -53,7 +53,11 @@ class User(UserMixin, db.Model):
     otp_code = db.Column(db.String(6), nullable=True)
     otp_created_at = db.Column(db.DateTime, nullable=True)
     otp_expires_at = db.Column(db.DateTime, nullable=True)
-    
+
+    #plan_id added
+    plan_id = db.Column(db.Integer, db.ForeignKey('plans.id'), nullable=True)
+    plan = db.relationship('Plans', backref='users')
+
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     

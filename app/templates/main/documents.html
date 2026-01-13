@@ -3,475 +3,164 @@
 {% set current_page = 'documents' %}
 
 {% block title %}WeReplay Admin Panel - Documents{% endblock %}
-
 {% block page_title %}Documents{% endblock %}
 
 {% block page_icon %}
 <svg class="w-6 h-6 text-primaryDark dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586
+             a1 1 0 01.707.293l5.414 5.414
+             a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
 </svg>
 {% endblock %}
 
 {% block main_content %}
-<!-- Documents List View Content -->
 
-                <!-- Quick Actions Section -->
-                <section class="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-white/90 dark:bg-[#252525] border border-primary/15 dark:border-primary/20 shadow-lg shadow-primary/5 dark:shadow-black/30 px-4 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-6 mb-6">
-                    <div class="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-primaryDark/10 opacity-80 pointer-events-none"></div>
-                    <div class="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                        <div class="space-y-1">
-                            <p class="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.22em] text-primaryDark/80 dark:text-white">Quick Actions</p>
-                            <p class="text-sm sm:text-base text-gray-700 dark:text-gray-200 font-medium">Upload documents or jump directly to chat reports from here.</p>
-                        </div>
-                        <div class="flex flex-wrap gap-2 sm:gap-3">
-                            <a href="{{ url_for('main.documents_upload') }}" class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#18CB96] hover:bg-primaryDark/90 dark:bg-[#18CB96] dark:hover:bg-primaryDark/90 text-white rounded-xl text-xs sm:text-sm font-semibold shadow-md hover:shadow-lg hover:shadow-[#18CB96]/30 transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                                </svg>
-                                <span>Upload Document</span>
-                            </a>
-                            <a href="{{ url_for('main.chat_reports') }}" class="inline-flex items-center gap-2 px-4 py-2.5 bg-primaryDark dark:bg-[#1E1E1E] hover:bg-primaryDark hover:text-white dark:hover:bg-primaryLight/80 text-white dark:text-gray-100 rounded-xl text-xs sm:text-sm font-semibold border border-gray-200 dark:border-gray-700 transition-all duration-300 ease-out hover:scale-[1.02] hover:-translate-y-0.5">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                </svg>
-                                <span>View Chat Reports</span>
-                            </a>
-                        </div>
-                    </div>
-                </section>
-                
-                <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
-                    <!-- Main Content Area - Document Cards -->
-                    <div class="xl:col-span-2 space-y-4">
-                        <!-- Document Cards List -->
-                        <div class="space-y-4">
-                            <!-- Document Card 1 -->
-                            <div class="document-card relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-6 hover:shadow-xl transition-all cursor-pointer" onclick="selectDocument('invoice.pdf', 'Invoice processing document with payment terms and billing information', 'PDF', '1.2 MB', '12 Jan, 3:45 PM', 'Processed', '4,532', 'Used in v3 model 1 hour ago', 'Payment Terms, Billing, Refunds', event)">
-                                <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.08),_transparent_55%)] pointer-events-none opacity-90"></div>
-                                <div class="relative z-10">
-                                    <div class="flex items-start justify-between gap-4 mb-4">
-                                        <div class="flex-1 min-w-0">
-                                            <div class="flex items-center gap-3 mb-2">
-                                                <svg class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
-                                                </svg>
-                                                <div class="flex-1 min-w-0">
-                                                    <h3 class="text-lg font-bold text-gray-900 dark:text-white truncate">invoice.pdf</h3>
-                                                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Invoice processing document with payment terms and billing information</p>
-                                                </div>
-                                            </div>
-                                            <div class="flex flex-wrap items-center gap-3 text-xs text-gray-600 dark:text-gray-400 mb-3">
-                                                <span class="px-2.5 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400 rounded-full font-medium">PDF</span>
-                                                <span>1.2 MB</span>
-                                                <span>•</span>
-                                                <span>Uploaded 12 Jan, 3:45 PM</span>
-                                                <span>•</span>
-                                                <span class="px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 rounded-full">Processed</span>
-                                            </div>
-                                            <div class="flex flex-wrap items-center gap-3 text-xs text-gray-600 dark:text-gray-400">
-                                                <span class="font-medium text-gray-900 dark:text-white">4,532 tokens extracted</span>
-                                                <span>•</span>
-                                                <span>Used in v3 model 1 hour ago</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="flex flex-wrap gap-2 pt-4 ">
-                                        <button onclick="event.stopPropagation(); previewDocument('invoice.pdf')" class="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-primary/10 dark:bg-[#1E1E1E] hover:bg-primary hover:text-white dark:hover:bg-[#2A2A2A] text-primary dark:text-gray-300 rounded-lg text-sm font-medium border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:shadow-md hover:border-gray-300 dark:hover:border-gray-600 active:scale-[0.98]">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                            </svg>
-                                            <span>Preview</span>
-                                        </button>
-                                        <button onclick="event.stopPropagation(); reprocessDocument('invoice.pdf')" class="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-primaryDark/10 dark:bg-[#1E1E1E] hover:bg-primaryDark dark:hover:bg-[#2A2A2A] text-primaryDark hover:text-white dark:text-gray-300 rounded-lg text-sm font-medium border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:shadow-md hover:border-gray-300 dark:hover:border-gray-600 active:scale-[0.98]">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                                            </svg>
-                                            <span>Reprocess</span>
-                                        </button>
-                                        <button onclick="event.stopPropagation(); replaceFile('invoice.pdf')" class="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-primary/10 dark:bg-[#1E1E1E] hover:bg-primary dark:hover:bg-[#2A2A2A] text-primary hover:text-white dark:text-gray-300 rounded-lg text-sm font-medium border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:shadow-md hover:border-gray-300 dark:hover:border-gray-600 active:scale-[0.98]">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
-                                            </svg>
-                                            <span>Replace</span>
-                                        </button>
-                                        <button onclick="event.stopPropagation(); openDeleteModal('invoice.pdf')" class="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/30 text-red-600 dark:text-red-400 rounded-lg text-sm font-medium border border-red-200 dark:border-red-800 transition-all duration-200 hover:shadow-md hover:border-red-300 dark:hover:border-red-700 active:scale-[0.98]">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                            </svg>
-                                            <span>Delete</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Document Card 2 -->
-                            <div class="document-card relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-6 hover:shadow-xl transition-all cursor-pointer" onclick="selectDocument('faq.txt', 'Frequently asked questions document', 'TXT', '856 KB', '11 Jan, 2:30 PM', 'Processed', '1,900', 'Used in v3 model 2 hours ago', 'FAQ, Support, Help', event)">
-                                <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.08),_transparent_55%)] pointer-events-none opacity-90"></div>
-                                <div class="relative z-10">
-                                    <div class="flex items-start justify-between gap-4 mb-4">
-                                        <div class="flex-1 min-w-0">
-                                            <div class="flex items-center gap-3 mb-2">
-                                                <svg class="w-6 h-6 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                                </svg>
-                                                <div class="flex-1 min-w-0">
-                                                    <h3 class="text-lg font-bold text-gray-900 dark:text-white truncate">faq.txt</h3>
-                                                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Frequently asked questions document</p>
-                                                </div>
-                                            </div>
-                                            <div class="flex flex-wrap items-center gap-3 text-xs text-gray-600 dark:text-gray-400 mb-3">
-                                                <span class="px-2.5 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 rounded-full font-medium">TXT</span>
-                                                <span>856 KB</span>
-                                                <span>•</span>
-                                                <span>Uploaded 11 Jan, 2:30 PM</span>
-                                                <span>•</span>
-                                                <span class="px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 rounded-full">Processed</span>
-                                            </div>
-                                            <div class="flex flex-wrap items-center gap-3 text-xs text-gray-600 dark:text-gray-400">
-                                                <span class="font-medium text-gray-900 dark:text-white">1,900 tokens extracted</span>
-                                                <span>•</span>
-                                                <span>Used in v3 model 2 hours ago</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="flex flex-wrap gap-2 pt-4 ">
-                                        <button onclick="event.stopPropagation(); previewDocument('faq.txt')" class="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-primaryDark/10 dark:bg-[#1E1E1E] hover:bg-primaryDark hover:text-white dark:hover:bg-[#2A2A2A] text-primaryDark dark:text-gray-300 rounded-lg text-sm font-medium border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:shadow-md hover:border-gray-300 dark:hover:border-gray-600 active:scale-[0.98]">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                            </svg>
-                                            <span>Preview</span>
-                                        </button>
-                                        <button onclick="event.stopPropagation(); reprocessDocument('faq.txt')" class="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-primary/10 dark:bg-[#1E1E1E] hover:bg-primary dark:hover:bg-[#2A2A2A] text-primary hover:text-white dark:text-gray-300 rounded-lg text-sm font-medium border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:shadow-md hover:border-gray-300 dark:hover:border-gray-600 active:scale-[0.98]">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                                            </svg>
-                                            <span>Reprocess</span>
-                                        </button>
-                                        <button onclick="event.stopPropagation(); replaceFile('faq.txt')" class="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-primaryDark/10 dark:bg-[#1E1E1E] hover:bg-primaryDark dark:hover:bg-[#2A2A2A] text-primaryDark hover:text-white dark:text-gray-300 rounded-lg text-sm font-medium border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:shadow-md hover:border-gray-300 dark:hover:border-gray-600 active:scale-[0.98]">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
-                                            </svg>
-                                            <span>Replace</span>
-                                        </button>
-                                        <button onclick="event.stopPropagation(); openDeleteModal('faq.txt')" class="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/30 text-red-600 dark:text-red-400 rounded-lg text-sm font-medium border border-red-200 dark:border-red-800 transition-all duration-200 hover:shadow-md hover:border-red-300 dark:hover:border-red-700 active:scale-[0.98]">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                            </svg>
-                                            <span>Delete</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Document Card 3 -->
-                            <div class="document-card relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-6 hover:shadow-xl transition-all cursor-pointer" onclick="selectDocument('postman_collection.json', 'Postman API collection with endpoints', 'JSON', '2.4 MB', '10 Jan, 10:15 AM', 'Not Processed', '9,114', 'Not used in training', 'API, Endpoints, Requests', event)">
-                                <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.08),_transparent_55%)] pointer-events-none opacity-90"></div>
-                                <div class="relative z-10">
-                                    <div class="flex items-start justify-between gap-4 mb-4">
-                                        <div class="flex-1 min-w-0">
-                                            <div class="flex items-center gap-3 mb-2">
-                                                <svg class="w-6 h-6 text-yellow-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                                </svg>
-                                                <div class="flex-1 min-w-0">
-                                                    <h3 class="text-lg font-bold text-gray-900 dark:text-white truncate">postman_collection.json</h3>
-                                                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Postman API collection with endpoints</p>
-                                                </div>
-                                            </div>
-                                            <div class="flex flex-wrap items-center gap-3 text-xs text-gray-600 dark:text-gray-400 mb-3">
-                                                <span class="px-2.5 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-400 rounded-full font-medium">JSON</span>
-                                                <span>2.4 MB</span>
-                                                <span>•</span>
-                                                <span>Uploaded 10 Jan, 10:15 AM</span>
-                                                <span>•</span>
-                                                <span class="px-2 py-0.5 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-400 rounded-full">Not Processed</span>
-                                            </div>
-                                            <div class="flex flex-wrap items-center gap-3 text-xs text-gray-600 dark:text-gray-400">
-                                                <span class="font-medium text-gray-900 dark:text-white">9,114 tokens extracted</span>
-                                                <span>•</span>
-                                                <span class="text-gray-500 dark:text-gray-500">Not used in training</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="flex flex-wrap gap-2 pt-4 ">
-                                        <button onclick="event.stopPropagation(); previewDocument('postman_collection.json')" class="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-primary/10 dark:bg-[#1E1E1E] hover:bg-primary hover:text-white dark:hover:bg-[#2A2A2A] text-primary dark:text-gray-300 rounded-lg text-sm font-medium border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:shadow-md hover:border-gray-300 dark:hover:border-gray-600 active:scale-[0.98]">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                            </svg>
-                                            <span>Preview</span>
-                                        </button>
-                                        <button onclick="event.stopPropagation(); reprocessDocument('postman_collection.json')" class="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-primaryDark/10 dark:bg-[#1E1E1E] hover:bg-primaryDark dark:hover:bg-[#2A2A2A] text-primaryDark hover:text-white dark:text-gray-300 rounded-lg text-sm font-medium border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:shadow-md hover:border-gray-300 dark:hover:border-gray-600 active:scale-[0.98]">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                                            </svg>
-                                            <span>Reprocess</span>
-                                        </button>
-                                        <button onclick="event.stopPropagation(); replaceFile('postman_collection.json')" class="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-primary/10 dark:bg-[#1E1E1E] hover:bg-primary dark:hover:bg-[#2A2A2A] text-primary hover:text-white dark:text-gray-300 rounded-lg text-sm font-medium border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:shadow-md hover:border-gray-300 dark:hover:border-gray-600 active:scale-[0.98]">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
-                                            </svg>
-                                            <span>Replace</span>
-                                        </button>
-                                        <button onclick="event.stopPropagation(); openDeleteModal('postman_collection.json')" class="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/30 text-red-600 dark:text-red-400 rounded-lg text-sm font-medium border border-red-200 dark:border-red-800 transition-all duration-200 hover:shadow-md hover:border-red-300 dark:hover:border-red-700 active:scale-[0.98]">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                            </svg>
-                                            <span>Delete</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Document Card 4 -->
-                            <div class="document-card relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-6 hover:shadow-xl transition-all cursor-pointer" onclick="selectDocument('api_documentation.md', 'API documentation and endpoints guide', 'FAQ', '3.1 MB', '9 Jan, 4:20 PM', 'Processed', '12,450', 'Used in v2 model 3 days ago', 'API, Documentation, Endpoints', event)">
-                                <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.08),_transparent_55%)] pointer-events-none opacity-90"></div>
-                                <div class="relative z-10">
-                                    <div class="flex items-start justify-between gap-4 mb-4">
-                                        <div class="flex-1 min-w-0">
-                                            <div class="flex items-center gap-3 mb-2">
-                                                <svg class="w-6 h-6 text-indigo-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                                </svg>
-                                                <div class="flex-1 min-w-0">
-                                                    <h3 class="text-lg font-bold text-gray-900 dark:text-white truncate">api_documentation.md</h3>
-                                                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">API documentation and endpoints guide</p>
-                                                </div>
-                                            </div>
-                                            <div class="flex flex-wrap items-center gap-3 text-xs text-gray-600 dark:text-gray-400 mb-3">
-                                                <span class="px-2.5 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-400 rounded-full font-medium">FAQ</span>
-                                                <span>3.1 MB</span>
-                                                <span>•</span>
-                                                <span>Uploaded 9 Jan, 4:20 PM</span>
-                                                <span>•</span>
-                                                <span class="px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 rounded-full">Processed</span>
-                                            </div>
-                                            <div class="flex flex-wrap items-center gap-3 text-xs text-gray-600 dark:text-gray-400">
-                                                <span class="font-medium text-gray-900 dark:text-white">12,450 tokens extracted</span>
-                                                <span>•</span>
-                                                <span>Used in v2 model 3 days ago</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="flex flex-wrap gap-2 pt-4 ">
-                                        <button onclick="event.stopPropagation(); previewDocument('api_documentation.md')" class="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-primaryDark/10 dark:bg-[#1E1E1E] hover:bg-primaryDark hover:text-white dark:hover:bg-[#2A2A2A] text-primaryDark dark:text-gray-300 rounded-lg text-sm font-medium border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:shadow-md hover:border-gray-300 dark:hover:border-gray-600 active:scale-[0.98]">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                            </svg>
-                                            <span>Preview</span>
-                                        </button>
-                                        <button onclick="event.stopPropagation(); reprocessDocument('api_documentation.md')" class="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-primary/10 dark:bg-[#1E1E1E] hover:bg-primary dark:hover:bg-[#2A2A2A] text-primary hover:text-white dark:text-gray-300 rounded-lg text-sm font-medium border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:shadow-md hover:border-gray-300 dark:hover:border-gray-600 active:scale-[0.98]">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                                            </svg>
-                                            <span>Reprocess</span>
-                                        </button>
-                                        <button onclick="event.stopPropagation(); replaceFile('api_documentation.md')" class="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-primaryDark/10 dark:bg-[#1E1E1E] hover:bg-primaryDark dark:hover:bg-[#2A2A2A] text-primaryDark hover:text-white dark:text-gray-300 rounded-lg text-sm font-medium border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:shadow-md hover:border-gray-300 dark:hover:border-gray-600 active:scale-[0.98]">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
-                                            </svg>
-                                            <span>Replace</span>
-                                        </button>
-                                        <button onclick="event.stopPropagation(); openDeleteModal('api_documentation.md')" class="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/30 text-red-600 dark:text-red-400 rounded-lg text-sm font-medium border border-red-200 dark:border-red-800 transition-all duration-200 hover:shadow-md hover:border-red-300 dark:hover:border-red-700 active:scale-[0.98]">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                            </svg>
-                                            <span>Delete</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Right Side Preview Panel (Always Visible - ChatGPT Style) -->
-                    <div class="xl:col-span-1">
-                        <div id="documentPreview" class="relative overflow-hidden bg-white/90 dark:bg-[#252525] rounded-2xl sm:rounded-3xl shadow-lg shadow-primary/10 dark:shadow-black/40 border border-primary/15 dark:border-primary/25 p-6 sticky top-24">
-                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,203,150,0.12),_transparent_55%)] pointer-events-none opacity-90"></div>
-                            <div class="relative z-10">
-                            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Document Preview</h3>
-                            
-                            <div class="space-y-4">
-                                <!-- Selected Document Info -->
-                                <div class="p-4 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-xl border border-primary/20 dark:border-primary/30 shadow-sm">
-                                    <div class="flex items-center gap-2 mb-2">
-                                        <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
-                                        </svg>
-                                        <p id="previewFileName" class="font-semibold text-gray-900 dark:text-white">invoice.pdf</p>
-                                    </div>
-                                    <p id="previewDescription" class="text-xs text-gray-600 dark:text-gray-400 mb-3">Invoice processing document with payment terms and billing information</p>
-                                    
-                                    <div class="space-y-2 text-xs">
-                                        <div class="flex justify-between">
-                                            <span class="text-gray-600 dark:text-gray-400">Type:</span>
-                                            <span id="previewType" class="text-gray-900 dark:text-white font-medium">PDF</span>
-                                        </div>
-                                        <div class="flex justify-between">
-                                            <span class="text-gray-600 dark:text-gray-400">Size:</span>
-                                            <span id="previewSize" class="text-gray-900 dark:text-white font-medium">1.2 MB</span>
-                                        </div>
-                                        <div class="flex justify-between">
-                                            <span class="text-gray-600 dark:text-gray-400">Uploaded:</span>
-                                            <span id="previewUploaded" class="text-gray-900 dark:text-white font-medium">12 Jan, 3:45 PM</span>
-                                        </div>
-                                        <div class="flex justify-between">
-                                            <span class="text-gray-600 dark:text-gray-400">Tokens:</span>
-                                            <span id="previewTokens" class="text-gray-900 dark:text-white font-medium">4,532</span>
-                                        </div>
-                                        <div class="flex justify-between">
-                                            <span class="text-gray-600 dark:text-gray-400">Status:</span>
-                                            <span id="previewStatusBadge" class="px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 rounded-full text-xs font-medium">Processed</span>
-                                        </div>
-                                        <div class="flex justify-between">
-                                            <span class="text-gray-600 dark:text-gray-400">Last Used:</span>
-                                            <span id="previewLastUsed" class="text-gray-900 dark:text-white font-medium text-xs">Used in v3 model 1 hour ago</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Extracted Content Preview -->
-                                <div>
-                                    <h4 class="text-sm font-semibold text-gray-900 dark:text-white mb-2">Extracted Content</h4>
-                                    <div class="p-3 bg-gradient-to-br from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-lg border border-primary/20 dark:border-primary/30 max-h-64 overflow-y-auto custom-scrollbar shadow-sm">
-                                        <p class="text-xs text-gray-700 dark:text-gray-300 leading-relaxed">
-                                            Invoice processing document contains payment terms, billing cycles, refund policies, and customer account management procedures. Includes detailed information about subscription renewals, payment methods accepted, and invoice generation rules...
-                                        </p>
-                                    </div>
-                                </div>
-                                
-                                <!-- Detected Fields -->
-                                <div>
-                                    <h4 class="text-sm font-semibold text-gray-900 dark:text-white mb-2">Detected Fields</h4>
-                                    <div id="previewFields" class="flex flex-wrap gap-2">
-                                        <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400 rounded text-xs">Payment Terms</span>
-                                        <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400 rounded text-xs">Billing</span>
-                                        <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400 rounded text-xs">Refunds</span>
-                                    </div>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
+<div class="p-4 sm:p-6 lg:p-8">
+    <!-- Quick Actions -->
+    <section class="rounded-2xl bg-white dark:bg-[#252525] border p-6 mb-6">
+        <div class="flex justify-between items-center">
+            <div>
+                <p class="text-xs uppercase tracking-widest text-gray-500">Quick Actions</p>
+                <p class="text-sm text-gray-600 dark:text-gray-300">
+                    Upload and manage documents.
+                </p>
+            </div>
+            <a href="{{ url_for('main.documents_upload') }}"
+               class="px-4 py-2 bg-[#18CB96] text-white rounded-lg text-sm font-semibold">
+                Upload Document
+            </a>
+        </div>
+    </section>
+
+    <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+
+        <!-- ================= LEFT: DOCUMENT LIST ================= -->
+        <div class="xl:col-span-2 space-y-4">
+
+            {% if documents %}
+            {% for doc in documents %}
+            <div class="document-card bg-white dark:bg-[#252525] rounded-xl p-5 border cursor-pointer hover:shadow-lg transition"
+                 data-title="{{ doc.document_title }}"
+                 data-description="{{ doc.description or 'No description provided.' }}"
+                 data-type="{{ doc.file_type }}"
+                 data-size="{{ (doc.file_size / 1024)|round(2) }} KB"
+                 data-uploaded="{{ doc.created_at.strftime('%d %b, %I:%M %p') }}"
+                 data-extracted="{{ (doc.extracted_text or 'Extracted content will appear after processing.')[:1200] | e }}">
+
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white">
+                    {{ doc.document_title }}
+                </h3>
+
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                    {{ doc.description or 'No description provided.' }}
+                </p>
+
+                <div class="text-xs text-gray-500 mt-2">
+                    Uploaded {{ doc.created_at.strftime('%d %b, %I:%M %p') }}
                 </div>
 
-    
-    <!-- Delete Confirmation Modal -->
-    <div id="deleteModal" class="hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="delete-modal-title" role="dialog" aria-modal="true">
-        <!-- Backdrop with Blur -->
-        <div class="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onclick="closeDeleteModal()"></div>
-        <div class="flex min-h-full items-center justify-center p-4">
-            <div class="relative bg-gradient-to-b from-white via-[#F6FFFB] to-[#ECFFF9] dark:from-[#1E1E1E] dark:via-[#1E1E1E] dark:to-[#1E1E1E] rounded-2xl shadow-2xl max-w-md w-full p-6 transform transition-all ring-[#18CB96]/20 dark:ring-[#18CB96]/30">
-                <button onclick="closeDeleteModal()" class="absolute top-4 right-4 rounded-lg text-gray-400 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#333333] transition-colors" aria-label="Close modal">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
-                <div class="text-center">
-                    <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-red-100 dark:bg-red-900/30 mb-4">
-                        <svg class="h-8 w-8 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                        </svg>
-                    </div>
-                    <h3 id="delete-modal-title" class="text-xl font-bold text-gray-900 dark:text-white mb-2">Delete Document</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Are you sure you want to delete <span id="deleteFileName" class="font-semibold text-gray-900 dark:text-white">this document</span>?</p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400 mb-6">This action cannot be undone. The document will be permanently removed.</p>
-                    <div class="flex flex-col sm:flex-row gap-3 sm:justify-center">
-                        <button onclick="closeDeleteModal()" class="px-6 py-2.5 bg-gray-100 dark:bg-[#333333] text-gray-700 dark:text-gray-300 rounded-xl font-medium hover:bg-gray-200 dark:hover:bg-[#3A3A3A] transition-all duration-200 shadow-sm hover:shadow-md">Cancel</button>
-                        <button onclick="confirmDelete()" class="px-6 py-2.5 bg-red-600 hover:bg-red-700 dark:bg-red-600 dark:hover:bg-red-700 text-white rounded-xl font-medium transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-red-600/30 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-red-500/50">Delete</button>
-                    </div>
+                <div class="flex gap-2 mt-4">
+                    <a href="{{ url_for('static', filename=doc.document_path) }}"
+                       target="_blank"
+                       class="flex-1 text-center py-2 bg-primary/10 rounded text-sm">
+                        View
+                    </a>
+                    <button
+                        class="px-3 py-2 bg-red-100 text-red-600 rounded text-sm">
+                        Delete
+                    </button>
                 </div>
             </div>
+            {% endfor %}
+            {% else %}
+            <p class="text-center text-gray-500">No documents uploaded yet.</p>
+            {% endif %}
+
         </div>
+
+        <!-- ================= RIGHT: PREVIEW PANEL ================= -->
+        <div class="xl:col-span-1">
+            <div class="bg-white dark:bg-[#252525] rounded-xl p-6 border sticky top-24">
+
+                <h3 class="text-lg font-bold mb-4">Document Preview</h3>
+
+                <!-- EMPTY STATE -->
+                <div id="previewEmpty"
+                     class="text-sm text-gray-500">
+                    Select a document to see preview
+                </div>
+
+                <!-- PREVIEW CONTENT -->
+                <div id="previewContent" class="hidden space-y-4 text-sm">
+
+                    <div>
+                        <p class="font-semibold text-gray-900 dark:text-white"
+                           id="pvTitle">—</p>
+                        <p class="text-gray-600 dark:text-gray-400"
+                           id="pvDescription">—</p>
+                    </div>
+
+                    <div class="space-y-1">
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">Type</span>
+                            <span id="pvType">—</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">Size</span>
+                            <span id="pvSize">—</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">Uploaded</span>
+                            <span id="pvUploaded">—</span>
+                        </div>
+                    </div>
+
+                    <div class="border-t pt-3">
+                        <p class="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+                            Extracted Content
+                        </p>
+                        <div class="max-h-48 overflow-y-auto text-xs text-gray-600 dark:text-gray-400 whitespace-pre-line"
+                             id="pvExtracted">
+                            —
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
     </div>
-{% endblock %}
+</div>
 
-{% block extra_scripts %}
+<!-- ================= JS ================= -->
 <script>
-    let currentDeleteFile = '';
+const cards = document.querySelectorAll(".document-card");
 
-    function selectDocument(filename, description, type, size, uploaded, status, tokens, lastUsed, fields, event) {
-        // Update Preview Panel
-        document.getElementById('previewFileName').textContent = filename;
-        document.getElementById('previewDescription').textContent = description;
-        document.getElementById('previewType').textContent = type;
-        document.getElementById('previewSize').textContent = size;
-        document.getElementById('previewUploaded').textContent = uploaded;
-        document.getElementById('previewTokens').textContent = tokens;
-        document.getElementById('previewLastUsed').textContent = lastUsed;
-        
-        const statusBadge = document.getElementById('previewStatusBadge');
-        statusBadge.textContent = status;
-        if (status === 'Processed') {
-            statusBadge.className = 'px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 rounded-full text-xs font-medium';
-        } else {
-            statusBadge.className = 'px-2 py-0.5 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-400 rounded-full text-xs font-medium';
-        }
+const previewEmpty = document.getElementById("previewEmpty");
+const previewContent = document.getElementById("previewContent");
 
-        // Update fields (example logic)
-        const fieldsContainer = document.getElementById('previewFields');
-        fieldsContainer.innerHTML = '';
-        if (fields) {
-            const fieldList = fields.split(', ');
-            fieldList.forEach(field => {
-                const span = document.createElement('span');
-                span.className = 'px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400 rounded text-xs';
-                span.textContent = field;
-                fieldsContainer.appendChild(span);
-            });
-        }
-    }
+const pvTitle = document.getElementById("pvTitle");
+const pvDescription = document.getElementById("pvDescription");
+const pvType = document.getElementById("pvType");
+const pvSize = document.getElementById("pvSize");
+const pvUploaded = document.getElementById("pvUploaded");
+const pvExtracted = document.getElementById("pvExtracted");
 
-    function previewDocument(filename) {
-        // Implement preview logic or open a new tab
-        console.log('Previewing:', filename);
-        alert('Preview feature coming soon for ' + filename);
-    }
+cards.forEach(card => {
+    card.addEventListener("click", () => {
+        previewEmpty.classList.add("hidden");
+        previewContent.classList.remove("hidden");
 
-    function reprocessDocument(filename) {
-        // Implement reprocess logic
-        console.log('Reprocessing:', filename);
-        alert('Reprocessing ' + filename + '...');
-    }
-
-    function replaceFile(filename) {
-        // Implement replace logic
-        console.log('Replacing:', filename);
-        // Redirect to upload page or open upload modal
-        window.location.href = "{{ url_for('main.documents_upload') }}";
-    }
-
-    function openDeleteModal(filename) {
-        currentDeleteFile = filename;
-        document.getElementById('deleteFileName').textContent = filename;
-        document.getElementById('deleteModal').classList.remove('hidden');
-    }
-
-    function closeDeleteModal() {
-        document.getElementById('deleteModal').classList.add('hidden');
-        currentDeleteFile = '';
-    }
-
-    function confirmDelete() {
-        if (currentDeleteFile) {
-            console.log('Deleting:', currentDeleteFile);
-            // Add AJAX call to delete endpoint here
-            alert('Deleted ' + currentDeleteFile);
-            closeDeleteModal();
-            // Optionally reload page or remove element from DOM
-        }
-    }
-    
-    // Close modal on escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            if (!document.getElementById('deleteModal').classList.contains('hidden')) {
-                closeDeleteModal();
-            }
-        }
+        pvTitle.textContent = card.dataset.title;
+        pvDescription.textContent = card.dataset.description;
+        pvType.textContent = card.dataset.type;
+        pvSize.textContent = card.dataset.size;
+        pvUploaded.textContent = card.dataset.uploaded;
+        pvExtracted.textContent = card.dataset.extracted;
     });
+});
 </script>
+
 {% endblock %}

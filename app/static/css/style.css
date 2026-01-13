@@ -39,7 +39,11 @@
     background-color: white;
 }
 
-.floating-label-group input:focus ~ svg {
+/* .floating-label-group input:focus ~ svg {
+    color: #18CB96;
+} */
+.floating-label-group input:focus ~ .input-icon,
+.floating-label-group select:focus ~ .input-icon {
     color: #18CB96;
 }
 
@@ -67,7 +71,7 @@ select:not(.border-red-500):hover {
     border-color: #d1d5db;
 }
 select:not(.border-red-500):focus {
-    border-color: #d1d5db;
+    border-color: #18CB96;
 }
 
 /* Ensure URL inputs maintain gray border - but allow error states */
@@ -78,7 +82,7 @@ input[type="url"]:not(.border-red-500):hover {
     border-color: #d1d5db;
 }
 input[type="url"]:not(.border-red-500):focus {
-    border-color: #d1d5db;
+    border-color: #18CB96;
 }
 
 /* Smooth transitions for theme switching - optimized for performance */
@@ -122,14 +126,18 @@ body, .bg-white, .bg-gray-50, .bg-gray-800, .bg-gray-900,
 }
 
 /* Force light gray borders for filter inputs (all states) */
+/* CHANGED HERE: allow green border on focus */
 .input-border-gray,
-.input-border-gray:focus,
-.input-border-gray:active,
-.input-border-gray:hover {
+.input-border-gray:hover,
+.input-border-gray:active {
     border-width: 1px;
     border-style: solid;
-    border-color: #d1d5db !important; /* Tailwind gray-300 */
-    outline: none !important;        /* avoid extra black focus outline */
+    border-color: #d1d5db; /* default gray */
+    outline: none;
+}
+/* CHANGED HERE: focus state explicitly green */
+.input-border-gray:focus {
+    border-color: #18CB96 !important;
 }
 
 .dark .input-border-gray,
@@ -137,4 +145,11 @@ body, .bg-white, .bg-gray-50, .bg-gray-800, .bg-gray-900,
 .dark .input-border-gray:active,
 .dark .input-border-gray:hover {
     border-color: #4b5563 !important; /* Tailwind gray-600 in dark mode */
+}
+/* CHANGED HERE: kill browser + Tailwind focus rings globally */
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none !important;
+    box-shadow: none !important; /* this removes the glow */
 }

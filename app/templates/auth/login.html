@@ -25,8 +25,6 @@
 <!-- General Error Message (for non-field-specific errors like verification) -->
 <!-- General Error Message (for non-field-specific errors like verification) -->
 <!-- Handled globally by toast.js in base.html -->
-
-
 <!-- Login Form -->
 <form id="loginForm" method="POST" action="{{ url_for('auth.login') }}" class="space-y-5 w-full max-w-2xl mx-auto" novalidate>
     <!-- Email / Phone Field -->
@@ -41,7 +39,9 @@
             value="{{ identifier if identifier is defined else '' }}"
             required 
             autocomplete="username"
-            class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent border {% if errors and errors.identifier %}border-red-500{% else %}border-gray-300{% endif %} rounded-lg text-gray-500 transition-all duration-300 hover:border-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent
+           input-border-gray rounded-lg text-gray-500
+           transition-all duration-300"
             placeholder=" "
         >
         <label for="loginIdentifier" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none transition-all duration-300 bg-transparent px-1 z-[1]">Email or Phone</label>
@@ -62,7 +62,9 @@
             name="password" 
             required 
             autocomplete="current-password"
-            class="w-full py-3.5 pl-10 pr-10 text-sm bg-transparent border {% if errors and errors.password %}border-red-500{% else %}border-gray-300{% endif %} rounded-lg text-gray-500 transition-all duration-300 hover:border-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent
+           input-border-gray rounded-lg text-gray-500
+           transition-all duration-300"
             placeholder=" "
         >
         <label for="loginPassword" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none transition-all duration-300 bg-transparent px-1 z-[1]">Password</label>
@@ -87,7 +89,6 @@
             </svg>
         </button>
         
-        <!-- Inline Error Message -->
         <!-- Inline Error Message -->
 
     </div>

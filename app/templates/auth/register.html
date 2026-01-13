@@ -39,11 +39,12 @@
                 required 
                 minlength="3"
                 autocomplete="name"
-                class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent border {% if errors and errors.fullName %}border-red-500{% else %}border-gray-300{% endif %} rounded-lg text-gray-500 transition-all duration-300 hover:border-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent
+                input-border-gray rounded-lg text-gray-500
+                transition-all duration-300"
                 placeholder=" "
             >
             <label for="fullName" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none transition-all duration-300 bg-transparent px-1 z-[1]">Full Name</label>
-            <!-- Error Message Removed -->
         </div>
         
         <!-- Email Field -->
@@ -58,7 +59,9 @@
                 value="{{ form_data.email if form_data else '' }}" 
                 required 
                 autocomplete="email"
-                class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent border {% if errors and errors.email %}border-red-500{% else %}border-gray-300{% endif %} rounded-lg text-gray-500 transition-all duration-300 hover:border-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent
+           input-border-gray rounded-lg text-gray-500
+           transition-all duration-300"
                 placeholder=" "
             >
             <label for="email" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none transition-all duration-300 bg-transparent px-1 z-[1]">Email Address</label>
@@ -79,7 +82,9 @@
             required 
             pattern="[0-9]{10,15}"
             autocomplete="tel"
-            class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent border {% if errors and errors.phone %}border-red-500{% else %}border-gray-300{% endif %} rounded-lg text-gray-500 transition-all duration-300 hover:border-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent
+           input-border-gray rounded-lg text-gray-500
+           transition-all duration-300"
             placeholder=" "
         >
         <label for="phone" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none transition-all duration-300 bg-transparent px-1 z-[1]">Phone Number</label>
@@ -99,7 +104,9 @@
             minlength="8"
             pattern="^(?=.*[A-Z])(?=.*[0-9]).{8,}$"
             autocomplete="new-password"
-            class="w-full py-3.5 pl-10 pr-10 text-sm bg-transparent border border-gray-300 rounded-lg text-gray-500 transition-all duration-300 hover:border-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent
+           input-border-gray rounded-lg text-gray-500
+           transition-all duration-300"
             placeholder=" "
             title="Password must contain at least 8 characters with 1 uppercase letter and 1 number"
         >
@@ -138,7 +145,9 @@
             required 
             minlength="8"
             autocomplete="new-password"
-            class="w-full py-3.5 pl-10 pr-10 text-sm bg-transparent border {% if errors and errors.confirmPassword %}border-red-500{% else %}border-gray-300{% endif %} rounded-lg text-gray-500 transition-all duration-300 hover:border-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            class="w-full py-3.5 pl-10 pr-3 text-sm bg-transparent
+           input-border-gray rounded-lg text-gray-500
+           transition-all duration-300"
             placeholder=" "
         >
         <label for="confirmPassword" class="absolute left-10 top-1/2 -translate-y-1/2 text-sm text-gray-500 pointer-events-none transition-all duration-300 bg-transparent px-1 z-[1]">Confirm Password</label>
